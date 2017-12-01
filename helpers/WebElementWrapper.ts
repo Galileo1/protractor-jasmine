@@ -5,21 +5,13 @@ import * as _ from 'lodash';
 
 export class WebElementWrapper {  
 
-    
-    constructor () {
-
-    } 
+    constructor () { } 
 
     static findElement(element : ElementFinder) {
         return  browser.wait(ExpectedConditions.visibilityOf(element),  constants.DEFAULT_TIMEOUT);
     }
 
-    static findElementByText(elements: ElementArrayFinder, text: string) {
-        // elements.filter((elem, index) => {
-        //     return elem.getText().then((eletext) => {
-        //       return eletext === text;
-        //     })
-        //   }).first().click();
+    static findElementByText(elements: ElementArrayFinder, text: string) {       
         
         const newLocal = WebElementWrapper.selectClubLocation(text);
 
@@ -36,33 +28,23 @@ export class WebElementWrapper {
 
     }
 
-    static selectClubLocation(loc: string) {
-        console.log('var inputs = document.getElementsByClassName("location-name");' +
-        'for(var i = 0; i < inputs.length; i++) { ' +
-            ' if (inputs[i].innerText === "' + loc + '") { ' + 
-                ' inputs[i].click(); } ' +	
-            '}');
+    /**select club locations based on the location passed */
+    static selectClubLocation(loc: string) {       
         return browser.executeScript('var inputs = document.getElementsByClassName("location-name");' +
                                     'for(var i = 0; i < inputs.length; i++) { ' +
                                         ' if (inputs[i].innerText === "' + loc + '") { ' + 
                                             ' inputs[i].click(); } ' +	
                                         '}');
-            
-       
-
     }
        
     static waitForElementToBeClickable(element : ElementFinder) {  
         return browser.wait(ExpectedConditions.elementToBeClickable(element), constants.DEFAULT_TIMEOUT)
-            .then(() => { return element.click() })
-            .catch((error) => {
-                // console.log("===failed caný click element====", error); 
+            .then(() => { 
+                return element.click(); 
+            })
+            .catch((error) => {                
                  return browser.executeScript("arguments[0].click();", element.getWebElement());
-            });
-        //return browser.executeScript("arguments[0].click();", element.getWebElement());
-        //return browser.wait(ExpectedConditions.elementToBeClickable(element), 80000).then(()=>element.click());
-        //browser.actions().mouseMove(element).click();
-        //console.log("m here2");
+            });    
     }
 
     static waitForElementToBeVisible(element : ElementFinder) {

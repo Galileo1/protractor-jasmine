@@ -1,14 +1,14 @@
-import { LoginPage } from '../page-objects/LoginPage.po';
+
 import { BlinkHomePage } from '../page-objects/BlinkHomePage.po';
 import { LocationsPage } from '../page-objects/LocationsPage.po';
 import { JoinNow } from '../page-objects/JoinNow.po';
-import { browser, by, ExpectedConditions, element } from 'protractor';
-import { join } from 'path';
+// import { browser, by, ExpectedConditions, element } from 'protractor';
+// import { join } from 'path';
 import  constants  from '../config/constants';
-import { protractor } from 'protractor/built/ptor';
+// import { protractor } from 'protractor/built/ptor';
 import * as data from '../../../data/properties.json';
 
-describe('Blink', () => {
+describe('Blink Registration Errors', () => {
 
     var homePage : BlinkHomePage = new BlinkHomePage();
     var locationsPage : LocationsPage = new LocationsPage();
@@ -30,6 +30,7 @@ describe('Blink', () => {
     const dob = (<any>data).dob;
     const gender = (<any>data).gender;
     const dobFuture = (<any>data).dobFuture;
+    
    /* 
         hooks 
     **/
@@ -191,6 +192,7 @@ describe('Blink', () => {
         subscriptionPage.enterAccountDOB(dob);
         subscriptionPage.selectYourGender(gender);
         subscriptionPage.submitSubscription();
+        expect<any>(subscriptionPage.getAccountEmailRequiredErrorMessage()).toBe(constants.EMAIL_ERROR);
         expect<any>(subscriptionPage.getAccountEmailConfirmRequiredErrorMessage()).toBe(constants.CONFIRM_EMAIL_ERROR);               
     });
 

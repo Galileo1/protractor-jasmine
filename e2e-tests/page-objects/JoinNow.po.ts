@@ -136,7 +136,8 @@ export class JoinNow extends BasePage {
     }
 
     enterAccountDOB(dob: string) {       
-        return this.accountDOB.sendKeys(dob, Key.TAB);        
+        //return this.accountDOB.sendKeys(dob, Key.TAB);
+        return  browser.executeScript('document.getElementById("birthDate").setAttribute("value", "' + dob +'")');        
     }
 
     enterAccountDOBToDevice(dob: string) { 

@@ -83,10 +83,4 @@ export class BlinkHomePage extends BasePage {
 
     }
 
-   
-
-    // quitBrowser() {
-    //     return browser.quit();   
-    // }
-
 }

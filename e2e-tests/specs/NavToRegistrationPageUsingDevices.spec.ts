@@ -1,4 +1,4 @@
-import { LoginPage } from '../page-objects/LoginPage.po';
+
 import { BlinkHomePage } from '../page-objects/BlinkHomePage.po';
 import { LocationsPage } from '../page-objects/LocationsPage.po';
 import { JoinNow } from '../page-objects/JoinNow.po';
@@ -38,10 +38,7 @@ describe('Blink Device Navigation', () => {
            locationsPage.selectYourPreferedClubLocation("Blink Murray Hill");
            locationsPage.selectMembershipPlan();
            subscriptionPage.waitForCheckoutPageToBeLoaded();
-           expect<any>(subscriptionPage.getCurrentUrl()).toBe(constants.DEVICE_SUBS_URL); 
-        //    locationsPage.subscribeForGreenPlan();
-        //    subscriptionPage.waitForCheckoutPageToBeLoaded();
-        //    expect<any>(subscriptionPage.getCurrentUrl()).toBe(subscriptionPage.SUBSCRIPTION_PAGE_URL);               
-    })
+           expect<any>(subscriptionPage.getCurrentUrl()).toBe(constants.DEVICE_SUBS_URL);                   
+    });
 
 })

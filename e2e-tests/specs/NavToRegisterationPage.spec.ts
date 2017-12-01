@@ -9,8 +9,7 @@ import { protractor } from 'protractor/built/ptor';
 import * as data from '../../../data/properties.json';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 
-describe('Blink', () => {
-
+describe('Blink Navigation on Web', () => {
     var homePage : BlinkHomePage = new BlinkHomePage();
     var locationsPage : LocationsPage = new LocationsPage();
     var subscriptionPage : JoinNow = new JoinNow();

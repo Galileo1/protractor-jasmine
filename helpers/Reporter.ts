@@ -30,8 +30,8 @@ var myReporter = {
         displayDuration: true,  // display each spec duration
       },
       summary: {
-        displaySuccessful: false, // display summary of all successes after execution
-        displayFailed: false,    // display summary of all failures after execution
+        displaySuccessful: true, // display summary of all successes after execution
+        displayFailed: true,    // display summary of all failures after execution
         displayPending: false,   // display summary of all pending specs after execution
       }
 }

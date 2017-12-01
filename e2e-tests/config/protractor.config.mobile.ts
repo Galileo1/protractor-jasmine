@@ -10,9 +10,7 @@ export let config: Config = {
   getPageTimeout: 50000,
   baseUrl: "https://preview.trademe.co.nz",
   multiCapabilities: [
-    // {
-    //     browserName: 'chrome'
-    // },
+    
     // {
     //     browserName: 'chrome'
     // },

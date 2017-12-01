@@ -1,11 +1,18 @@
-import { LoginPage } from '../page-objects/LoginPage.po';
+/* page object imports
+**/
 import { BlinkHomePage } from '../page-objects/BlinkHomePage.po';
 import { LocationsPage } from '../page-objects/LocationsPage.po';
 import { JoinNow } from '../page-objects/JoinNow.po';
+
+/*
+protractor imports 
+**/
 import { browser, by, ExpectedConditions, element } from 'protractor';
-import { join } from 'path';
-import  constants  from '../config/constants';
-import { protractor } from 'protractor/built/ptor';
+
+/*
+    constant and data imports 
+**/
+import  constants from '../config/constants';
 import * as data from '../../../data/properties.json';
 
 describe('Blink', () => {

@@ -28,18 +28,18 @@ export let config: Config = {
 // },
   multiCapabilities: [
     
-    // {    
-    //   browserName : 'firefox',
-    //   'acceptSslCerts': true,
-    //   'acceptInsecureCerts': true,
-    //    specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
-    // }, 
-    // {
-    //   browserName: 'chrome' ,
-    //   specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
-    //   //  shardTestFiles: true,
-    //   //  count : 2
-    // },
+    {    
+      browserName : 'firefox',
+      'acceptSslCerts': true,
+      'acceptInsecureCerts': true,
+       specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
+    }, 
+    {
+      browserName: 'chrome' ,
+      specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
+      //  shardTestFiles: true,
+      //  count : 2
+    },
   //  chromeOptions: {
   //   args: [ "--headless", "--disable-gpu"]
   // }
@@ -51,20 +51,12 @@ export let config: Config = {
                 'deviceName': 'Nexus 6P'
             }
         },
-        specs: [ '../specs/**/BlinkregistrationErrorDevices.spec.js' ],
-    },
-
-    // {
-    //    browserName: 'chrome',      
-    //   'platformName': 'Android',
-    //   'platformVersion': '5.1',
-    //   'deviceName': 'XT1033',
-    //   specs: [ '../specs/**/NavToRegistrationPageUsingDevices.spec.js' ],
-    // }    
-  
-  
-  ],
+        specs: [ '../specs/**/NavToRegistrationPageUsingDevices.spec.js' ,'../specs/**/BlinkRegisterationErrors.spec.js' ],
+    }],
   //maxInstances: 2,
+  
+  resultJsonOutputFile: '../../reports/testRun.json',
+
   onPrepare: () => {
     browser.manage().window().maximize();
     browser.manage().timeouts().implicitlyWait(5000); 
