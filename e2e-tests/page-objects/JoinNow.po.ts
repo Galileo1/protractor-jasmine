@@ -135,26 +135,12 @@ export class JoinNow extends BasePage {
         return this.confirmEmail.sendKeys(confirmEmailId);
     }
 
-    enterAccountDOB(dob: string) {  
-        // this.accountDOB.isEnabled().then(()=> console.log("true"));
-        // this.accountDOB.getAttribute("readonly").then((val) => { console.log("==========", val); })
-        //return this.accountDOB.sendKeys(dob, Key.TAB);
-        browser.executeScript("document.getElementById('birthDate').setAttribute('value', '02/12/1985')").then(() => {
-            return this.accountDOB.sendKeys(Key.TAB);
-        });
-       
-       //return this.accountDOB.sendKeys(dob, Key.TAB);
-        // if (this.accountDOB.isDisplayed()) {
-        //     this.accountDOB.sendKeys(dob, Key.TAB);
-        //     return browser.wait(ExpectedConditions.invisibilityOf(this.datePickerDOB), constants.DEFAULT_TIMEOUT);
-        // }
-        
+    enterAccountDOB(dob: string) {       
+        return this.accountDOB.sendKeys(dob, Key.TAB);        
+    }
 
-        // browser.executeScript("document.getElementById('birthDate').removeAttribute('readonly',0);")
-        // .then(() => { 
-        //     return browser.driver.actions().mouseDown(this.accountDOB). click().sendKeys(dob, Key.TAB).perform();
-        //     //return this.accountDOB.sendKeys(dob, Key.TAB);
-        // });
+    enterAccountDOBToDevice(dob: string) { 
+        return  browser.executeScript('document.getElementById("birthDate").setAttribute("value", "' + dob +'")');
     }
 
     selectYourGender(gender: string){
@@ -241,12 +227,16 @@ export class JoinNow extends BasePage {
         return this.accountPhoneErrorSet.getText();
     }
 
+    clearAccountDOB() {
+        browser.executeScript('document.getElementById("birthDate").setAttribute("value", "")');
+    }
+
     resetFormFields() {
         this.firstName.clear();
         this.lastName.clear();
         this.address.clear();
         this.accountCity.clear();
-        this.accountDOB.clear();
+        this.clearAccountDOB();
         this.accountPhone.clear();
         this.accountZip.clear();
         this.accountEmail.clear();

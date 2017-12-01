@@ -25,7 +25,7 @@ describe('Blink', () => {
     })
     
     afterAll(() => { 
-        homePage.resetBrowserSession();
+        //homePage.resetBrowserSession();
     });
 
     /* 

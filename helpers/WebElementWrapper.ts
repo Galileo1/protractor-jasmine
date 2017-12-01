@@ -26,7 +26,7 @@ export class WebElementWrapper {
         elements.each((element, index) => {
                 element.getText().then((eleText) => {
                     if (eleText === text) {
-                        return element.click();
+                        return element.click();                        
                     } 
                 }).catch ((error) => {
                     console.log("failed to find element ::" + error);

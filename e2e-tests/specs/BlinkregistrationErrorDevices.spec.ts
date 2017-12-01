@@ -60,7 +60,7 @@ describe('Blink', () => {
         subscriptionPage.enterAccountPhone(phoneNumber);
         subscriptionPage.enterAccountEmail(email);
         subscriptionPage.confirmYourEmailId(emailConfirm);
-        subscriptionPage.enterAccountDOB(dob);
+        subscriptionPage.enterAccountDOBToDevice(dob);
         subscriptionPage.selectYourGender(gender);
         subscriptionPage.submitSubscription();
         expect<any>(subscriptionPage.getFirstNameRequiredErrorMessage()).toBe(constants.FIRST_NAME_ERROR);
@@ -76,7 +76,7 @@ describe('Blink', () => {
         subscriptionPage.enterAccountPhone(phoneNumber);
         subscriptionPage.enterAccountEmail(email);
         subscriptionPage.confirmYourEmailId(emailConfirm);
-        subscriptionPage.enterAccountDOB(dob);
+        subscriptionPage.enterAccountDOBToDevice(dob);
         subscriptionPage.selectYourGender(gender);
         subscriptionPage.submitSubscription();
         expect<any>(subscriptionPage.getLastNameRequiredErrorMessage()).toBe(constants.LAST_NAME_ERROR); 
@@ -92,7 +92,7 @@ describe('Blink', () => {
         subscriptionPage.enterAccountPhone(phoneNumber);
         subscriptionPage.enterAccountEmail(email);
         subscriptionPage.confirmYourEmailId(emailConfirm);
-        subscriptionPage.enterAccountDOB(dob);
+        subscriptionPage.enterAccountDOBToDevice(dob);
         subscriptionPage.selectYourGender(gender);
         subscriptionPage.submitSubscription();
         expect<any>(subscriptionPage.getAddressRequiredErrorMessage()).toBe(constants.ADDRESS_ERROR);  
@@ -108,7 +108,7 @@ describe('Blink', () => {
         subscriptionPage.enterAccountPhone(phoneNumber);
         subscriptionPage.enterAccountEmail(email);
         subscriptionPage.confirmYourEmailId(emailConfirm);
-        subscriptionPage.enterAccountDOB(dob);
+        subscriptionPage.enterAccountDOBToDevice(dob);
         subscriptionPage.selectYourGender(gender);
         subscriptionPage.submitSubscription();
         expect<any>(subscriptionPage.getAccountCityRequiredErrorMessage()).toBe(constants.CITY_ERROR);  
@@ -124,7 +124,7 @@ describe('Blink', () => {
         subscriptionPage.enterAccountPhone(phoneNumber);
         subscriptionPage.enterAccountEmail(email);
         subscriptionPage.confirmYourEmailId(emailConfirm);
-        subscriptionPage.enterAccountDOB(dob);
+        subscriptionPage.enterAccountDOBToDevice(dob);
         subscriptionPage.selectYourGender(gender);
         subscriptionPage.submitSubscription();
         expect<any>(subscriptionPage.getAccountStateRequiredErrorMessage()).toBe(constants.STATE_ERROR);   
@@ -140,7 +140,7 @@ describe('Blink', () => {
         subscriptionPage.enterAccountPhone(phoneNumber);
         subscriptionPage.enterAccountEmail(email);
         subscriptionPage.confirmYourEmailId(emailConfirm);
-        subscriptionPage.enterAccountDOB(dob);
+        subscriptionPage.enterAccountDOBToDevice(dob);
         subscriptionPage.selectYourGender(gender);
         subscriptionPage.submitSubscription();
         expect<any>(subscriptionPage.getAccountZipRequiredErrorMessage()).toBe(constants.ZIP_ERROR);  
@@ -156,7 +156,7 @@ describe('Blink', () => {
         //subscriptionPage.enterAccountPhone(phoneNumber);
         subscriptionPage.enterAccountEmail(email);
         subscriptionPage.confirmYourEmailId(emailConfirm);
-        subscriptionPage.enterAccountDOB(dob);
+        subscriptionPage.enterAccountDOBToDevice(dob);
         subscriptionPage.selectYourGender(gender);
         subscriptionPage.submitSubscription();
         expect<any>(subscriptionPage.getAccoutPhoneRequiredErrorMessage()).toBe(constants.PHONE_ERROR);                      
@@ -172,7 +172,7 @@ describe('Blink', () => {
         subscriptionPage.enterAccountPhone(phoneNumber);
        //subscriptionPage.enterAccountEmail(email);
         subscriptionPage.confirmYourEmailId(emailConfirm);
-        subscriptionPage.enterAccountDOB(dob);
+        subscriptionPage.enterAccountDOBToDevice(dob);
         subscriptionPage.selectYourGender(gender);
         subscriptionPage.submitSubscription();
         expect<any>(subscriptionPage.getAccountEmailRequiredErrorMessage()).toBe(constants.EMAIL_ERROR);               
@@ -188,7 +188,7 @@ describe('Blink', () => {
         subscriptionPage.enterAccountPhone(phoneNumber);
         subscriptionPage.enterAccountEmail(email);
         //subscriptionPage.confirmYourEmailId(emailConfirm);
-        subscriptionPage.enterAccountDOB(dob);
+        subscriptionPage.enterAccountDOBToDevice(dob);
         subscriptionPage.selectYourGender(gender);
         subscriptionPage.submitSubscription();
         expect<any>(subscriptionPage.getAccountEmailConfirmRequiredErrorMessage()).toBe(constants.CONFIRM_EMAIL_ERROR);               
@@ -204,7 +204,7 @@ describe('Blink', () => {
             subscriptionPage.enterAccountPhone(phoneNumber);
             subscriptionPage.enterAccountEmail(email);
             subscriptionPage.confirmYourEmailId(emailConfirm);
-            //subscriptionPage.enterAccountDOB(dob);
+            //subscriptionPage.enterAccountDOBToDevice(dob);
             subscriptionPage.selectYourGender(gender);
             subscriptionPage.submitSubscription();
             expect<any>(subscriptionPage.getAccountDOBRequiredErrorMessage()).toBe(constants.DOB_ERROR);               
@@ -220,7 +220,7 @@ describe('Blink', () => {
         subscriptionPage.enterAccountPhone(phoneNumber);
         subscriptionPage.enterAccountEmail(email);
         subscriptionPage.confirmYourEmailId(emailConfirm);
-        subscriptionPage.enterAccountDOB(dobFuture);
+        subscriptionPage.enterAccountDOBToDevice(dobFuture);
         subscriptionPage.selectYourGender(gender);
         subscriptionPage.submitSubscription();
         expect<any>(subscriptionPage.getAccountDOBRequiredErrorMessage()).toBe(constants.DOB_ERROR);               
@@ -236,7 +236,7 @@ describe('Blink', () => {
             subscriptionPage.enterAccountPhone(phoneNumber);
             subscriptionPage.enterAccountEmail(email);
             subscriptionPage.confirmYourEmailId(emailConfirm);
-            subscriptionPage.enterAccountDOB(dob);
+            subscriptionPage.enterAccountDOBToDevice(dob);
             //subscriptionPage.selectYourGender("Male");
             subscriptionPage.submitSubscription();
             expect<any>(subscriptionPage.getGenderRequiredErrorMessage()).toBe(constants.GENDER_ERROR);               

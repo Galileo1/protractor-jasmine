@@ -25,7 +25,7 @@ describe('Blink Device Navigation', () => {
     })
     
     afterAll(() => { 
-        homePage.resetBrowserSession();
+        //homePage.resetBrowserSession();
     });
 
     /* 
