@@ -15,11 +15,40 @@ export class WebElementWrapper {
     }
 
     static findElementByText(elements: ElementArrayFinder, text: string) {
-        elements.filter((elem, index) => {
-            return elem.getText().then((eletext) => {
-              return eletext === text;
-            });
-          }).first().click();
+        // elements.filter((elem, index) => {
+        //     return elem.getText().then((eletext) => {
+        //       return eletext === text;
+        //     })
+        //   }).first().click();
+        
+        const newLocal = WebElementWrapper.selectClubLocation(text);
+
+        elements.each((element, index) => {
+                element.getText().then((eleText) => {
+                    if (eleText === text) {
+                        return element.click();
+                    } 
+                }).catch ((error) => {
+                    console.log("failed to find element ::" + error);
+                    return newLocal;
+                });
+        })
+
+    }
+
+    static selectClubLocation(loc: string) {
+        console.log('var inputs = document.getElementsByClassName("location-name");' +
+        'for(var i = 0; i < inputs.length; i++) { ' +
+            ' if (inputs[i].innerText === "' + loc + '") { ' + 
+                ' inputs[i].click(); } ' +	
+            '}');
+        return browser.executeScript('var inputs = document.getElementsByClassName("location-name");' +
+                                    'for(var i = 0; i < inputs.length; i++) { ' +
+                                        ' if (inputs[i].innerText === "' + loc + '") { ' + 
+                                            ' inputs[i].click(); } ' +	
+                                        '}');
+            
+       
 
     }
        

@@ -33,9 +33,12 @@ describe('Blink Device Navigation', () => {
     **/
     
     it('user should be able to navigate to registration page using device', () => {
-           homePage.gotoLocationsUsingADevice();
-        //    locationsPage.closePopUpModalIfOpen();
-        //    locationsPage.selectYourPreferedClubLocation();
+           homePage.gotoLocationsUsingADevice();           
+           locationsPage.closePopUpModalIfOpen();
+           locationsPage.selectYourPreferedClubLocation("Blink Murray Hill");
+           locationsPage.selectMembershipPlan();
+           subscriptionPage.waitForCheckoutPageToBeLoaded();
+           expect<any>(subscriptionPage.getCurrentUrl()).toBe(constants.DEVICE_SUBS_URL); 
         //    locationsPage.subscribeForGreenPlan();
         //    subscriptionPage.waitForCheckoutPageToBeLoaded();
         //    expect<any>(subscriptionPage.getCurrentUrl()).toBe(subscriptionPage.SUBSCRIPTION_PAGE_URL);               

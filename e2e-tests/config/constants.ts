@@ -10,6 +10,8 @@ export default {
     EMAIL_ERROR : 'we need your email address',
     CONFIRM_EMAIL_ERROR : 'the email addresses don’t match',
     DOB_ERROR : 'we need to know your birthday',
-    GENDER_ERROR : 'please select one'
+    GENDER_ERROR : 'please select one',
+    DEVICE_SUBS_URL : 'https://www.blinkfitness.com/join/murray-hill/green?icmp=Join_Now_Desription',
+    WEB_SUBS_URL : 'https://www.blinkfitness.com/join/boerum-hill/green?icmp=Join_Now_Desription'
 
 }

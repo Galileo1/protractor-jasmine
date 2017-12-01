@@ -31,11 +31,11 @@ export let config: Config = {
       browserName : 'firefox',
       'acceptSslCerts': true,
       'acceptInsecureCerts': true,
-      //specs: [ '../specs/**/NavToRegisterationPage.spec.js' ],
+       specs: [ '../specs/**/NavToRegisterationPage.spec.js' ],
     }, 
     {
       browserName: 'chrome' ,
-      //specs: [ '../specs/**/NavToRegisterationPage.spec.js' ],
+      specs: [ '../specs/**/NavToRegisterationPage.spec.js' ],
       //  shardTestFiles: true,
       //  count : 2
     },

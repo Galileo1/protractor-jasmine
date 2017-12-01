@@ -35,10 +35,11 @@ describe('Blink', () => {
     it('user should be able to navigate to registration page using web ', () => {
            homePage.gotoLocations();
            locationsPage.closePopUpModalIfOpen();
-           locationsPage.selectYourPreferedClubLocation();
+           locationsPage.selectYourPreferedClubLocation("Blink Boerum Hill");
+           //WebElementWrapper.a();
            locationsPage.subscribeForGreenPlan();
            subscriptionPage.waitForCheckoutPageToBeLoaded();
-           expect<any>(subscriptionPage.getCurrentUrl()).toBe(subscriptionPage.SUBSCRIPTION_PAGE_URL);               
+           expect<any>(subscriptionPage.getCurrentUrl()).toBe(constants.WEB_SUBS_URL);               
     })
 
 })
