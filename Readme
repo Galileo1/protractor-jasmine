@@ -1,0 +1,21 @@
+#compile 
+npm run tsc
+
+#run test 
+npm run browser 
+
+#run browser and emulation
+
+# setUp appium 
+https://github.com/angular/webdriver-manager/blob/master/docs/mobile.md
+
+
+webdriver-manager update --android
+
+node .\node_modules\protractor\bin\webdriver-manager start --android
+
+
+adb.exe shell getprop ro.product.model
+adb shell getprop ro.build.version.release
+
+node .\node_modules\protractor\bin\protractor .\build\config\protractor.config.js

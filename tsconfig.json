@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "sourceMap": false,
+      "declaration": false,
+      "removeComments": false,
+      "noImplicitAny": false,
+      "outDir": "build",
+      "typeRoots" : [
+        "node_modules/@types"
+      ],
+      "types": ["jasmine", "node"]
+    },
+    "exclude": [
+      "node_modules"      
+    ],
+    "include": [
+      "e2e-tests/**/*",
+      "helpers/**/*",
+      "typings.d.ts" 
+    ]
+  }
