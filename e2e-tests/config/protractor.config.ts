@@ -1,8 +1,8 @@
 import { browser, Config } from 'protractor';
 import {SpecReporter} from "jasmine-spec-reporter";
 import reporter = require('../../helpers/Reporter');
-// import { chai } from 'chai';
-// import { chaiAsPromised } from 'chai-as-promised';
+import * as  Jasmine2HtmlReporter from 'protractor-jasmine2-html-reporter';
+
 
 export let config: Config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -55,8 +55,6 @@ export let config: Config = {
     }],
   //maxInstances: 2,
   
-  resultJsonOutputFile: '../../reports/testRun.json',
-
   onPrepare: () => {
     browser.manage().window().maximize();
     browser.manage().timeouts().implicitlyWait(5000); 
@@ -64,7 +62,14 @@ export let config: Config = {
     browser.waitForAngularEnabled(false);
 
     //custom reporter
-    jasmine.getEnv().addReporter(reporter);
+    jasmine.getEnv().addReporter(
+      new Jasmine2HtmlReporter({
+        savePath: './reports',
+        takeScreenshots: true,
+        takeScreenshotsOnlyOnFailures: true,
+        fileNameDateSuffix: true
+
+      }));
      
   },
 

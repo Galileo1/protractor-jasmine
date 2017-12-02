@@ -70,5 +70,11 @@ export class WebElementWrapper {
             });
           });
     }
+
+    static waitForVisibleByLocator(locator, delay) {        
+        browser.wait(() => element(locator).isPresent(), delay)
+        .then(() => browser.wait(() => element(locator).isDisplayed(), delay))
+        .then(() => element(locator));
+    }
           
 }
