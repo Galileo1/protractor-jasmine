@@ -2,10 +2,8 @@
 import { BlinkHomePage } from '../page-objects/BlinkHomePage.po';
 import { LocationsPage } from '../page-objects/LocationsPage.po';
 import { JoinNow } from '../page-objects/JoinNow.po';
-// import { browser, by, ExpectedConditions, element } from 'protractor';
-// import { join } from 'path';
 import  constants  from '../config/constants';
-// import { protractor } from 'protractor/built/ptor';
+import * as chai from 'chai';
 import * as data from '../../../data/properties.json';
 
 describe('Blink Registration Errors', () => {
@@ -13,6 +11,7 @@ describe('Blink Registration Errors', () => {
     var homePage : BlinkHomePage = new BlinkHomePage();
     var locationsPage : LocationsPage = new LocationsPage();
     var subscriptionPage : JoinNow = new JoinNow();
+    //const expect = chai.expect;
 
     /* 
         data members 

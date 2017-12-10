@@ -76,5 +76,21 @@ export class WebElementWrapper {
         .then(() => browser.wait(() => element(locator).isDisplayed(), delay))
         .then(() => element(locator));
     }
+
+    static findElementUsingText (elements: ElementArrayFinder, text: string) {
+        let elementTextArray = [];
+        elements.each((element, index) => {
+            element.getText()
+            .then((elementText) => {
+                elementTextArray.push(elementText);
+                if (elementText === text) {
+                    return element;                        
+                } 
+            }).catch ((error) => {
+               console.error("Expected: " + text + "in" + elementTextArray );
+            });
+        });
+    }
+
           
 }

@@ -59,7 +59,7 @@ export let config: Config = {
     browser.manage().window().maximize();
     browser.manage().timeouts().implicitlyWait(5000); 
     //browser.ignoreSynchronization = true;   
-    browser.waitForAngularEnabled(false);
+    browser.waitForAngularEnabled(false);    
 
     //custom reporter
     jasmine.getEnv().addReporter(
