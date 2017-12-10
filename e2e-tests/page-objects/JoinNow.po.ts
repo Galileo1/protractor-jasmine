@@ -49,6 +49,7 @@ export class JoinNow extends BasePage {
     private selectBillingStateErrorSet: ElementFinder;
     private billingZip: ElementFinder;
     private billingZipErrorSet: ElementFinder;
+    private errorField : ElementArrayFinder;
 
     constructor () {        
         super();
@@ -87,6 +88,7 @@ export class JoinNow extends BasePage {
         this.selectBillingStateErrorSet = element(by.css('.billing-address-region > div:nth-child(2) > div:nth-child(2) > p:nth-child(1)'));
         this.billingZip = element(by.xpath('//label[contains(@for,"billingZip")]/following-sibling::input'));
         this.billingZipErrorSet = element(by.css('.billing-address-region > div:nth-child(3) > div:nth-child(2) > p:nth-child(1)'));
+        this.errorField = element.all(by.css('p.invalid.show'));
         
     }
 
@@ -246,5 +248,11 @@ export class JoinNow extends BasePage {
         selectDropDownGender.selectByIndex(0);
         let selectDropDown : SelectWrapper = new SelectWrapper(this.accountState);
         selectDropDown.selectByText("state");
+    }
+
+    getErrors() {
+        return this.errorField.map((element) => {
+            return element.getText();                        
+        });
     }
 }
