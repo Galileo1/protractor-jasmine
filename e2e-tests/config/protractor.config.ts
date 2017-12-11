@@ -5,7 +5,7 @@ import * as  Jasmine2HtmlReporter from 'protractor-jasmine2-html-reporter';
 
 
 export let config: Config = {
-  seleniumAddress: 'http://localhost:4444/wd/hub',
+  //seleniumAddress: 'http://localhost:4444/wd/hub',
   //seleniumAddress: 'http://127.0.0.1:4723/wd/hub',
   //specs: [ '../specs/**/*.spec.js' ],
   //specs: [ '../specs/**/Blinkregistration.spec.js' ],
@@ -28,12 +28,12 @@ export let config: Config = {
 // },
   multiCapabilities: [
     
-    {    
-      browserName : 'firefox',
-      'acceptSslCerts': true,
-      'acceptInsecureCerts': true,
-       specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
-    }, 
+    // {    
+    //   browserName : 'firefox',
+    //   'acceptSslCerts': true,
+    //   'acceptInsecureCerts': true,
+    //    specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
+    // }, 
     {
       browserName: 'chrome' ,
       specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
@@ -44,15 +44,16 @@ export let config: Config = {
   //   args: [ "--headless", "--disable-gpu"]
   // }
 
-    { 
-        browserName: 'chrome',
-        'chromeOptions': {
-            'mobileEmulation': {
-                'deviceName': 'Nexus 6P'
-            }
-        },
-        specs: [ '../specs/**/NavToRegistrationPageUsingDevices.spec.js' ,'../specs/**/BlinkRegisterationErrors.spec.js' ],
-    }],
+    // { 
+    //     browserName: 'chrome',
+    //     'chromeOptions': {
+    //         'mobileEmulation': {
+    //             'deviceName': 'Nexus 6P'
+    //         }
+    //     },
+    //     specs: [ '../specs/**/NavToRegistrationPageUsingDevices.spec.js' ,'../specs/**/BlinkRegisterationErrors.spec.js' ],
+    // }
+  ],
   //maxInstances: 2,
   
   onPrepare: () => {

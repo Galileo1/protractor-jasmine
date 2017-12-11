@@ -19,7 +19,7 @@ export class LocationsPage extends BasePage {
         this.locationPageModal = element(by.css('#blinkModal'));        
         this.closeModal = element(by.xpath('//button[contains(@class,"close")]'));
         this.clubsLocation = element.all(by.xpath('//div[@class="area-block-clubs"]/ul/li//h5'));
-        this.greenPlanSubscription = element(by.xpath("//div[(@class='square-plan green-plan closed')]//a[(@class='btn round')]/span[2]"));
+        //this.greenPlanSubscription = element(by.xpath("//div[(@class='square-plan green-plan closed')]//a[(@class='btn round')]/span[2]"));
         this.mobilePlanDetails = element(by.xpath('//div[(@class="square-plan green-plan closed")]//span[(@class="arrow")]'))
         this.locationUrl = element(by.xpath('//div[@class="area-block-clubs"]/ul/li//h5/following-sibling::div//descendant::a[(@class="btn go-to-location")]'));
     }
@@ -53,5 +53,13 @@ export class LocationsPage extends BasePage {
         return this.getCurrentUrl();
     }
 
+    subscribeToMembershipPlan(color : string) {
+        /**
+         * color: [green,blue,gray]
+         */
+        let planLocator = '//div[(@class="square-plan '+ color +'-plan closed")]//a[(@class="btn round")]/span[2]';
+        let planSubscription = element(by.xpath(planLocator));
+        WebElementWrapper.waitForElementToBeClickable(planSubscription);
+    }
     
 }
