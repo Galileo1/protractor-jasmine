@@ -1,6 +1,8 @@
-import { browser, by, element, ElementFinder, ExpectedConditions, ElementArrayFinder } from 'protractor';
+import { browser, by, element, ElementFinder, ExpectedConditions, ElementArrayFinder, protractor } from 'protractor';
 import constants from '../e2e-tests/config/constants';
 import * as _ from 'lodash';
+import { By } from 'selenium-webdriver';
+import * as Promise from 'bluebird';
 
 
 export class WebElementWrapper {  
@@ -80,16 +82,35 @@ export class WebElementWrapper {
     static findElementUsingText (elements: ElementArrayFinder, text: string) {
         let elementTextArray = [];
         elements.each((element, index) => {
-            element.getText()
-            .then((elementText) => {
-                elementTextArray.push(elementText);
-                if (elementText === text) {
-                    return element;                        
-                } 
-            }).catch ((error) => {
-               console.error("Expected: " + text + "in" + elementTextArray );
-            });
+             element.getText()
+            .then((elementText) => { if (elementText === text) { element.click(); Promise.resolve();}})            
+            .catch ((error) => { console.error("Expected: " + text + " in " + elementTextArray + " " + error ); });
         });
+    }
+
+    /**
+     * Scroll to an element
+     * @param {WebElement} element
+     * @returns {Promise}
+     */
+    static scrollTo (element: ElementFinder) {
+        return browser.executeScript('arguments[0].scrollIntoView()', element.getWebElement());
+    };
+
+    /**
+     * wait with 3sec polling and 30sec timeout
+     * @param {WebElement} element
+     * @returns {Boolean}
+     */
+    static waitFor(by: By) {
+        //set implicit wait to zero so that it doesn't interfere with the polling interval
+        browser.manage().timeouts().implicitlyWait(0);
+        browser.wait(()=> {
+            browser.sleep(constants.POLL_TIME);
+            return element(by).isDisplayed()
+            .then((isDisplayed) => { return isDisplayed; })
+            .catch((error)=> { return false; });
+        }, constants.DEFAULT_TIMEOUT);        
     }
 
           

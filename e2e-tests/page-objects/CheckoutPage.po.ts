@@ -1,43 +1,27 @@
-
-
-
 import { browser, by, element, ElementFinder, ElementArrayFinder, Key , ExpectedConditions} from 'protractor';
 import { BasePage } from './BasePage.po';
 import { SelectWrapper } from '../../helpers/SelectWrapper';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { WebElement } from 'selenium-webdriver';
 import constants from '../config/constants';
-// import { BasePage } from './BasePage.po';
 
-export class JoinNow extends BasePage {
+export class CheckoutPage extends BasePage {
 
-    public SUBSCRIPTION_PAGE_URL: string = "https://www.blinkfitness.com/join/boerum-hill/green?icmp=Join_Now_Desription";
     private submitForm: ElementFinder;
-    private firstName : ElementFinder
-    private firstNameErrorSet : ElementFinder;
-    private lastName : ElementFinder
-    private lastNameErrorSet : ElementFinder;
-    private address: ElementFinder;    
-    private addressErrorSet: ElementFinder;  
+    private firstName : ElementFinder;   
+    private lastName : ElementFinder;
+    private address: ElementFinder; 
     private address2: ElementFinder;
     private accountCity: ElementFinder;
-    private accountCityErrorSet: ElementFinder;
     private accountState: ElementFinder;
-    private accountStateErrorSet: ElementFinder;
     private accountZip: ElementFinder;
-    private accountZipErrorSet: ElementFinder;
-    private accountPhone : ElementFinder;
-    private accountPhoneErrorSet : ElementFinder;
-    
+    private accountPhone : ElementFinder;    
     private accountEmail: ElementFinder;
-    private accountEmailErrorSet : ElementFinder;
     private confirmEmail: ElementFinder;
-    private confirmEmailErrorSet : ElementFinder;
     private accountDOB: ElementFinder;
-    private accountDOBErrorSet : ElementFinder;
     private datePickerDOB: ElementFinder;    
     private selectGender: ElementFinder;
-    private selectGenderErrorSet : ElementFinder;
+
     private billingAddressIsSameCheckbox: ElementFinder;
     private billingAddress1: ElementFinder;
     private billingAddress1ErrorSet: ElementFinder;
@@ -49,34 +33,24 @@ export class JoinNow extends BasePage {
     private selectBillingStateErrorSet: ElementFinder;
     private billingZip: ElementFinder;
     private billingZipErrorSet: ElementFinder;
+    private errorField : ElementArrayFinder;
 
     constructor () {        
         super();
         this.submitForm = element(by.xpath('//a[(@class="btn round round orange next")]'));
         this.firstName = element(by.xpath('//label[contains(.,"first name*")]/following-sibling::input'));
-        this.firstNameErrorSet = element(by.css('div.first-name:nth-child(1) > div:nth-child(2) > p:nth-child(1)'));
         this.lastName = element(by.xpath('//label[contains(.,"last name*")]/following-sibling::input'));
-        this.lastNameErrorSet = element(by.css('div.last-name:nth-child(2) > div:nth-child(2) > p:nth-child(1)'));
         this.address = element(by.xpath('//label[contains(.,"address*")]/following-sibling::input'));
-        this.addressErrorSet = element(by.css('div.address:nth-child(3) > div:nth-child(2) > p:nth-child(1)'));
         this.address2 = element(by.xpath('//label[contains(.,"apt/suite/unit (optional)")]//following-sibling::input'));
         this.accountCity = element(by.xpath('//label[contains(text(),"city*")]/following-sibling::input'));
-        this.accountCityErrorSet = element(by.css('.address-region > div:nth-child(1) > div:nth-child(2) > p:nth-child(1)'));
         this.accountState = element(by.xpath('//select[@id="Account_State"]'));
-        this.accountStateErrorSet = element(by.css('.address-region > div:nth-child(2) > div:nth-child(2) > p:nth-child(1)'));
         this.accountZip = element(by.xpath('//input[@data-val-required="Enter a Zip"]'));
-        this.accountZipErrorSet = element(by.css('.address-region > div:nth-child(3) > div:nth-child(2) > p:nth-child(1)'));
         this.accountPhone = element(by.xpath('//input[@data-val-required="Please enter a Telephone"]'));
-        this.accountPhoneErrorSet = element(by.css('.phone-field-container > div:nth-child(2) > p:nth-child(1)'));
         this.accountEmail = element(by.xpath('//input[@data-val-required="Please enter a Email Address"]'));
-        this.accountEmailErrorSet = element(by.css('div.email:nth-child(7) > div:nth-child(2) > p:nth-child(1)'));
         this.confirmEmail = element(by.xpath('//input[@data-val-required="Please confirm Email"]'));
-        this.confirmEmailErrorSet = element(by.css('div.email:nth-child(8) > div:nth-child(2) > p:nth-child(1)'));
         this.accountDOB = element(by.xpath('//label[contains(text(),"date of birth mm/dd/yyyy*")]/following-sibling::input'));
-        this.accountDOBErrorSet = element(by.css('.dob > div:nth-child(2) > p:nth-child(1)'));
         this.datePickerDOB = element(by.xpath('//div[@class="datepicker datepicker-dropdown dropdown-menu datepicker-orient-left datepicker-orient-top"]'));
         this.selectGender = element(by.css('select#sex'));
-        this.selectGenderErrorSet = element(by.css('#gender > div:nth-child(2) > p:nth-child(1)'));
         this.billingAddressIsSameCheckbox = element(by.xpath('//label[contains(@for,"Account_UseMailingAddressForBilling")]/following-sibling::input'));
         this.billingAddress1 = element(by.xpath('//label[contains(@for,"billing1")]/following-sibling::input'));
         this.billingAddress1ErrorSet = element(by.css('div.billing-address:nth-child(13) > div:nth-child(2) > p:nth-child(1)'));
@@ -87,6 +61,7 @@ export class JoinNow extends BasePage {
         this.selectBillingStateErrorSet = element(by.css('.billing-address-region > div:nth-child(2) > div:nth-child(2) > p:nth-child(1)'));
         this.billingZip = element(by.xpath('//label[contains(@for,"billingZip")]/following-sibling::input'));
         this.billingZipErrorSet = element(by.css('.billing-address-region > div:nth-child(3) > div:nth-child(2) > p:nth-child(1)'));
+        this.errorField = element.all(by.css('p.invalid.show'));
         
     }
 
@@ -182,51 +157,7 @@ export class JoinNow extends BasePage {
 
     waitForCheckoutPageToBeLoaded() {
         browser.wait(ExpectedConditions.elementToBeClickable(this.submitForm), constants.DEFAULT_TIMEOUT)
-    }
-
-    getFirstNameRequiredErrorMessage() {
-        return this.firstNameErrorSet.getText();
-    }
-
-    getLastNameRequiredErrorMessage() {
-        return this.lastNameErrorSet.getText();
-    }
-
-    getAddressRequiredErrorMessage() {
-        return this.addressErrorSet.getText();
-    }
-
-    getAccountCityRequiredErrorMessage() {
-        return this.accountCityErrorSet .getText();
-    }
-
-    getAccountDOBRequiredErrorMessage() {
-        return this.accountDOBErrorSet.getText();
-    }
-
-    getAccountStateRequiredErrorMessage() {
-        return this.accountStateErrorSet.getText();
-    }
-
-    getAccountZipRequiredErrorMessage() {
-        return this.accountZipErrorSet.getText();
-    }
-
-    getAccountEmailRequiredErrorMessage() {
-        return this.accountEmailErrorSet.getText();
-    }
-
-    getAccountEmailConfirmRequiredErrorMessage() {
-        return this.confirmEmailErrorSet.getText();
-    }
-
-    getGenderRequiredErrorMessage() {
-        return this.selectGenderErrorSet.getText();
-    }
-
-    getAccoutPhoneRequiredErrorMessage() {
-        return this.accountPhoneErrorSet.getText();
-    }
+    }    
 
     clearAccountDOB() {
         browser.executeScript('document.getElementById("birthDate").setAttribute("value", "")');
@@ -246,5 +177,11 @@ export class JoinNow extends BasePage {
         selectDropDownGender.selectByIndex(0);
         let selectDropDown : SelectWrapper = new SelectWrapper(this.accountState);
         selectDropDown.selectByText("state");
+    }
+
+    getErrors() {
+        return this.errorField.map((element) => {
+            return element.getText();                        
+        });
     }
 }

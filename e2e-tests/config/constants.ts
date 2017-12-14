@@ -1,5 +1,6 @@
 export default {
     DEFAULT_TIMEOUT: 30000,
+    POLL_TIME: 3000,
     FIRST_NAME_ERROR : 'we need your first name',
     ZIP_ERROR : 'which zip?',
     LAST_NAME_ERROR  : 'we need your last name',
@@ -12,6 +13,8 @@ export default {
     DOB_ERROR : 'we need to know your birthday',
     GENDER_ERROR : 'please select one',
     DEVICE_SUBS_URL : 'https://www.blinkfitness.com/join/murray-hill/green?icmp=Join_Now_Desription',
-    WEB_SUBS_URL : 'https://www.blinkfitness.com/join/boerum-hill/green?icmp=Join_Now_Desription'
-
+    WEB_SUBS_URL : 'https://www.blinkfitness.com/join/boerum-hill/green?icmp=Join_Now_Desription',
+    BLUE_MEMBERSHIP : 'blue',
+    GREEN_MEMBERSHIP : 'green',
+    GRAY_MEMBERSHIP : 'gray',
 }
