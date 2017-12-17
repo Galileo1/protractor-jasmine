@@ -12,9 +12,10 @@ export let config: Config = {
   //specs: [ '../specs/**/NavToRegisterationPage.spec.js' ],
   //seleniumArgs: ['-Dwebdriver.ie.driver=../../node_modules/protractor/node_modules/webdriver-manager/IEDriverServer3.7.0.exe'],
   //geckoDriver: '../../node_modules/protractor/node_modules/webdriver-manager/geckodriver-v0.19.1.exe',
+  framework: 'jasmine',
   allScriptsTimeout: 50000,
   getPageTimeout: 50000,  
-  baseUrl: "https://www.blinkfitness.com/",
+  baseUrl: "https://devpreview:Equinox1!@qa-leela.blinkfitness.com/",
   // localSeleniumStandaloneOpts: {
   //   jvmArgs: [
   //     '-Dwebdriver.ie.driver=../../node_modules/protractor/node_modules/webdriver-manager/IEDriverServer3.7.0.exe'
@@ -35,8 +36,9 @@ export let config: Config = {
     //    specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
     // }, 
     {
-      browserName: 'chrome' ,
-      specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
+      browserName: 'chrome' ,      
+      //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
+      specs: [ '../specs/**/NavToRegisterationPage.spec.js' ],
       //  shardTestFiles: true,
       //  count : 2
     },

@@ -20,4 +20,8 @@ export abstract class BasePage {
         return browser.getCurrentUrl();
     }
 
+    refresh() {
+        browser.refresh();
+    }
+
 }

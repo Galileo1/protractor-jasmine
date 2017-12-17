@@ -4,6 +4,7 @@ import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { WebElement } from 'selenium-webdriver';
 
 export class LocationsPage extends BasePage {
+    tempJoinNow: ElementFinder;
     private locationUrl: ElementFinder;
     private mobilePlanDetails: ElementFinder;
     private pageUrl : string = "https://www.blinkfitness.com/locations?icmp=hdr_module_locations";
@@ -16,8 +17,9 @@ export class LocationsPage extends BasePage {
 
     constructor() {
         super();
-        this.locationPageModal = element(by.css('#blinkModal'));        
-        this.closeModal = element(by.xpath('//button[contains(@class,"close")]'));
+        this.tempJoinNow = element(by.xpath('//*[@id="nav"]/div[2]/a[7]/div/span'));
+        this.locationPageModal = element(by.css('#blinkModal .modal-dialog'));        
+        this.closeModal = element(by.css('#blinkModal .close'));        
         this.clubsLocation = element.all(by.xpath('//div[@class="area-block-clubs"]/ul/li//h5'));
         //this.greenPlanSubscription = element(by.xpath("//div[(@class='square-plan green-plan closed')]//a[(@class='btn round')]/span[2]"));
         this.mobilePlanDetails = element(by.xpath('//div[(@class="square-plan green-plan closed")]//span[(@class="arrow")]'))
@@ -25,13 +27,20 @@ export class LocationsPage extends BasePage {
     }
     
     closePopUpModalIfOpen() {        
-        this.locationPageModal.isDisplayed().then((isDisplayed) => {
-            if (isDisplayed) {
-                this.closeModal.click();
-            } else {
-                console.log("Pop Up Modal is not there.");
-            }
-        })
+        // this.locationPageModal.isDisplayed().then((isDisplayed) => {
+        //     if (isDisplayed) {
+        //         this.closeModal.click();
+        //     } else {
+        //         console.log("Pop Up Modal is not there.");
+        //     }
+        // })
+
+       let isDisplayed = WebElementWrapper.waitUtilDisplayed(this.locationPageModal);
+       if (isDisplayed) {
+           this.closeModal.click();
+       } else {
+           console.log("Pop Up Modal is not there.");
+       }
     }
 
     selectYourPreferedClubLocation(preferLocation : string ) {        
@@ -60,6 +69,14 @@ export class LocationsPage extends BasePage {
         let planLocator = '//div[(@class="square-plan '+ color +'-plan closed")]//a[(@class="btn round")]/span[2]';
         let planSubscription = element(by.xpath(planLocator));
         WebElementWrapper.waitForElementToBeClickable(planSubscription);
+    }
+
+    clickJoinNow() {
+        this.tempJoinNow.click();
+    }
+
+    pageRefresh() {
+        this.refresh();
     }
     
 }

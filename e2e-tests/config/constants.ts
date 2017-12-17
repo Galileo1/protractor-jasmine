@@ -16,4 +16,11 @@ export default {
     BLUE_MEMBERSHIP : 'blue',
     GREEN_MEMBERSHIP : 'green',
     GRAY_MEMBERSHIP : 'gray',
+    REG_GRAY_VALLEYSTREAM_NO_TAX : 'https://qa-leela.blinkfitness.com/join/valley-stream/gray?icmp=Join_Now_Desription',
+    NO_TAX_CLUB_LOCATION : 'Blink Valley Stream',
+    REG_BLUE_LINDENHURST_PRE_SALE : 'https://qa-leela.blinkfitness.com/join/lindenhurst/blue?icmp=Join_Now_Desription',
+    PRE_SALE_CLUB_LOCATION : 'Blink Lindenhurst',
+    REG_GREEN_125TH_TAXABLE: 'https://qa-leela.blinkfitness.com/join/125th-street/green?icmp=Join_Now_Desription',
+    TAXABLE_CLUB_LOCATION : 'Blink 125th',
+
 }

@@ -10,6 +10,7 @@ import constants from '../config/constants';
 // import { BasePage } from './BasePage.po';
 
 export class JoinNow extends BasePage {
+    
 
     public SUBSCRIPTION_PAGE_URL: string = "https://www.blinkfitness.com/join/boerum-hill/green?icmp=Join_Now_Desription";
     private submitForm: ElementFinder;
@@ -51,6 +52,15 @@ export class JoinNow extends BasePage {
     private billingZipErrorSet: ElementFinder;
     private errorField : ElementArrayFinder;
 
+    //Credit card details
+    private ccName: ElementFinder;
+    private ccNumber: ElementFinder;
+    private ccMonth: ElementFinder;
+    private ccYear: ElementFinder; 
+    private ccCVV: ElementFinder;  
+    private TNClink: ElementFinder;
+    private checkBoxTNC: ElementFinder;
+
     constructor () {        
         super();
         this.submitForm = element(by.xpath('//a[(@class="btn round round orange next")]'));
@@ -89,6 +99,13 @@ export class JoinNow extends BasePage {
         this.billingZip = element(by.xpath('//label[contains(@for,"billingZip")]/following-sibling::input'));
         this.billingZipErrorSet = element(by.css('.billing-address-region > div:nth-child(3) > div:nth-child(2) > p:nth-child(1)'));
         this.errorField = element.all(by.css('p.invalid.show'));
+        this.ccName = element(by.css('input#creditCardName'));
+        this.ccNumber = element(by.css('input#creditCardNumber'));
+        this.ccMonth = element(by.css('select#expiration-month-select'));
+        this.ccYear = element(by.css('select#expiration-year-select'));
+        this.ccCVV = element(by.css('input#cVV'));
+        this.checkBoxTNC = element(by.css('input#IAgree'));
+        this.TNClink = element(by.xpath('//a[(@data-modal="termsAndConditionsModal")]'));
         
     }
 
@@ -255,4 +272,6 @@ export class JoinNow extends BasePage {
             return element.getText();                        
         });
     }
+
+    
 }
