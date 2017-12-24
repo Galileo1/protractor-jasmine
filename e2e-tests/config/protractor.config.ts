@@ -39,6 +39,14 @@ export let config: Config = {
       browserName: 'chrome' ,      
       //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
       specs: [ '../specs/**/NavToRegisterationPage.spec.js' ],
+      // chromeOptions : { 
+      //   prefs:  { 
+      //     'profile.managed_default_content_settings.images': 2
+      //   }
+      // }
+
+
+
       //  shardTestFiles: true,
       //  count : 2
     },
@@ -71,8 +79,9 @@ export let config: Config = {
         takeScreenshots: true,
         takeScreenshotsOnlyOnFailures: true,
         fileNameDateSuffix: true
-
-      }));
+      })
+    
+    );
      
   },
 

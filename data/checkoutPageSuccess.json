@@ -1,8 +1,8 @@
 { 
-    "should fail when first name is not specified":
+    "gray plan":
     { 
       "url": "join/valley-stream/gray?icmp=Join_Now_Desription",
-      "firstName": "Test",
+      "firstName": "TestAutomation",
       "lastName": "Gray",
       "address" : "123 ABCD Lane",
       "city": "Brooklyn",
@@ -13,16 +13,12 @@
       "emailConfirm": "",
       "dob": "02/12/1985",
       "gender": "Male",
-      "creditCardName" : "test",
-      "creditCardNumber" : "4005519200000004",
-      "creditCardMonth" : "Dec",
-      "creditCardYear" : "2025",
-      "creditCardCVV" : "1111"
+      "clubId" : "641"
     },
     "blue plan":
     { 
       "url": "join/lindenhurst/blue?icmp=Join_Now_Desription",
-      "firstName": "Test",
+      "firstName": "TestAutomation",
       "lastName": "Blue",
       "address" : "123 ABCD Lane",
       "city": "Brooklyn",
@@ -33,16 +29,12 @@
       "emailConfirm": "",
       "dob": "02/12/1985",
       "gender": "Male",
-      "creditCardName" : "test",
-      "creditCardNumber" : "4005519200000004",
-      "creditCardMonth" : "Dec",
-      "creditCardYear" : "2025",
-      "creditCardCVV" : "1111"
+       "clubId" : "641"
     },
     "green plan":
     { 
       "url": "join/125th-street/green?icmp=Join_Now_Desription",
-      "firstName": "Test",
+      "firstName": "TestAutomation",
       "lastName": "Green",
       "address" : "123 ABCD Lane",
       "city": "Brooklyn",
@@ -53,10 +45,6 @@
       "emailConfirm": "",
       "dob": "02/12/1985",
       "gender": "Male",
-      "ccName" : "test",
-      "ccNumber" : "4005519200000004",
-      "ccMonth" : "Dec",
-      "ccYear" : "2025",
-      "ccCVV" : "1111"
+      "clubId" : "641"
     }
 }

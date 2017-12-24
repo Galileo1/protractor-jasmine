@@ -22,5 +22,11 @@ export default {
     PRE_SALE_CLUB_LOCATION : 'Blink Lindenhurst',
     REG_GREEN_125TH_TAXABLE: 'https://qa-leela.blinkfitness.com/join/125th-street/green?icmp=Join_Now_Desription',
     TAXABLE_CLUB_LOCATION : 'Blink 125th',
+    CREDITCARD_NAME : 'test',
+    CREDITCARD_NUMBER : '4005519200000004',
+    CREDITCARD_MONTH : 'Dec',
+    CREDITCARD_YEAR : '2025',
+    CREDITCARD_CVV : '1111',
+    PASSWORD: 'test1234'
 
 }

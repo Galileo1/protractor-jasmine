@@ -1,6 +1,3 @@
-
-
-
 import { browser, by, element, ElementFinder, ElementArrayFinder, Key , ExpectedConditions} from 'protractor';
 import { BasePage } from './BasePage.po';
 import { SelectWrapper } from '../../helpers/SelectWrapper';
@@ -11,7 +8,6 @@ import constants from '../config/constants';
 
 export class JoinNow extends BasePage {
     
-
     public SUBSCRIPTION_PAGE_URL: string = "https://www.blinkfitness.com/join/boerum-hill/green?icmp=Join_Now_Desription";
     private submitForm: ElementFinder;
     private firstName : ElementFinder
@@ -60,6 +56,7 @@ export class JoinNow extends BasePage {
     private ccCVV: ElementFinder;  
     private TNClink: ElementFinder;
     private checkBoxTNC: ElementFinder;
+    private purchaseButton: ElementFinder;
 
     constructor () {        
         super();
@@ -106,6 +103,7 @@ export class JoinNow extends BasePage {
         this.ccCVV = element(by.css('input#cVV'));
         this.checkBoxTNC = element(by.css('input#IAgree'));
         this.TNClink = element(by.xpath('//a[(@data-modal="termsAndConditionsModal")]'));
+        this.purchaseButton  = element(by.css('input.btn.block.submit.orange'));
         
     }
 
@@ -273,5 +271,48 @@ export class JoinNow extends BasePage {
         });
     }
 
+    enterCCName() {
+        this.ccName.clear();
+        this.ccName.sendKeys(constants.CREDITCARD_NAME);
+    }
+
+    enterCCNumber() {
+        this.ccNumber.clear();
+        this.ccNumber.sendKeys(constants.CREDITCARD_NUMBER);
+    }
+
+    enterCCMonth() {
+        let selectDropDown : SelectWrapper = new SelectWrapper(this.ccMonth);
+        selectDropDown.selectByText(constants.CREDITCARD_MONTH);
+    }
+
+    enterCCYear() {
+        let selectDropDown : SelectWrapper = new SelectWrapper(this.ccYear);
+        selectDropDown.selectByText(constants.CREDITCARD_YEAR);
+    }
+
+    enterSecurityCode() {
+       this.ccCVV.clear();
+       this.ccCVV.sendKeys(constants.CREDITCARD_CVV);
+    }
+
+    selectTNC() {
+        WebElementWrapper.selectCheckBox(this.checkBoxTNC);
+    }
+
+    completeThePurchase() {
+        this.purchaseButton.click();
+    }
+
+    enterPaymentInformation() {
+        this.enterCCName();
+        this.enterCCNumber();
+        this.enterCCMonth();
+        this.enterCCYear();
+        this.enterSecurityCode();
+        this.selectTNC();
+    }
+
     
+
 }

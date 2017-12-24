@@ -1,6 +1,8 @@
 import { browser, by, element, ElementFinder, ExpectedConditions, ElementArrayFinder } from 'protractor';
 import constants from '../e2e-tests/config/constants';
 import * as _ from 'lodash';
+//import * as Promise from 'bluebird';
+
 
 
 export class WebElementWrapper {  
@@ -56,11 +58,11 @@ export class WebElementWrapper {
     }
 
     static selectCheckBox(element: ElementFinder) {
-        if (!element.isSelected()) {
-            return element.click();
-        } else {
-            console.info("Element is already selected.")
-        }
+        element.isSelected().then((selected) => {
+            if (selected !== true) {
+                element.click();
+            }
+        });        
     }
 
     static waitForAnyPageToLoad() {
@@ -68,7 +70,7 @@ export class WebElementWrapper {
             return browser.executeScript('return document.readyState').then((readyState) => {
               return readyState === 'complete';
             });
-          });
+        });
     }
 
     static waitForVisibleByLocator(locator, delay) {        
@@ -118,13 +120,131 @@ export class WebElementWrapper {
                 function (error) { 
                     return false 
                 });
-        }, 20 * 1000);
+        }, 40 * 1000);
     }
 
     static generateEmail(membership: string, club: string) {
         let domain = '@robot.com';
         return (membership + club + '_'+_.times(6, () => _.random(35).toString(36) ).join('')  + '_' + new Date().toJSON().slice(0,10).replace(/-/g,'')  + domain);
+    }     
+
+    // The polling function
+    // static poll (fn, timeout, interval) {
+    
+    //     let endTime = Number(new Date()) + (timeout || 2000);
+    //     interval = interval || 100;
+
+    //     let  checkCondition = function(resolve, reject) { 
+    //         let ajax = fn();
+    //         // dive into the ajax promise
+    //         ajax.then( function(response){
+    //             // If the condition is met, we're done!
+    //             if(response == true) {
+    //                 resolve(true);
+    //             }
+    //             // If the condition isn't met but the timeout hasn't elapsed, go again
+    //             else if (Number(new Date()) < endTime) {
+    //                 setTimeout(checkCondition, interval, resolve, reject);
+    //             }
+    //             // Didn't match and too much time, reject!
+    //             else {
+    //                 reject(new Error('timed out for ' + fn + ': ' + arguments));
+    //             }
+    //         });
+    //     };
+
+    //     return new Promise(checkCondition);
+    // }
+
+    // static expectElementToBePresent (locator: ElementFinder) {
+    //     this.poll(browser.wait(ExpectedConditions.presenceOf(locator), 1000),2000, 40000).then((resp) => {
+    //         console.log(resp);
+    //     });
+    // }
+
+
+    static waitElementUntilVisibleOrEnable_ (element, options) {           
+        if(_.isUndefined(options)){
+            options={};
+        }
+
+        options.mustBeTrue = _.isUndefined(options.mustBeTrue) ? true : options.mustBeTrue;
+        options.expecation = _.isUndefined(options.expecation) ? true : options.expecation;
+        options.testEnable = _.isUndefined(options.testEnable) ? false : options.testEnable;
+        options.waitTime = _.isUndefined(options.waitTime) ? 50000 : options.waitTime;
+    
+        let self=this;
+    
+        const waitFun = () => {  
+            if(options.expecation){
+                return element.isPresent().then((present) => {
+                    return present && this.isElementDisplayedOrEnabled_(element, options);
+                });
+            }else{
+                return element.isPresent().then((present) => {
+                    return !present || !this.isElementDisplayedOrEnabled_(element, options);
+                });
+            }
+        }
+
+
+        return browser.wait(() => {
+            return waitFun();
+        }, options.waitTime, "wait for element to be visible:").then(() => {
+            console.log("waitElementUntilVisibleOrEnable_("+JSON.stringify(options)+") on :"+options.expecation);
+            return options.expecation;
+        }, (error) => {
+            console.log("Oops!waitElementUntilVisibleOrEnable_("+JSON.stringify(options)+") on met an error:"+error);
+            if(options.mustBeTrue){
+                throw new Error("Oops!waitElementUntilVisibleOrEnable_("+JSON.stringify(options)+") on met an error:"+error);
+            }else{
+                return !options.expecation;
+            }
+        });
     }
 
-          
+    static isElementDisplayedOrEnabled_ = function (element, testEnable) {
+        var uponError = true;
+        var ret = false;
+        var self=this;
+        return (function* () {
+            let i = 0;
+            while (uponError && i < 3) {
+                let p;
+                if (testEnable) {
+                    p = element.isEnabled();
+                } else {
+                    p = element.isDisplayed();
+                }
+    
+                yield p.then((testResult) => {
+                    uponError = false;
+                    ret = testResult;
+                    return ret;
+    
+                },  (error) => {
+                    uponError = true;
+                    console.log("Oops!isElementDisplayedOrEnabled_ when waiting for to be visible/enable, met an error:" + error);
+                    ret=false;
+                    i++;
+                });
+    
+            }
+            return ret;
+    
+        });
+    
+    }
+
+
+    static findByCss(locator: string) {
+        let _element = element(by.css(locator));
+        this.waitElementUntilVisibleOrEnable_(_element, undefined)
+        
+    }
+     
+
+
+
+
 }

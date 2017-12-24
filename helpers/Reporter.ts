@@ -1,6 +1,8 @@
 import { browser } from 'protractor';
 import fs = require('fs');
 declare var module: NodeModule;
+
+
 var myReporter = {
     specDone: function (result) {
         if (result.failedExpectations.length > 0) {
@@ -26,13 +28,15 @@ var myReporter = {
         displayNumber: true,    // display each suite number (hierarchical)
       },
       spec: {
-        displayPending: true,   // display each pending spec
+        displaySuccessful: true,  
+        displayPending: true,    // display each pending spec
         displayDuration: true,  // display each spec duration
       },
       summary: {
-        displaySuccessful: true, // display summary of all successes after execution
+        displaySuccessful: false, // display summary of all successes after execution
         displayFailed: true,    // display summary of all failures after execution
         displayPending: false,   // display summary of all pending specs after execution
+        displayDuration: true,  //
       }
 }
 module.exports = myReporter;

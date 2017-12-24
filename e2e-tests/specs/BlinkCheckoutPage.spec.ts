@@ -4,6 +4,7 @@
 import { BlinkHomePage } from '../page-objects/BlinkHomePage.po';
 import { LocationsPage } from '../page-objects/LocationsPage.po';
 import { JoinNow } from '../page-objects/JoinNow.po';
+import { BridgePage } from '../page-objects/BridgePage.po';
 var using = require('jasmine-data-provider');
 
 /*
@@ -15,29 +16,32 @@ import { browser, by, ExpectedConditions, element } from 'protractor';
     constant and data imports 
 **/
 import  constants from '../config/constants';
-import * as data from '../../../data/properties.json';
+import * as data from '../../../data/checkoutPageSuccess.json';
+import { WebElementWrapper } from '../../helpers/WebElementWrapper';
+
 
 describe('Blink checkout page', () => {
 
     var homePage : BlinkHomePage = new BlinkHomePage();
     var locationsPage : LocationsPage = new LocationsPage();
     var checkoutPage : JoinNow = new JoinNow();
+    var bridgePage : BridgePage = new BridgePage();
 
    /* 
         hooks 
     **/
-    beforeAll(() => {
-        homePage.goto('join/boerum-hill/green?icmp=Join_Now_Desription');
-        checkoutPage.waitForCheckoutPageToBeLoaded();
-    })
+    // beforeAll(() => {
+    //     homePage.goto('join/boerum-hill/green?icmp=Join_Now_Desription');
+    //     checkoutPage.waitForCheckoutPageToBeLoaded();
+    // })
 
-    afterEach(()=> {
-        checkoutPage.resetFormFields();
-    })
+    // afterEach(()=> {
+    //     checkoutPage.resetFormFields();
+    // })
 
-    afterAll(() => {
-        homePage.resetBrowserSession();
-    });
+    // afterAll(() => {
+    //     homePage.resetBrowserSession();
+    // });
 
     /*
         - specs  
@@ -45,7 +49,21 @@ describe('Blink checkout page', () => {
     **/
     using(data, function(data, description) {
         it (description, () => {
-            homePage.goto('/')
+
+            /**
+             * local variables 
+             */
+            let membership = (<any>data).lastName;
+            let clubId = (<any>data).clubId;
+            let emailId = WebElementWrapper.generateEmail(membership, clubId);
+            console.log("membership: " + membership + " club: " + clubId + " email: " + emailId);
+
+            /**
+             * steps
+            */
+            homePage.goto((<any>data).url)
+            checkoutPage.waitForCheckoutPageToBeLoaded();
+
             checkoutPage.enterFirstName((<any>data).firstName);
             checkoutPage.enterLastName((<any>data).lastName);
             checkoutPage.enterAddress1((<any>data).address);
@@ -53,15 +71,15 @@ describe('Blink checkout page', () => {
             checkoutPage.selectAccountState((<any>data).state);         
             checkoutPage.enterAccountZipCode((<any>data).zipCode);
             checkoutPage.enterAccountPhone((<any>data).phoneNumber);
-            checkoutPage.enterAccountEmail((<any>data).email);
-            checkoutPage.confirmYourEmailId((<any>data).emailConfirm);
+            checkoutPage.enterAccountEmail(emailId);
+            checkoutPage.confirmYourEmailId(emailId);
             checkoutPage.enterAccountDOB((<any>data).dob);
             checkoutPage.selectYourGender((<any>data).gender);
             checkoutPage.submitSubscription();
-            let actualErrors = checkoutPage.getErrors().then((resultArray) => {
-                return resultArray;
-            });
-            expect<any>(actualErrors).toEqual((<any>data).expectedError);
+            checkoutPage.enterPaymentInformation();
+            checkoutPage.completeThePurchase();
+            //expect<any>(actualErrors).toEqual((<any>data).expectedError);
+            expect<any>(bridgePage.isPresent()).toBeTruthy();
         });
     });
 
