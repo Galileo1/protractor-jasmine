@@ -25,7 +25,7 @@ describe('Blink Navigation on Web', () => {
     **/
     
     it('user should be able to navigate to registration page using web ', () => {
-           header.selectFromHeader('LOCATIONS');           
+           header.selectFromNavMenuHeader('LOCATIONS');           
     })
 
 })

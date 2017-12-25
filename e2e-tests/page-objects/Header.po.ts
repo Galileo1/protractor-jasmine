@@ -13,7 +13,7 @@ export class Header {
         this.header = element.all(by.css('div.header-promo-banner + div.nav-list >a'));
     }
 
-   selectFromHeader(headerText: string) {
+   selectFromNavMenuHeader(headerText: string) {
         return WebElementWrapper.findElementUsingText(this.header, headerText);       
    }
 

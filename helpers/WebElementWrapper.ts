@@ -2,7 +2,7 @@ import { browser, by, element, ElementFinder, ExpectedConditions, ElementArrayFi
 import constants from '../e2e-tests/config/constants';
 import * as _ from 'lodash';
 import { By } from 'selenium-webdriver';
-import * as Promise from 'bluebird';
+//import * as Promise from 'bluebird';
 
 
 export class WebElementWrapper {  
@@ -79,13 +79,36 @@ export class WebElementWrapper {
         .then(() => element(locator));
     }
 
-    static findElementUsingText (elements: ElementArrayFinder, text: string) {
-        let elementTextArray = [];
-        elements.each((element, index) => {
-             element.getText()
-            .then((elementText) => { if (elementText === text) { element.click(); Promise.resolve();}})            
-            .catch ((error) => { console.error("Expected: " + text + " in " + elementTextArray + " " + error ); });
-        });
+    static findElementUsingText (elements: ElementArrayFinder, findText: string) {
+        let exist = browser.wait(presenceOfAll(elements), constants.DEFAULT_TIMEOUT);
+        if (exist) {
+            console.log(`element is present now`);
+        }
+        // let elementTextArray = [];
+        // return elements.each((element, index) => {
+        //      return element.getText()
+        //     .then((elementText) => { if (elementText === text) { return element.click();}})            
+        //     //.catch ((error) => { console.error("Expected: " + text + " in " + elementTextArray + " " + error ); });
+        // });
+        // elements.filter((element, index) => {
+        //     return element.getText().then((text) => {
+        //         return text === findText;
+        //     });
+        // }).first().click();
+
+        elements.filter((eachElement, index) => {
+            return eachElement.getText().then((text) => {
+                return text === findText;
+            });
+        }).then((filteredElement) => {
+            console.log(filteredElement.length)
+            if (filteredElement.length > 0) {
+                filteredElement[0].click();
+            } else {
+                //getElementArrayText(elements);
+                throw new Error(`expected to find : ${findText} in abc`)
+            }
+        })
     }
 
     /**
@@ -115,3 +138,27 @@ export class WebElementWrapper {
 
           
 }
+
+function presenceOfAll(elementArray: ElementArrayFinder) {
+    return () => {
+        return elementArray.count().then((count: number ): boolean => {
+            return count > 1;
+        })        
+    };
+}
+
+
+function getElementArrayText(elementArray: ElementArrayFinder) { 
+    let textArray = [];
+    console.log(`array :::${elementArray.count()} :: ${elementArray.first()}`)
+    elementArray.getText()
+    .then(text => {
+        console.log(` lenght: ${text.length}`)
+        console.log(`text: ${text}`)
+        // text.forEach((ele, index) => { 
+        //     console.log(`text: ${ele}: index : ${index}`);
+        // })
+    })
+       // return textArray;
+}
+    
