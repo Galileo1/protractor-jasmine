@@ -37,6 +37,9 @@ export let config: Config = {
     {
       browserName: 'chrome' ,
       specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
+      chromeOptions : { 
+        args : ["--no-proxy-server"]
+      }
       //  shardTestFiles: true,
       //  count : 2
     },
@@ -59,7 +62,7 @@ export let config: Config = {
   onPrepare: () => {
     browser.manage().window().maximize();
     browser.manage().timeouts().implicitlyWait(5000); 
-    //browser.ignoreSynchronization = true;   
+    browser.ignoreSynchronization = true;   
     browser.waitForAngularEnabled(false);    
 
     //custom reporter
