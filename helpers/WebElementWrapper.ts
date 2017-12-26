@@ -1,5 +1,6 @@
 import { browser, by, element, ElementFinder, ExpectedConditions, ElementArrayFinder, protractor } from 'protractor';
 import constants from '../e2e-tests/config/constants';
+import { timeout } from '../e2e-tests/config/constants';
 import * as _ from 'lodash';
 import { By } from 'selenium-webdriver';
 //import * as Promise from 'bluebird';
@@ -10,7 +11,12 @@ export class WebElementWrapper {
     constructor () { } 
 
     static findElement(element : ElementFinder) {
-        return  browser.wait(ExpectedConditions.visibilityOf(element),  constants.DEFAULT_TIMEOUT);
+        return browser.wait(ExpectedConditions.visibilityOf(element),  timeout.DEFAULT);
+    }
+
+    static sendText(element: ElementFinder, text: string) {
+        element.clear();
+        element.sendKeys(text);
     }
 
     static findElementByText(elements: ElementArrayFinder, text: string) {       
@@ -40,7 +46,7 @@ export class WebElementWrapper {
     }
        
     static waitForElementToBeClickable(element : ElementFinder) {  
-        return browser.wait(ExpectedConditions.elementToBeClickable(element), constants.DEFAULT_TIMEOUT)
+        return browser.wait(ExpectedConditions.elementToBeClickable(element), timeout.DEFAULT)
             .then(() => { 
                 return element.click(); 
             })
@@ -50,7 +56,7 @@ export class WebElementWrapper {
     }
 
     static waitForElementToBeVisible(element : ElementFinder) {
-        return browser.wait(ExpectedConditions.elementToBeClickable(element), constants.DEFAULT_TIMEOUT).then(() => element.click());
+        return browser.wait(ExpectedConditions.elementToBeClickable(element), timeout.DEFAULT).then(() => element.click());
     }    
 
     static enterText(element : ElementFinder, text : string) {        
@@ -80,35 +86,31 @@ export class WebElementWrapper {
     }
 
     static findElementUsingText (elements: ElementArrayFinder, findText: string) {
-        let exist = browser.wait(presenceOfAll(elements), constants.DEFAULT_TIMEOUT);
+        let exist = browser.wait(presenceOfAll(elements), timeout.DEFAULT);
         if (exist) {
-            console.log(`element is present now`);
+            elements.filter((eachElement, index) => {
+                return eachElement.getText().then((text: string ) => {
+                    return text === findText;
+                });
+            }).then((filteredElement) => {
+                console.log(` match found : ${filteredElement.length}`)
+                if (filteredElement.length > 0) {
+                    filteredElement[0].click();
+                } else {
+                    getElementArrayText(elements);
+                    throw new Error(`couldn't find : ${findText}`)
+                }
+            })
+            
         }
-        // let elementTextArray = [];
-        // return elements.each((element, index) => {
-        //      return element.getText()
-        //     .then((elementText) => { if (elementText === text) { return element.click();}})            
-        //     //.catch ((error) => { console.error("Expected: " + text + " in " + elementTextArray + " " + error ); });
-        // });
+
         // elements.filter((element, index) => {
         //     return element.getText().then((text) => {
         //         return text === findText;
         //     });
         // }).first().click();
 
-        elements.filter((eachElement, index) => {
-            return eachElement.getText().then((text) => {
-                return text === findText;
-            });
-        }).then((filteredElement) => {
-            console.log(filteredElement.length)
-            if (filteredElement.length > 0) {
-                filteredElement[0].click();
-            } else {
-                //getElementArrayText(elements);
-                throw new Error(`expected to find : ${findText} in abc`)
-            }
-        })
+       
     }
 
     /**
@@ -129,11 +131,11 @@ export class WebElementWrapper {
         //set implicit wait to zero so that it doesn't interfere with the polling interval
         browser.manage().timeouts().implicitlyWait(0);
         browser.wait(()=> {
-            browser.sleep(constants.POLL_TIME);
+            browser.sleep(timeout.POLLING);
             return element(by).isDisplayed()
             .then((isDisplayed) => { return isDisplayed; })
             .catch((error)=> { return false; });
-        }, constants.DEFAULT_TIMEOUT);        
+        }, timeout.DEFAULT);        
     }
 
           
@@ -149,16 +151,24 @@ function presenceOfAll(elementArray: ElementArrayFinder) {
 
 
 function getElementArrayText(elementArray: ElementArrayFinder) { 
-    let textArray = [];
-    console.log(`array :::${elementArray.count()} :: ${elementArray.first()}`)
-    elementArray.getText()
-    .then(text => {
-        console.log(` lenght: ${text.length}`)
-        console.log(`text: ${text}`)
-        // text.forEach((ele, index) => { 
-        //     console.log(`text: ${ele}: index : ${index}`);
-        // })
-    })
+    // let textArray = [];
+    // console.log(`array :::${elementArray.count()} :: ${elementArray.first()}`)
+    // elementArray.getText()
+    // .then(text => {
+    //     console.log(` lenght: ${text.length}`)
+    //     console.log(`text: ${text}`)
+    //     // text.forEach((ele, index) => { 
+    //     //     console.log(`text: ${ele}: index : ${index}`);
+    //     // })
+    // })
        // return textArray;
+       let func = (element) => {
+           element.getText().then((text: string ) => {
+               text !== 'abc '
+               return text;
+           })
+
+       }
+       console.log(elementArray.every(func));
 }
     

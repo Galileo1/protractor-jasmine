@@ -8,6 +8,7 @@ import  constants  from '../config/constants';
 import { protractor } from 'protractor/built/ptor';
 import * as data from '../../../data/properties.json';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
+import { membership }  from '../config/constants';
 
 describe('Blink Navigation on Web', () => {
     var homePage : BlinkHomePage = new BlinkHomePage();
@@ -34,10 +35,10 @@ describe('Blink Navigation on Web', () => {
     it('user should be able to navigate to registration page using web ', () => {
            homePage.gotoLocations();
            locationsPage.closePopUpModalIfOpen();
-           locationsPage.selectYourPreferedClubLocation("Blink Boerum Hill");           
-           locationsPage.subscribeToMembershipPlan(constants.BLUE_MEMBERSHIP);
+           locationsPage.selectYourPreferedClubLocation("Blink Boerum Hill");
+           locationsPage.subscribeToMembershipPlan(membership.BLUE);
            checkoutPage.waitForCheckoutPageToBeLoaded();
-           expect<any>(checkoutPage.getCurrentUrl()).toContain(constants.BLUE_MEMBERSHIP);            
+           expect<any>(checkoutPage.getCurrentUrl()).toContain(membership.BLUE);
     })
 
 })

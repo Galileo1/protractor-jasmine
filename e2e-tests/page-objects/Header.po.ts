@@ -5,17 +5,17 @@ import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { WebElement } from 'selenium-webdriver';
 import constants from '../config/constants';
 
-export class Header {
+export class Header extends BasePage{
 
-    private header: ElementArrayFinder;
+    private navMenuHeader: ElementArrayFinder;
 
     constructor () { 
-        this.header = element.all(by.css('div.header-promo-banner + div.nav-list >a'));
+        super();
+        this.navMenuHeader = element.all(by.css('div.header-promo-banner + div.nav-list >a'));
     }
 
-   selectFromNavMenuHeader(headerText: string) {
-        return WebElementWrapper.findElementUsingText(this.header, headerText);       
+    selectFromNavMenuHeader(navMenuItem: string) {
+        return WebElementWrapper.findElementUsingText(this.navMenuHeader, navMenuItem);       
    }
-
 
 }

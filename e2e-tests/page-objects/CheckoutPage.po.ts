@@ -3,7 +3,7 @@ import { BasePage } from './BasePage.po';
 import { SelectWrapper } from '../../helpers/SelectWrapper';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { WebElement } from 'selenium-webdriver';
-import constants from '../config/constants';
+import { timeout } from '../config/constants';
 
 export class CheckoutPage extends BasePage {
 
@@ -156,7 +156,7 @@ export class CheckoutPage extends BasePage {
     }
 
     waitForCheckoutPageToBeLoaded() {
-        browser.wait(ExpectedConditions.elementToBeClickable(this.submitForm), constants.DEFAULT_TIMEOUT)
+        browser.wait(ExpectedConditions.elementToBeClickable(this.submitForm), timeout.DEFAULT)
     }    
 
     clearAccountDOB() {
