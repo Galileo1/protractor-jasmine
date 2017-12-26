@@ -1,7 +1,7 @@
 
 import { BlinkHomePage } from '../page-objects/BlinkHomePage.po';
 import { LocationsPage } from '../page-objects/LocationsPage.po';
-import { JoinNow } from '../page-objects/JoinNow.po';
+import { CheckoutPage } from '../page-objects/CheckoutPage.po';
 import { browser, by, ExpectedConditions, element } from 'protractor';
 import { join } from 'path';
 import  constants  from '../config/constants';
@@ -13,7 +13,7 @@ describe('Blink Device Navigation', () => {
 
     var homePage : BlinkHomePage = new BlinkHomePage();
     var locationsPage : LocationsPage = new LocationsPage();
-    var subscriptionPage : JoinNow = new JoinNow();
+    var checkoutPage : CheckoutPage = new CheckoutPage();
     
    /* 
         hooks 
@@ -37,8 +37,8 @@ describe('Blink Device Navigation', () => {
            locationsPage.closePopUpModalIfOpen();
            locationsPage.selectYourPreferedClubLocation("Blink Murray Hill");
            locationsPage.selectMembershipPlan();
-           subscriptionPage.waitForCheckoutPageToBeLoaded();
-           expect<any>(subscriptionPage.getCurrentUrl()).toBe(constants.DEVICE_SUBS_URL);                   
+           checkoutPage.waitForCheckoutPageToBeLoaded();
+           expect<any>(checkoutPage.getCurrentUrl()).toBe(constants.DEVICE_SUBS_URL);                   
     });
 
 })

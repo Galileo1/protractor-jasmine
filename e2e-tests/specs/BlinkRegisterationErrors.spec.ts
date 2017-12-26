@@ -3,7 +3,7 @@
 **/
 import { BlinkHomePage } from '../page-objects/BlinkHomePage.po';
 import { LocationsPage } from '../page-objects/LocationsPage.po';
-import { JoinNow } from '../page-objects/JoinNow.po';
+import { CheckoutPage } from '../page-objects/CheckoutPage.po';
 var using = require('jasmine-data-provider');
 
 /*
@@ -21,7 +21,10 @@ describe('Blink checkout page errors', () => {
 
     var homePage : BlinkHomePage = new BlinkHomePage();
     var locationsPage : LocationsPage = new LocationsPage();
-    var checkoutPage : JoinNow = new JoinNow();
+    var checkoutPage : CheckoutPage = new CheckoutPage();
+    
+    //const expect = chai.expect;   
+
 
    /* 
         hooks 

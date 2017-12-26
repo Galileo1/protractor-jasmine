@@ -39,14 +39,12 @@ export let config: Config = {
       browserName: 'chrome' ,      
       //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
       specs: [ '../specs/**/NavToRegisterationPage.spec.js' ],
-      // chromeOptions : { 
-      //   prefs:  { 
-      //     'profile.managed_default_content_settings.images': 2
-      //   }
-      // }
-
-
-
+      chromeOptions : { 
+        // prefs:  { 
+        //   'profile.managed_default_content_settings.images': 2
+        // },
+        args : ["--no-proxy-server"]
+      }
       //  shardTestFiles: true,
       //  count : 2
     },
@@ -69,8 +67,8 @@ export let config: Config = {
   onPrepare: () => {
     browser.manage().window().maximize();
     browser.manage().timeouts().implicitlyWait(5000); 
-    //browser.ignoreSynchronization = true;   
-    browser.waitForAngularEnabled(false);
+    browser.ignoreSynchronization = true;   
+    browser.waitForAngularEnabled(false);    
 
     //custom reporter
     jasmine.getEnv().addReporter(
