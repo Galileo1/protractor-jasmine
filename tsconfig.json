@@ -11,7 +11,7 @@
       "typeRoots" : [
         "node_modules/@types"
       ],
-      "types": ["jasmine", "node", "chai"]
+      "types": ["jasmine", "node"]
     },
     "exclude": [
       "node_modules"      
