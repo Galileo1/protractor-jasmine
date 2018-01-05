@@ -4,8 +4,9 @@
   "description": "example project for jasmine",
   "main": "index.js",
   "scripts": {
-    "tsc": "node ./node_modules/typescript/bin/tsc",
-    "test": "node ./node_modules/protractor/bin/protractor ./build/e2e-tests/config/protractor.config.js"
+    "build": "node ./node_modules/typescript/bin/tsc",
+    "test": "node ./node_modules/protractor/bin/protractor ./build/e2e-tests/config/protractor.config.js",
+    "regression": "npm run build && npm run test"
   },
   "author": "Varun Gaur",
   "license": "MIT",

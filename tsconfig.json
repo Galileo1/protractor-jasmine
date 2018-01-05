@@ -8,10 +8,9 @@
       "removeComments": false,
       "noImplicitAny": false,
       "outDir": "build",
-      "typeRoots" : [
-        "node_modules/@types"
-      ],
-      "types": ["jasmine", "node"]
+      "typeRoots" : [ "node_modules/@types" ],
+      "types": ["jasmine", "node"],
+      "lib": [ "es2015" ]
     },
     "exclude": [
       "node_modules"      

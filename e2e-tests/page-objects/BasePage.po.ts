@@ -6,6 +6,7 @@ export abstract class BasePage {
 
     public sideBarNavMenu : ElementArrayFinder;
     public headerPromoMenu : ElementArrayFinder
+    public loaderImage: ElementFinder = element(by.css('div.loader'));
     // private mobLocation : ElementFinder
     // private passwordToasterContent: ElementFinder;    
 

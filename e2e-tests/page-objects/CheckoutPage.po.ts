@@ -6,7 +6,9 @@ import { WebElement } from 'selenium-webdriver';
 import { timeout, creditCard } from '../config/constants';
 
 export class CheckoutPage extends BasePage {
-
+    bridgePageEmailAddress: ElementFinder;
+    
+    //Basic Info
     private submitForm: ElementFinder;
     private firstName : ElementFinder;   
     private lastName : ElementFinder;
@@ -22,6 +24,7 @@ export class CheckoutPage extends BasePage {
     private datePickerDOB: ElementFinder;    
     private selectGender: ElementFinder;
 
+    //Billing Info
     private billingAddressIsSameCheckbox: ElementFinder;
     private billingAddress1: ElementFinder;
     private billingAddress1ErrorSet: ElementFinder;
@@ -35,7 +38,7 @@ export class CheckoutPage extends BasePage {
     private billingZipErrorSet: ElementFinder;
     private errorField : ElementArrayFinder;
 
-    //Credit card details
+    //Purchase details
     private ccName: ElementFinder;
     private ccNumber: ElementFinder;
     private ccMonth: ElementFinder;
@@ -80,7 +83,7 @@ export class CheckoutPage extends BasePage {
         this.checkBoxTNC = element(by.css('input#IAgree'));
         this.TNClink = element(by.xpath('//a[(@data-modal="termsAndConditionsModal")]'));
         this.purchaseButton  = element(by.css('input.btn.block.submit.orange'));
-        
+        this.bridgePageEmailAddress = element(by.css('input#emailAddr'));    
     }
 
     // get (url : string) {
@@ -89,6 +92,7 @@ export class CheckoutPage extends BasePage {
 
     enterFirstName(firstName: string) {
         return this.firstName.sendKeys(firstName);
+        //return WebElementWrapper.sendText(this.firstName, firstName);
     }
 
     enterLastName(lastName: string) {
@@ -233,7 +237,9 @@ export class CheckoutPage extends BasePage {
     }
 
     completeThePurchase() {
-        this.purchaseButton.click();
+        this.purchaseButton.click().then(()=> {
+            return WebElementWrapper.waitUntilDisplayed(by.css('input#emailAddr'), timeout.PURCHASE_TIMEOUT)
+        })
     }
 
     enterPaymentInformation() {
@@ -244,7 +250,5 @@ export class CheckoutPage extends BasePage {
         this.enterSecurityCode();
         this.selectTNC();
     }
-
     
-
 }

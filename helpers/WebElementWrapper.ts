@@ -15,8 +15,9 @@ export class WebElementWrapper {
     }
 
     static sendText(element: ElementFinder, text: string) {
-        element.clear();
-        element.sendKeys(text);
+        return element.clear().then(() => {
+            return element.sendKeys(text);
+        });
     }
 
     static findElementByText(elements: ElementArrayFinder, text: string) {       
@@ -131,7 +132,12 @@ export class WebElementWrapper {
 
     static generateEmail(membership: string, club: string) {
         let domain = '@robot.com';
-        return (membership + club + '_'+_.times(6, () => _.random(35).toString(36) ).join('')  + '_' + new Date().toJSON().slice(0,10).replace(/-/g,'')  + domain);
+        let _dateTime = new Date();
+        let _datePart = _dateTime.toJSON().slice(0,10).replace(/-/g,'');
+        let _timePart = _dateTime.getHours()+""+_dateTime.getMinutes()+""+_dateTime.getMilliseconds();
+        let timeStamp = _datePart+"_"+_timePart;
+        let randomString = _.times(6, () => _.random(35).toString(36) ).join('');
+        return (membership +"test"+ club + '_'+ timeStamp + domain);
     }     
 
     // The polling function
@@ -245,8 +251,7 @@ export class WebElementWrapper {
 
     static findByCss(locator: string) {
         let _element = element(by.css(locator));
-        this.waitElementUntilVisibleOrEnable_(_element, undefined)
-        
+        this.waitElementUntilVisibleOrEnable_(_element, undefined)        
     }
      
     static findElementUsingText (elements: ElementArrayFinder, findText: string) {
@@ -291,18 +296,50 @@ export class WebElementWrapper {
      * @param {WebElement} element
      * @returns {Boolean}
      */
-    static waitFor(by: By) {
+    static waitUntilDisplayed(by: By, timeOut: number) {
         //set implicit wait to zero so that it doesn't interfere with the polling interval
         browser.manage().timeouts().implicitlyWait(0);
         browser.wait(()=> {
             browser.sleep(timeout.POLLING);
             return element(by).isDisplayed()
-            .then((isDisplayed) => { return isDisplayed; })
-            .catch((error)=> { return false; });
-        }, timeout.DEFAULT);        
+            .then((isDisplayed) => { 
+                return isDisplayed; 
+            })
+            .catch((error)=> { 
+                console.error(`Waiting for ${by.toString()} to be displayed...`)
+                return false; 
+            });
+        }, timeOut);
     }
 
-          
+    /**
+     * @param element {ElementFinder}
+     * @returns {Promise.<ElementFinder>}
+     */
+    static elementIsDisplayed = async (element: ElementFinder) => {
+        let isDisplayed : boolean = await element.isDisplayed();            
+        return isDisplayed;
+    };
+
+
+
+    static waitUntilInvisiilityOf(timeOut: number, func: any) {
+        //set implicit wait to zero so that it doesn't interfere with the polling interval
+        browser.manage().timeouts().implicitlyWait(0);
+        browser.wait(()=> {
+            browser.sleep(timeout.POLLING);
+            return func
+            .then((conditionIsTrue) => { 
+                return conditionIsTrue; 
+            })
+            .catch((error)=> { 
+                console.error(`Fail`)
+                return false; 
+            });
+        }, timeOut);
+    } 
+
+
 }
 
 function presenceOfAll(elementArray: ElementArrayFinder) {
@@ -334,5 +371,10 @@ function getElementArrayText(elementArray: ElementArrayFinder) {
 
        }
        console.log(elementArray.every(func));
+}
+
+function invisibilityOf() {
+    let placeHoder = undefined;    
+    return () => ExpectedConditions.invisibilityOf(placeHoder);
 }
     

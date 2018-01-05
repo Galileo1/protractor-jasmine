@@ -30,7 +30,10 @@ export const membership = {
 
 export const timeout = {
     DEFAULT: 30000,
+    PURCHASE_TIMEOUT: 90000,
     POLLING: 3000,
+    SHORT: 5000,
+    LONG: 15000
 }
 
 export const creditCard = {

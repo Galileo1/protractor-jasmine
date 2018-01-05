@@ -1,13 +1,15 @@
 import { browser, by, element, ElementFinder, ElementArrayFinder } from 'protractor';
 import { BasePage } from './BasePage.po';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
+import { Helper } from '../../helpers/helper';
+import { timeout } from '../config/constants';
 // import { BasePage } from './BasePage.po';
 
 export class BlinkHomePage extends BasePage {
     
     private locations: ElementArrayFinder;
     private navLocation : ElementFinder
-    private mobLocation : ElementFinder
+    private memberLogin : ElementFinder
     private passwordToasterContent: ElementFinder;    
     private forgottenPassword: ElementFinder;
     private submitLogin: ElementFinder;
@@ -25,7 +27,7 @@ export class BlinkHomePage extends BasePage {
         super();
         this.locations = element.all(by.xpath('//span[@data-hover="Locations"]'));
         this.navLocation = element(by.css('div.nav-list:nth-child(2) > a:nth-child(2) > div:nth-child(1) > span:nth-child(1)'));
-        
+        this.memberLogin = element(by.css('p.account-nav'));
         this.mobileHamburger = element(by.css('.mobile-menu-open > span:nth-child(1)'));
         this.mobileLocations = element(by.css('a.locations:nth-child(1) > div:nth-child(1) > span:nth-child(1)'));
 
@@ -80,7 +82,10 @@ export class BlinkHomePage extends BasePage {
 
     resetBrowserSession() {
         return this.quitBrowser();
+    }
 
+    openMemberLoginDrawer() {
+        Helper.waitForElement(this.memberLogin, timeout.SHORT).click();
     }
 
 }

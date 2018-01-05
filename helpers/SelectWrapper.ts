@@ -28,7 +28,7 @@ export class SelectWrapper {
     }
 
     selectByText(text: string) {
-        console.log(by.xpath('//option[contains(text()="' + text + '")]').toString());
+        //console.log(by.xpath('//option[contains(text()="' + text + '")]').toString());
         return this.element.element(by.xpath('//option[contains(text(),"' + text + '")]')).click();   
         
     }

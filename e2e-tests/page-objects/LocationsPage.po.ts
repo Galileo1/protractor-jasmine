@@ -2,6 +2,7 @@ import { browser, by, element, ElementFinder, ElementArrayFinder } from 'protrac
 import { BasePage } from './BasePage.po';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { WebElement } from 'selenium-webdriver';
+import { Helper } from '../../helpers/helper';
 
 export class LocationsPage extends BasePage {
     tempJoinNow: ElementFinder;
@@ -79,4 +80,7 @@ export class LocationsPage extends BasePage {
         this.refresh();
     }
     
+    getAllLocations() {
+        return Helper.getElementArrayText(this.clubsLocation); 
+    }
 }

@@ -2,17 +2,19 @@ import { browser, by, element, ElementFinder, ElementArrayFinder, Key , Expected
 import { BasePage } from './BasePage.po';
 import { SelectWrapper } from '../../helpers/SelectWrapper';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
+import { Helper } from '../../helpers/Helper';
 import { WebElement } from 'selenium-webdriver';
-import constants from '../config/constants';
+import constants, { timeout } from '../config/constants';
 // import { BasePage } from './BasePage.po';
 
 export class BridgePage extends BasePage {     
-   
+       
     private emailAddress: ElementFinder;
     private newPassword : ElementFinder
     private confirmPassword : ElementFinder;
     private createAccount : ElementFinder;
     private emailAddField: string;
+    //private loaderImage: ElementFinder;   
   
     constructor () {        
         super();
@@ -21,7 +23,7 @@ export class BridgePage extends BasePage {
         this.confirmPassword = element(by.css('input#regconfirmpassword'));
         this.createAccount = element(by.css('a.btn.block.thin.submit.orange.register.syncComplete.registerBridge'));
         this.emailAddField =  'input#emailAddr';
-        
+        //this.loaderImage = element(by.css('div.loader'));        
     }
 
     getEmailAddress() {
@@ -31,20 +33,39 @@ export class BridgePage extends BasePage {
     }
 
     setNewPassword() {
-        this.newPassword.sendKeys(constants.PASSWORD);
+        Helper.waitForElement(this.newPassword, timeout.SHORT).sendKeys(constants.PASSWORD);
     }
 
     setConfirmPassword() {
-        this.confirmPassword.sendKeys();
+        Helper.waitForElement(this.confirmPassword, timeout.SHORT).sendKeys(constants.PASSWORD);
     }
 
     processCreateAccount() {
-        this.createAccount.click();
+        this.createAccount.click().then(()=> {
+            return WebElementWrapper.waitUntilDisplayed(by.css('div.welcome-modal-content'), timeout.PURCHASE_TIMEOUT)
+        })
+        
     }
 
     isPresent() { 
         WebElementWrapper.findByCss(this.emailAddField);
     }
 
+    getEmailfromBridgePage() {
+        return this.emailAddress.getAttribute('value');
+    }
+
+    waitForBridgePageToBeLoaded() {
+        return browser.wait(ExpectedConditions.invisibilityOf(this.loaderImage), timeout.PURCHASE_TIMEOUT);    
+        
+    }
+
+    emailFieldIsDisplayed() {
+        return WebElementWrapper.elementIsDisplayed(this.emailAddress);
+    }
+
+    getPageUrl() {
+        return this.getCurrentUrl();
+    }
 
 }
