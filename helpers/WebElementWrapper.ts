@@ -3,7 +3,7 @@ import constants from '../e2e-tests/config/constants';
 import { timeout } from '../e2e-tests/config/constants';
 import * as _ from 'lodash';
 import { By } from 'selenium-webdriver';
-//import * as Promise from 'bluebird';
+import * as PromiseBB from 'bluebird';
 
 
 export class WebElementWrapper {  
@@ -340,7 +340,15 @@ export class WebElementWrapper {
     } 
 
 
+    static async itemExits(elementAll: ElementArrayFinder, name: string) {             
+        const fn = await elementAll.map((elm: ElementFinder) => {return elm.getText()});
+        const itemList = await PromiseBB.all(fn);
+        const filterdList = itemList.filter(item => item === name);
+        return filterdList.length == 1;
+    }
 }
+          
+
 
 function presenceOfAll(elementArray: ElementArrayFinder) {
     return () => {
