@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "target": "es5",
+      "target": "ES2017",
       "module": "commonjs",
       "moduleResolution": "node",
       "sourceMap": false,
@@ -16,6 +16,7 @@
     "exclude": [
       "node_modules"      
     ],
+    "--lib":["ES2017"],
     "include": [
       "e2e-tests/**/*",
       "helpers/**/*",
