@@ -339,13 +339,6 @@ export class WebElementWrapper {
         }, timeOut);
     } 
 
-
-    static async itemExits(elementAll: ElementArrayFinder, name: string) {             
-        const fn = await elementAll.map((elm: ElementFinder) => {return elm.getText()});
-        const itemList = await PromiseBB.all(fn);
-        const filterdList = itemList.filter(item => item === name);
-        return filterdList.length == 1;
-    }
 }
           
 

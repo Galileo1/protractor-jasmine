@@ -1,4 +1,5 @@
 import { ElementArrayFinder, ElementFinder } from "protractor";
+import * as PromiseBB from 'bluebird';
 
 /**
  * get the Array of all text from element.all
@@ -38,14 +39,17 @@ const isChecked = async (element: ElementFinder) => {
     return await element.getAttribute('checked');
 }
 
-// /**
-//  * is element checked
-//  * @param {ElementFinder} element
-//  * @returns {Promise<boolean>}
-//  */
-// const itemExists = async (element: ElementFinder, item: string) => {
-//     const itemList = Promise.
-// }
+/**
+ * is element checked
+ * @param {ElementArrayFinder} elementArray
+ * @returns {Promise<boolean>}
+ */
+const itemExists = async (elementAll: ElementArrayFinder, name: string) => {
+    const fn = await elementAll.map((elm: ElementFinder) => { return elm.getText() });
+    const itemList = await PromiseBB.all(fn);
+    const filterdList = itemList.filter(item => item === name);
+    return filterdList.length == 1;    
+}
 
 
 
