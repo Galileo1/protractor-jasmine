@@ -29,8 +29,7 @@ export class SelectWrapper {
 
     selectByText(text: string) {
         //console.log(by.xpath('//option[contains(text()="' + text + '")]').toString());
-        return this.element.element(by.xpath('//option[contains(text(),"' + text + '")]')).click();   
-        
+        return this.element.element(by.xpath('//option[contains(text(),"' + text + '")]')).click();        
     }
 
     selectByIndex(index: number) {
@@ -38,4 +37,15 @@ export class SelectWrapper {
                 return options[index].click();
         });
     }
+
+    selectFromListByText(text: string) {
+        //console.log(by.xpath('//option[contains(text()="' + text + '")]').toString());
+        return this.element.element(by.xpath('//li[contains(text(),"' + text + '")]')).click();        
+    }
+
+    selectFromListByValue(value: string) {
+        return this.element.element(by.xpath('//li[(@data-value="' + value + '")]')).click();
+    }
+
+
 }

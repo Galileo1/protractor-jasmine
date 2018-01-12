@@ -45,3 +45,12 @@ export const creditCard = {
     YEAR : '2025',
     CVV : '1111',
 }
+
+export const freeTrial = {
+    FIRSTNAME : 'TestFree',
+    LASTNAME : 'Trial',
+    PHONE_NUMBER : '2003004444',
+    LOCATION: 'Blink Journal Square',  
+    LOCATION_CODE: '625'
+}
+

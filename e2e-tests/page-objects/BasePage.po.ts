@@ -1,14 +1,15 @@
 import { browser, by, element, ElementFinder, ElementArrayFinder } from 'protractor';
 import { WebElement } from 'selenium-webdriver';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
+import { PopUpModal } from './PopUpModal.po';
 
 export abstract class BasePage {     
 
     public sideBarNavMenu : ElementArrayFinder;
     public headerPromoMenu : ElementArrayFinder
     public loaderImage: ElementFinder = element(by.css('div.loader'));
-    // private mobLocation : ElementFinder
-    // private passwordToasterContent: ElementFinder;    
+    public popUpModal: PopUpModal = new PopUpModal();
+
 
     goto (url : string) {
         browser.get(url);
@@ -37,5 +38,7 @@ export abstract class BasePage {
         this.headerPromoMenu = element.all(by.xpath('//div[@class="header-promo-banner"]/following-sibling::div//div[@id="closeNav"]/following-sibling::a/div/span'));
         WebElementWrapper.findElementUsingText(this.headerPromoMenu, menuItem);
     }
+
+   
 
 }

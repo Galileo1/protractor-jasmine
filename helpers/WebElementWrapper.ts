@@ -259,7 +259,8 @@ export class WebElementWrapper {
         if (exist) {
             elements.filter((eachElement, index) => {
                 return eachElement.getText().then((text: string ) => {
-                    return text === findText;
+                    //console.log(`text: ${text} -- findText: ${findText}`);
+                    return text === findText.toUpperCase();
                 });
             }).then((filteredElement) => {
                 console.log(` match found : ${filteredElement.length}`)

@@ -88,4 +88,18 @@ export class BlinkHomePage extends BasePage {
         Helper.waitForElement(this.memberLogin, timeout.SHORT).click();
     }
 
+    enterJoinNowDetails() {
+        return this.popUpModal.enterDetailsInPopoUpModal().then(()=> {
+            this.popUpModal.submitFreeTrailForm();
+        })
+    }
+
+    popUpModalIsDisplayed() {
+        return this.popUpModal.popUpModalIsPresent();
+    }
+    
+    // openFreeTrialPopUp() {
+    //     this.popUpModal.openModal()
+    // }
+
 }

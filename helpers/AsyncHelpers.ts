@@ -1,5 +1,6 @@
-import { ElementArrayFinder, ElementFinder } from "protractor";
+import { ElementArrayFinder, ElementFinder, browser } from "protractor";
 import * as PromiseBB from 'bluebird';
+import { async } from "q";
 
 /**
  * get the Array of all text from element.all
@@ -40,20 +41,38 @@ const isChecked = async (element: ElementFinder) => {
 }
 
 /**
- * is element checked
+ * check whether value exist in an element array 
  * @param {ElementArrayFinder} elementArray
  * @returns {Promise<boolean>}
  */
-const itemExists = async (elementAll: ElementArrayFinder, name: string) => {
-    const fn = await elementAll.map((elm: ElementFinder) => { return elm.getText() });
-    const itemList = await PromiseBB.all(fn);
+export const itemExists = async (elementAll: ElementArrayFinder, name: string) => {
+    const itemText = await elementAll.map((elm: ElementFinder) => { return elm.getText() });
+    const itemList = await PromiseBB.all(itemText);
     const filterdList = itemList.filter(item => item === name);
     return filterdList.length == 1;    
+}
+
+export const openPopUpModal = (element: ElementFinder,popUpModal: ElementFinder) => {
+    browser.actions().mouseMove(element).click().perform().then(()=> {
+        browser.wait(()=> {
+            return popUpModal.getAttribute('style').then((display) => {
+                return display === 'display: block';
+            })
+        }, 5000).then((isModalOpen)=>{
+            if (isModalOpen) {
+                console.log(`popup modal is open`);
+            } else {
+                console.log(`popup modal is not open`);
+            }
+        })
+    })
 }
 
 
 
 module.exports = {
     getElementArrayText,
-    hasValue
+    hasValue,
+    itemExists,
+    openPopUpModal
 }
