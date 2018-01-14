@@ -1,14 +1,13 @@
 import { browser, by, element, ElementFinder, ExpectedConditions, ElementArrayFinder, protractor } from 'protractor';
-import constants from '../e2e-tests/config/constants';
 import { timeout } from '../e2e-tests/config/constants';
 import * as _ from 'lodash';
 import { By } from 'selenium-webdriver';
 import * as PromiseBB from 'bluebird';
 
 
-export class WebElementWrapper {  
+export class WebElementWrapper {
 
-    constructor () { } 
+    constructor () { }
 
     static findElement(element : ElementFinder) {
         return browser.wait(ExpectedConditions.visibilityOf(element),  timeout.DEFAULT);
@@ -19,47 +18,43 @@ export class WebElementWrapper {
         element.sendKeys(text);
     }
 
-    static findElementByText(elements: ElementArrayFinder, text: string) {       
+    static findElementByText(elements: ElementArrayFinder, text: string) {
         
         const newLocal = WebElementWrapper.selectClubLocation(text);
 
         elements.each((element, index) => {
                 element.getText().then((eleText) => {
                     if (eleText === text) {
-                        return element.click();                        
-                    } 
+                        return element.click();
+                    }
                 }).catch ((error) => {
                     console.log("failed to find element ::" + error);
                     return newLocal;
                 });
-        })
+        });
 
     }
 
     /**select club locations based on the location passed */
-    static selectClubLocation(loc: string) {       
+    static selectClubLocation(loc: string) {
         return browser.executeScript('var inputs = document.getElementsByClassName("location-name");' +
                                     'for(var i = 0; i < inputs.length; i++) { ' +
-                                        ' if (inputs[i].innerText === "' + loc + '") { ' + 
-                                            ' inputs[i].click(); } ' +	
+                                        ' if (inputs[i].innerText === "' + loc + '") { ' +
+                                            ' inputs[i].click(); } ' +
                                         '}');
     }
        
-    static waitForElementToBeClickable(element : ElementFinder) {  
+    static waitForElementToBeClickable(element : ElementFinder) {
         return browser.wait(ExpectedConditions.elementToBeClickable(element), timeout.DEFAULT)
-            .then(() => { 
-                return element.click(); 
-            })
-            .catch((error) => {                
-                 return browser.executeScript("arguments[0].click();", element.getWebElement());
-            });    
+            .then(() => element.click())
+            .catch((error) => browser.executeScript("arguments[0].click();", element.getWebElement()));
     }
 
     static waitForElementToBeVisible(element : ElementFinder) {
         return browser.wait(ExpectedConditions.elementToBeClickable(element), timeout.DEFAULT).then(() => element.click());
-    }    
+    }
 
-    static enterText(element : ElementFinder, text : string) {        
+    static enterText(element : ElementFinder, text : string) {
         return browser.executeScript('arguments[0].value="' + text + '"', element.getWebElement());
     }
 
@@ -67,19 +62,15 @@ export class WebElementWrapper {
         if (!element.isSelected()) {
             return element.click();
         } else {
-            console.info("Element is already selected.")
+            console.info("Element is already selected.");
         }
     }
 
     static waitForAnyPageToLoad() {
-        browser.wait(() => {
-            return browser.executeScript('return document.readyState').then((readyState) => {
-              return readyState === 'complete';
-            });
-          });
+        browser.wait(() => browser.executeScript('return document.readyState').then((readyState) => readyState === 'complete'));
     }
 
-    static waitForVisibleByLocator(locator, delay) {        
+    static waitForVisibleByLocator(locator, delay) {
         browser.wait(() => element(locator).isPresent(), delay)
         .then(() => browser.wait(() => element(locator).isDisplayed(), delay))
         .then(() => element(locator));
@@ -88,19 +79,16 @@ export class WebElementWrapper {
     static findElementUsingText (elements: ElementArrayFinder, findText: string) {
         let exist = browser.wait(presenceOfAll(elements), timeout.DEFAULT);
         if (exist) {
-            elements.filter((eachElement, index) => {
-                return eachElement.getText().then((text: string ) => {
-                    return text === findText;
-                });
-            }).then((filteredElement) => {
-                console.log(` match found : ${filteredElement.length}`)
+            elements.filter((eachElement, index) => eachElement.getText().then((text: string ): boolean => text === findText))
+            .then((filteredElement) => {
+                console.log(` match found : ${filteredElement.length}`);
                 if (filteredElement.length > 0) {
                     filteredElement[0].click();
                 } else {
                     getElementArrayText(elements);
-                    throw new Error(`couldn't find : ${findText}`)
+                    throw new Error(`couldn't find : ${findText}`);
                 }
-            })
+            });
             
         }
 
@@ -120,7 +108,7 @@ export class WebElementWrapper {
      */
     static scrollTo (element: ElementFinder) {
         return browser.executeScript('arguments[0].scrollIntoView()', element.getWebElement());
-    };
+    }
 
     /**
      * wait with 3sec polling and 30sec timeout
@@ -130,34 +118,28 @@ export class WebElementWrapper {
     static waitFor(by: By) {
         //set implicit wait to zero so that it doesn't interfere with the polling interval
         browser.manage().timeouts().implicitlyWait(0);
-        browser.wait(()=> {
+        browser.wait(() => {
             browser.sleep(timeout.POLLING);
             return element(by).isDisplayed()
-            .then((isDisplayed) => { return isDisplayed; })
-            .catch((error)=> { return false; });
-        }, timeout.DEFAULT);        
+            .then((isDisplayed) => isDisplayed)
+            .catch((error) => false);
+        }, timeout.DEFAULT);
     }
 
-    static async itemExits(elementAll: ElementArrayFinder, name: string) {             
-        const fn = await elementAll.map((elm: ElementFinder) => {return elm.getText()});
+    static async itemExits(elementAll: ElementArrayFinder, name: string) {
+        const fn = await elementAll.map((elm: ElementFinder) => elm.getText());
         const itemList = await PromiseBB.all(fn);
         const filterdList = itemList.filter(item => item === name);
         return filterdList.length == 1;
     }
 }
           
-
-
 function presenceOfAll(elementArray: ElementArrayFinder) {
-    return () => {
-        return elementArray.count().then((count: number ): boolean => {
-            return count > 1;
-        })        
-    };
+    return () => elementArray.count().then((count: number ): boolean => count > 1);
 }
 
 
-function getElementArrayText(elementArray: ElementArrayFinder) { 
+function getElementArrayText(elementArray: ElementArrayFinder) {
     // let textArray = [];
     // console.log(`array :::${elementArray.count()} :: ${elementArray.first()}`)
     // elementArray.getText()
@@ -171,11 +153,10 @@ function getElementArrayText(elementArray: ElementArrayFinder) {
        // return textArray;
        let func = (element) => {
            element.getText().then((text: string ) => {
-               text !== 'abc '
+               text !== 'abc ';
                return text;
-           })
-
-       }
+           });
+        };
        console.log(elementArray.every(func));
 }
     

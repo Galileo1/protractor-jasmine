@@ -6,9 +6,9 @@ import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 export class BlinkHomePage extends BasePage {
     
     private locations: ElementArrayFinder;
-    private navLocation : ElementFinder
-    private mobLocation : ElementFinder
-    private passwordToasterContent: ElementFinder;    
+    private navLocation : ElementFinder;
+    private mobLocation : ElementFinder;
+    private passwordToasterContent: ElementFinder;
     private forgottenPassword: ElementFinder;
     private submitLogin: ElementFinder;
     private password: ElementFinder;
@@ -21,7 +21,7 @@ export class BlinkHomePage extends BasePage {
     private mobileHamburger: ElementFinder;
     private mobileLocations: ElementFinder;
 
-    constructor () {        
+    constructor () {
         super();
         this.locations = element.all(by.xpath('//span[@data-hover="Locations"]'));
         this.navLocation = element(by.css('div.nav-list:nth-child(2) > a:nth-child(2) > div:nth-child(1) > span:nth-child(1)'));
@@ -32,11 +32,11 @@ export class BlinkHomePage extends BasePage {
     }
 
     enterEmail(emailId: string) {
-        return this.email.sendKeys(emailId); 
+        return this.email.sendKeys(emailId);
     }
 
-    enterPassword(passwordId: string) {  
-        return this.password.sendKeys(passwordId);   
+    enterPassword(passwordId: string) {
+        return this.password.sendKeys(passwordId);
     }
 
     submitLoginForm() {
@@ -52,15 +52,15 @@ export class BlinkHomePage extends BasePage {
     }
 
     gotoLocations() {
-        return this.navLocation.click().then (() => {
-            return WebElementWrapper.waitForAnyPageToLoad();
-        });
+        return this.navLocation.click().then (() =>
+             WebElementWrapper.waitForAnyPageToLoad()
+        );
     }
 
     gotoLocationsUsingADevice() {
-        return this.selectTheHamburgerMenu().then(() => {
-            return this.navigateToLocationsOnDevices();
-        });            
+        return this.selectTheHamburgerMenu().then(() =>
+            this.navigateToLocationsOnDevices()
+        );
         
     }
 
@@ -69,9 +69,9 @@ export class BlinkHomePage extends BasePage {
     }
 
     navigateToLocationsOnDevices() {
-        return WebElementWrapper.waitForElementToBeClickable(this.mobileLocations).then (() => {
-            return WebElementWrapper.waitForAnyPageToLoad();
-        });
+        return WebElementWrapper.waitForElementToBeClickable(this.mobileLocations).then (() =>
+            WebElementWrapper.waitForAnyPageToLoad()
+        );
     }
 
     get() {

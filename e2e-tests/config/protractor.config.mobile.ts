@@ -1,4 +1,5 @@
 import { browser, Config } from 'protractor';
+import { timeout } from './constants';
 // import { chai } from 'chai';
 // import { chaiAsPromised } from 'chai-as-promised';
 
@@ -31,7 +32,7 @@ export let config: Config = {
     //     }
     // },
     {
-      browserName: 'chrome',      
+      browserName: 'chrome',
       'platformName': 'Android',
       'platformVersion': '5.1',
       'deviceName': 'XT1033'
@@ -39,12 +40,12 @@ export let config: Config = {
       // 'autoWebview' : true,
       // 'autoWebviewTimeout': 10000      
  
-    }    
+    }
   ],
   maxInstances: 2,
   onPrepare: () => {
     //browser.manage().window().maximize(); 
-    browser.manage().timeouts().implicitlyWait(5000);
+    browser.manage().timeouts().implicitlyWait(timeout.IMPLICIT);
     //browser.getProcessedConfig()
     // .then(function(config) {
     //   console.log(config.multiCapabilities);
@@ -58,11 +59,9 @@ export let config: Config = {
     // });
   },
   jasmineNodeOpts: {
-    showColors: true,    
+    showColors: true,
     includeStackTrace : true,
     isVerbose : true,
     defaultTimeoutInterval: 2500000
   },
 };
-
-

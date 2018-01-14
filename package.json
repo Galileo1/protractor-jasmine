@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "tsc": "node ./node_modules/typescript/bin/tsc",
-    "test": "node ./node_modules/protractor/bin/protractor ./build/e2e-tests/config/protractor.config.js"
+    "test": "node ./node_modules/protractor/bin/protractor ./build/e2e-tests/config/protractor.config.js",
+    "regression": "npm run tsc && npm run test",
+    "lint": "gulp tslint"
   },
   "author": "Varun Gaur",
   "license": "MIT",
@@ -14,6 +16,9 @@
     "bluebird": "3.5.1",
     "chai": "4.1.2",
     "chai-as-promised": "7.1.1",
+    "gulp": "3.9.1",
+    "gulp-tslint": "8.1.2",
+    "gulp-typescript": "3.2.1",
     "jasmine-data-provider": "2.2.0",
     "protractor": "5.2.0"
   },
@@ -24,6 +29,9 @@
     "jasmine-spec-reporter": "4.2.1",
     "lodash": "4.17.4",
     "protractor-jasmine2-html-reporter": "0.0.7",
-    "typescript": "2.5.3"
+    "tslint": "5.9.1",
+    "tslint-eslint-rules": "4.1.1",
+    "typescript": "2.5.3",
+    "vrsource-tslint-rules": "5.8.0"
   }
 }

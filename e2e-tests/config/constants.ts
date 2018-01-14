@@ -11,17 +11,17 @@ export default {
     DOB_ERROR : 'we need to know your birthday',
     GENDER_ERROR : 'please select one',
     DEVICE_SUBS_URL : 'https://www.blinkfitness.com/join/murray-hill/green?icmp=Join_Now_Desription',
-    WEB_SUBS_URL : 'https://www.blinkfitness.com/join/boerum-hill/green?icmp=Join_Now_Desription',    
-    
-}
+    WEB_SUBS_URL : 'https://www.blinkfitness.com/join/boerum-hill/green?icmp=Join_Now_Desription',
+};
 
 export const membership = {
     BLUE : 'blue',
     GREEN : 'green',
     GRAY : 'gray'
-}
+};
 
 export const timeout = {
     DEFAULT: 30000,
     POLLING: 3000,
-}
+    IMPLICIT: 5000
+};

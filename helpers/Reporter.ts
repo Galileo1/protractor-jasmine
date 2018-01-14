@@ -1,5 +1,6 @@
 import { browser } from 'protractor';
 import fs = require('fs');
+/* tslint:disable */ 
 declare var module: NodeModule;
 var myReporter = {
     specDone: function (result) {
@@ -18,8 +19,8 @@ var myReporter = {
                     stream.end();
                 }, function (error) {
                     console.log("failed to take screenshot");
-                })
-            })
+                });
+            });
         }
     },
     suite: {
@@ -34,5 +35,5 @@ var myReporter = {
         displayFailed: true,    // display summary of all failures after execution
         displayPending: false,   // display summary of all pending specs after execution
       }
-}
+};
 module.exports = myReporter;

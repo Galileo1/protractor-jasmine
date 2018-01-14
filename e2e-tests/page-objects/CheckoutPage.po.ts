@@ -8,18 +8,18 @@ import { timeout } from '../config/constants';
 export class CheckoutPage extends BasePage {
 
     private submitForm: ElementFinder;
-    private firstName : ElementFinder;   
+    private firstName : ElementFinder;
     private lastName : ElementFinder;
-    private address: ElementFinder; 
+    private address: ElementFinder;
     private address2: ElementFinder;
     private accountCity: ElementFinder;
     private accountState: ElementFinder;
     private accountZip: ElementFinder;
-    private accountPhone : ElementFinder;    
+    private accountPhone : ElementFinder;
     private accountEmail: ElementFinder;
     private confirmEmail: ElementFinder;
     private accountDOB: ElementFinder;
-    private datePickerDOB: ElementFinder;    
+    private datePickerDOB: ElementFinder;
     private selectGender: ElementFinder;
 
     private billingAddressIsSameCheckbox: ElementFinder;
@@ -35,7 +35,7 @@ export class CheckoutPage extends BasePage {
     private billingZipErrorSet: ElementFinder;
     private errorField : ElementArrayFinder;
 
-    constructor () {        
+    constructor () {
         super();
         this.submitForm = element(by.xpath('//a[(@class="btn round round orange next")]'));
         this.firstName = element(by.xpath('//label[contains(.,"first name*")]/following-sibling::input'));
@@ -74,7 +74,7 @@ export class CheckoutPage extends BasePage {
     }
 
     enterLastName(lastName: string) {
-        return this.lastName.sendKeys(lastName);        
+        return this.lastName.sendKeys(lastName);
     }
 
     enterAddress1(address: string) {
@@ -94,7 +94,7 @@ export class CheckoutPage extends BasePage {
         return selectDropDown.selectByText(state);
     }
 
-    enterAccountZipCode(zipCode: string) {        
+    enterAccountZipCode(zipCode: string) {
         return this.accountZip.sendKeys(zipCode);
     }
 
@@ -110,12 +110,12 @@ export class CheckoutPage extends BasePage {
         return this.confirmEmail.sendKeys(confirmEmailId);
     }
 
-    enterAccountDOB(dob: string) {       
+    enterAccountDOB(dob: string) {
         //return this.accountDOB.sendKeys(dob, Key.TAB);
-        return  browser.executeScript('document.getElementById("birthDate").setAttribute("value", "' + dob +'")');        
+        return  browser.executeScript('document.getElementById("birthDate").setAttribute("value", "' + dob +'")');
     }
 
-    enterAccountDOBToDevice(dob: string) { 
+    enterAccountDOBToDevice(dob: string) {
         return  browser.executeScript('document.getElementById("birthDate").setAttribute("value", "' + dob +'")');
     }
 
@@ -125,7 +125,7 @@ export class CheckoutPage extends BasePage {
     }
 
     billingAddressIsSame() {
-       return WebElementWrapper.selectCheckBox(this.billingAddressIsSameCheckbox);        
+       return WebElementWrapper.selectCheckBox(this.billingAddressIsSameCheckbox);
     }
 
     enterBillingAddress1(address: string) {
@@ -141,7 +141,7 @@ export class CheckoutPage extends BasePage {
     }
 
     selectYourBillingState(state: string) {
-        var selectDropDown : SelectWrapper = new SelectWrapper(this.selectBillingState);
+        let selectDropDown : SelectWrapper = new SelectWrapper(this.selectBillingState);
         return selectDropDown.selectByValue("Alaska");
         
     }
@@ -156,8 +156,8 @@ export class CheckoutPage extends BasePage {
     }
 
     waitForCheckoutPageToBeLoaded() {
-        browser.wait(ExpectedConditions.elementToBeClickable(this.submitForm), timeout.DEFAULT)
-    }    
+        browser.wait(ExpectedConditions.elementToBeClickable(this.submitForm), timeout.DEFAULT);
+    }
 
     clearAccountDOB() {
         browser.executeScript('document.getElementById("birthDate").setAttribute("value", "")');
@@ -180,8 +180,6 @@ export class CheckoutPage extends BasePage {
     }
 
     getErrors() {
-        return this.errorField.map((element) => {
-            return element.getText();                        
-        });
+        return this.errorField.map((element) => element.getText());
     }
 }

@@ -4,16 +4,15 @@ import { LocationsPage } from '../page-objects/LocationsPage.po';
 import { CheckoutPage } from '../page-objects/CheckoutPage.po';
 import { browser, by, ExpectedConditions, element } from 'protractor';
 import { join } from 'path';
-import  constants  from '../config/constants';
 import { protractor } from 'protractor/built/ptor';
 import * as data from '../../../data/properties.json';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { membership }  from '../config/constants';
 
 describe('Blink Navigation on Web', () => {
-    var homePage : BlinkHomePage = new BlinkHomePage();
-    var locationsPage : LocationsPage = new LocationsPage();
-    var checkoutPage : CheckoutPage = new CheckoutPage();
+    let homePage : BlinkHomePage = new BlinkHomePage();
+    let locationsPage : LocationsPage = new LocationsPage();
+    let checkoutPage : CheckoutPage = new CheckoutPage();
     
    /* 
         hooks 
@@ -22,9 +21,9 @@ describe('Blink Navigation on Web', () => {
     beforeAll(() => {
         homePage.get();
         WebElementWrapper.waitForAnyPageToLoad();
-    })
+    });
     
-    afterAll(() => { 
+    afterAll(() => {
         //homePage.resetBrowserSession();
     });
 
@@ -39,6 +38,6 @@ describe('Blink Navigation on Web', () => {
            locationsPage.subscribeToMembershipPlan(membership.BLUE);
            checkoutPage.waitForCheckoutPageToBeLoaded();
            expect<any>(checkoutPage.getCurrentUrl()).toContain(membership.BLUE);
-    })
+    });
 
-})
+});

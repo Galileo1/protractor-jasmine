@@ -1,4 +1,5 @@
 import { browser, Config } from 'protractor';
+import {timeout} from './constants';
 import {SpecReporter} from "jasmine-spec-reporter";
 import reporter = require('../../helpers/Reporter');
 import * as  Jasmine2HtmlReporter from 'protractor-jasmine2-html-reporter';
@@ -13,7 +14,7 @@ export let config: Config = {
   //seleniumArgs: ['-Dwebdriver.ie.driver=../../node_modules/protractor/node_modules/webdriver-manager/IEDriverServer3.7.0.exe'],
   //geckoDriver: '../../node_modules/protractor/node_modules/webdriver-manager/geckodriver-v0.19.1.exe',
   allScriptsTimeout: 50000,
-  getPageTimeout: 50000,  
+  getPageTimeout: 50000,
   baseUrl: "https://www.blinkfitness.com/",
   // localSeleniumStandaloneOpts: {
   //   jvmArgs: [
@@ -37,7 +38,7 @@ export let config: Config = {
     {
       browserName: 'chrome' ,
       specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
-      chromeOptions : { 
+      chromeOptions : {
         args : ["--no-proxy-server"]
       }
       //  shardTestFiles: true,
@@ -61,9 +62,9 @@ export let config: Config = {
   
   onPrepare: () => {
     browser.manage().window().maximize();
-    browser.manage().timeouts().implicitlyWait(5000); 
-    browser.ignoreSynchronization = true;   
-    browser.waitForAngularEnabled(false);    
+    browser.manage().timeouts().implicitlyWait(timeout.IMPLICIT);
+    browser.ignoreSynchronization = true;
+    browser.waitForAngularEnabled(false);
 
     //custom reporter
     jasmine.getEnv().addReporter(
@@ -78,12 +79,10 @@ export let config: Config = {
   },
 
   jasmineNodeOpts: {
-    showColors: true,    
+    showColors: true,
     includeStackTrace : true,
     isVerbose : true,
     defaultTimeoutInterval: 2500000
   }
   
 };
-
-
