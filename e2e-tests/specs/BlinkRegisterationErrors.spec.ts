@@ -4,7 +4,7 @@
 import { BlinkHomePage } from '../page-objects/BlinkHomePage.po';
 import { LocationsPage } from '../page-objects/LocationsPage.po';
 import { CheckoutPage } from '../page-objects/CheckoutPage.po';
-var using = require('jasmine-data-provider');
+const using = require('jasmine-data-provider');
 
 /*
     protractor imports 
@@ -19,9 +19,9 @@ import * as data from '../../../data/properties.json';
 
 describe('Blink checkout page errors', () => {
 
-    var homePage : BlinkHomePage = new BlinkHomePage();
-    var locationsPage : LocationsPage = new LocationsPage();
-    var checkoutPage : CheckoutPage = new CheckoutPage();
+    let homePage : BlinkHomePage = new BlinkHomePage();
+    let locationsPage : LocationsPage = new LocationsPage();
+    let checkoutPage : CheckoutPage = new CheckoutPage();
     
     //const expect = chai.expect;   
 
@@ -32,11 +32,11 @@ describe('Blink checkout page errors', () => {
     beforeAll(() => {
         homePage.goto('join/boerum-hill/green?icmp=Join_Now_Desription');
         checkoutPage.waitForCheckoutPageToBeLoaded();
-    })
+    });
 
     afterEach(()=> {
         checkoutPage.resetFormFields();
-    })
+    });
 
     afterAll(() => {
         homePage.resetBrowserSession();
@@ -46,13 +46,13 @@ describe('Blink checkout page errors', () => {
         - specs  
         - data driven 
     **/
-    using(data, function(data, description) {
+    using(data, (data, description) => {
         it (description, () => {
             checkoutPage.enterFirstName((<any>data).firstName);
             checkoutPage.enterLastName((<any>data).lastName);
             checkoutPage.enterAddress1((<any>data).address);
             checkoutPage.enterAccountCity((<any>data).city);
-            checkoutPage.selectAccountState((<any>data).state);         
+            checkoutPage.selectAccountState((<any>data).state);
             checkoutPage.enterAccountZipCode((<any>data).zipCode);
             checkoutPage.enterAccountPhone((<any>data).phoneNumber);
             checkoutPage.enterAccountEmail((<any>data).email);
@@ -60,11 +60,9 @@ describe('Blink checkout page errors', () => {
             checkoutPage.enterAccountDOB((<any>data).dob);
             checkoutPage.selectYourGender((<any>data).gender);
             checkoutPage.submitSubscription();
-            let actualErrors = checkoutPage.getErrors().then((resultArray) => {
-                return resultArray;
-            });
+            let actualErrors = checkoutPage.getErrors().then((resultArray) => resultArray);
             expect<any>(actualErrors).toEqual((<any>data).expectedError);
         });
     });
 
-})
+});

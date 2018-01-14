@@ -5,8 +5,8 @@ import { element, by } from 'protractor';
 
 
 describe('Blink Navigation on Web', () => {
-    var header : Header = new Header();
-    var homePage : BlinkHomePage = new BlinkHomePage();   
+    let header : Header = new Header();
+    let homePage : BlinkHomePage = new BlinkHomePage();
     
    /* 
         hooks 
@@ -15,9 +15,9 @@ describe('Blink Navigation on Web', () => {
     beforeAll(() => {
         homePage.get();
         WebElementWrapper.waitForAnyPageToLoad();
-    })
+    });
     
-    afterAll(() => { 
+    afterAll(() => {
         //homePage.resetBrowserSession();
     });
 
@@ -26,9 +26,9 @@ describe('Blink Navigation on Web', () => {
     **/
     
     it('user should be able to navigate to registration page using web ', () => {
-           header.selectFromNavMenuHeader('LOCATIONS');     
+           header.selectFromNavMenuHeader('LOCATIONS');
            WebElementWrapper.itemExits(element.all(by.css('div.header-promo-banner + div.nav-list >a')), 'LOCATIONS')
-           .then(bool => console.log(`bool: ${bool}`));     
-    })
+           .then(bool => console.log(`bool: ${bool}`));
+    });
 
-})
+});

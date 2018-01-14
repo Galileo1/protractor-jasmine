@@ -11,9 +11,9 @@ import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 
 describe('Blink Device Navigation', () => {
 
-    var homePage : BlinkHomePage = new BlinkHomePage();
-    var locationsPage : LocationsPage = new LocationsPage();
-    var checkoutPage : CheckoutPage = new CheckoutPage();
+    let homePage : BlinkHomePage = new BlinkHomePage();
+    let locationsPage : LocationsPage = new LocationsPage();
+    let checkoutPage : CheckoutPage = new CheckoutPage();
     
    /* 
         hooks 
@@ -22,9 +22,9 @@ describe('Blink Device Navigation', () => {
     beforeAll(() => {
         homePage.get();
         WebElementWrapper.waitForAnyPageToLoad();
-    })
+    });
     
-    afterAll(() => { 
+    afterAll(() => {
         //homePage.resetBrowserSession();
     });
 
@@ -33,12 +33,12 @@ describe('Blink Device Navigation', () => {
     **/
     
     it('user should be able to navigate to registration page using device', () => {
-           homePage.gotoLocationsUsingADevice();           
+           homePage.gotoLocationsUsingADevice();
            locationsPage.closePopUpModalIfOpen();
            locationsPage.selectYourPreferedClubLocation("Blink Murray Hill");
            locationsPage.selectMembershipPlan();
            checkoutPage.waitForCheckoutPageToBeLoaded();
-           expect<any>(checkoutPage.getCurrentUrl()).toBe(constants.DEVICE_SUBS_URL);                   
+           expect<any>(checkoutPage.getCurrentUrl()).toBe(constants.DEVICE_SUBS_URL);
     });
 
-})
+});

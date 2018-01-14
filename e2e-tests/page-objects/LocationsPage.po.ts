@@ -16,36 +16,36 @@ export class LocationsPage extends BasePage {
 
     constructor() {
         super();
-        this.locationPageModal = element(by.css('#blinkModal'));        
+        this.locationPageModal = element(by.css('#blinkModal'));
         this.closeModal = element(by.xpath('//button[contains(@class,"close")]'));
         this.clubsLocation = element.all(by.xpath('//div[@class="area-block-clubs"]/ul/li//h5'));
         //this.greenPlanSubscription = element(by.xpath("//div[(@class='square-plan green-plan closed')]//a[(@class='btn round')]/span[2]"));
-        this.mobilePlanDetails = element(by.xpath('//div[(@class="square-plan green-plan closed")]//span[(@class="arrow")]'))
+        this.mobilePlanDetails = element(by.xpath('//div[(@class="square-plan green-plan closed")]//span[(@class="arrow")]'));
         this.locationUrl = element(by.xpath('//div[@class="area-block-clubs"]/ul/li//h5/following-sibling::div//descendant::a[(@class="btn go-to-location")]'));
     }
     
-    closePopUpModalIfOpen() {        
+    closePopUpModalIfOpen() {
         this.locationPageModal.isDisplayed().then((isDisplayed) => {
             if (isDisplayed) {
                 this.closeModal.click();
             } else {
                 console.log("Pop Up Modal is not there.");
             }
-        })
+        });
     }
 
-    selectYourPreferedClubLocation(preferLocation : string ) {        
-        WebElementWrapper.findElementByText(this.clubsLocation, preferLocation)
+    selectYourPreferedClubLocation(preferLocation : string ) {
+        WebElementWrapper.findElementByText(this.clubsLocation, preferLocation);
        //WebElementWrapper.selectClubLocation(this.preferedJoiningLocation);
     }
 
-    subscribeForGreenPlan() {        
-        WebElementWrapper.waitForElementToBeClickable(this.greenPlanSubscription); 
+    subscribeForGreenPlan() {
+        WebElementWrapper.waitForElementToBeClickable(this.greenPlanSubscription);
     }
 
     selectMembershipPlan() {
         WebElementWrapper.waitForElementToBeClickable(this.mobilePlanDetails);
-        this.subscribeForGreenPlan();        
+        this.subscribeForGreenPlan();
     }
 
 

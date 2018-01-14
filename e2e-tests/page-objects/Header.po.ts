@@ -9,13 +9,13 @@ export class Header extends BasePage{
 
     private navMenuHeader: ElementArrayFinder;
 
-    constructor () { 
+    constructor () {
         super();
         this.navMenuHeader = element.all(by.css('div.header-promo-banner + div.nav-list >a'));
     }
 
     selectFromNavMenuHeader(navMenuItem: string) {
-        return WebElementWrapper.findElementUsingText(this.navMenuHeader, navMenuItem);       
+        return WebElementWrapper.findElementUsingText(this.navMenuHeader, navMenuItem);
    }
 
 }

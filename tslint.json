@@ -1,0 +1,22 @@
+{
+  "rulesDirectory": [
+    "node_modules/vrsource-tslint-rules/rules",
+    "node_modules/tslint-eslint-rules/dist/rules"
+  ],
+  "rules": {
+    "no-duplicate-imports": true,
+    "no-duplicate-variable": [true, "check-parameters"],
+    "no-jasmine-focus": true,
+    "no-var-keyword": true,
+    "semicolon": [true],
+    "variable-name": [true, "ban-keywords", "check-format"],
+    "no-inner-declarations": [true, "function"],
+    "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
+    "arrow-return-shorthand": [true, "multiline"],
+    "no-consecutive-blank-lines": [true, 2],
+    "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
+    "no-magic-numbers": true,
+    "no-trailing-whitespace": [true, "ignore-jsdoc", "ignore-comments", "ignore-template-strings", "ignore-blank-lines"],
+    "indent": [true, "spaces", 2]
+  }
+}

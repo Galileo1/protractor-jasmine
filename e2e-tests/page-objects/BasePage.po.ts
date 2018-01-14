@@ -2,10 +2,10 @@ import { browser, by, element, ElementFinder, ElementArrayFinder } from 'protrac
 import { WebElement } from 'selenium-webdriver';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 
-export abstract class BasePage {     
+export abstract class BasePage {
 
     public sideBarNavMenu : ElementArrayFinder;
-    public headerPromoMenu : ElementArrayFinder
+    public headerPromoMenu : ElementArrayFinder;
     // private mobLocation : ElementFinder
     // private passwordToasterContent: ElementFinder;    
 
