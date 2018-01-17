@@ -17,6 +17,7 @@
     "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
     "no-magic-numbers": true,
     "no-trailing-whitespace": [true, "ignore-jsdoc", "ignore-comments", "ignore-template-strings", "ignore-blank-lines"],
-    "indent": [true, "spaces", 2]
+    "indent": [true, "spaces", 2],
+    "quotemark": [true, "single"]
   }
 }

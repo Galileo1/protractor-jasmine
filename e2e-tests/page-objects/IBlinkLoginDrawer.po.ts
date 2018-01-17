@@ -1,17 +1,22 @@
-import { ElementFinder, element, by } from "protractor";
-import { ElementHelper, ElementArrayFinder } from "protractor";
+import { ElementFinder, element, by, ElementArrayFinder, browser, ExpectedConditions } from 'protractor';
 //import { Helper } from "../../helpers/helper";
-import { timeout } from "../config/constants";
-import { BlinkHomePage } from "./BlinkHomePage.po";
+import { timeout } from '../config/constants';
+import { BlinkHomePage } from './BlinkHomePage.po';
+import { waitForElementToBeVisible, waitForElementToBeInVisible, waitForElementToDisappear } from '../../helpers/WaitHelpers';
+import * as BBPromise from 'Bluebird';
+import { BasePage } from './BasePage.po';
 
 
-export class IBlinkLoginDrawer {   
+export class IBlinkLoginDrawer extends BasePage {
+    
 
     //Login form
     private loginFormEmailField : ElementFinder;
     private loginFormSubmitButton: ElementFinder;
     private loginFormPasswordField: ElementFinder;
     private loginFormErrorSet: ElementArrayFinder;
+    private loginFormPasswordErrorSet: ElementFinder;
+    private loginFormEmailErrorSet: ElementFinder;
 
     private forgotEmail: ElementFinder;
     private forgotPassword: ElementFinder;
@@ -46,14 +51,17 @@ export class IBlinkLoginDrawer {
     private blinkHomePage: BlinkHomePage;
 
     constructor() {
+        super();
         this.blinkHomePage = new BlinkHomePage();
         this.loginFormEmailField = element(by.css('form.login-form input#email'));
         this.loginFormPasswordField = element(by.css('form.login-form input#password'));
         this.loginFormSubmitButton = element(by.css('a.round-button.login-btn.right-pannel-button'));
         this.loginFormErrorSet = element.all(by.css('div.login-form div.error-set'));
+        this.loginFormPasswordErrorSet = element(by.css('form.login-form div.password div.error-set > p'));
+        this.loginFormEmailErrorSet = element(by.css('form.login-form div.email div.error-set > p'));
         
         this.forgotPassword = element(by.css('div.login-form a.btn.forgot-pw-btn'));
-        this.registerButton = element(by.css('div.login-form a.register-btn'));       
+        this.registerButton = element(by.css('div.login-form a.register-btn'));
 
         this.forgotEmailBarcodeField = element(by.css('div.forgot-email-form input#barcode'));
         this.forgotEmailErrorSet = element(by.css('div.forgot-email-form div.error-set'));
@@ -62,7 +70,7 @@ export class IBlinkLoginDrawer {
         this.forgotPasswordEmailField = element(by.css('div.forgot-password-form input#email'));
         this.forgotPasswordErrorSet = element(by.css('div.forgot-password-form div.error-set'));
         this.forgotPasswordSubmitButton = element(by.css('div.forgot-password-form a.round-button'));
-        this.forgotPasswordForgotEmail = element(by.css('div.forgot-password-form a.btn.forgot-email-btn'));        
+        this.forgotPasswordForgotEmail = element(by.css('div.forgot-password-form a.btn.forgot-email-btn'));
 
         this.closeRightDrawer = element(by.css('aside.side-bar-right span'));
         this.rightDrawerClosed = element(by.css('aside.side-bar-right.closed'));
@@ -81,46 +89,89 @@ export class IBlinkLoginDrawer {
     }
 
     enterLoginEmail(emailId: string) {
-        return this.loginFormEmailField.sendKeys(emailId);
+        return this.loginFormEmailField.clear().then(() => this.loginFormEmailField.sendKeys(emailId));
     }
+
     enterLoginPassword(password: string) {
-        return this.loginFormPasswordField.sendKeys(password);
+        return this.loginFormPasswordField.clear().then(() => this.loginFormPasswordField.sendKeys(password));
     }
+
     submitLoginForm() {
         return this.loginFormSubmitButton.click();
     }
 
-
-
     loginIntoBlink(emailId: string, password:string) {
-        this.isRightDrawerOpen().then((isOpen) => {
+        this.isRightDrawerOpen().then((isOpen: boolean) => {
             if(isOpen) {
-                this.enterLoginEmail(emailId);
-                this.enterLoginPassword(password);
-                this.submitLoginForm();
+
+                //return enterloginDetails(emailId, password);
+                this.enterLoginEmail(emailId)
+                .then(() => this.enterLoginPassword(password))
+                .then(() => this.submitLoginForm())
+                .then(() => this.loaderImageIsInvisible())
+                // .then(() => this.loaderImageIsInvisible())
+                // .then((isInvisible) => isInvisible ? successMessage() : errorMessage())
+               // return enterloginDetails(emailId, password);
+                
+            //    return this.loginFormEmailField.sendKeys(emailId).then(() => {
+            //        this.loginFormPasswordField.sendKeys(password)
+            //    }).then(() => this.loginFormSubmitButton.click());
+
             } else {
-                //this.blinkHomePage.openMemberLoginDrawer();
+                //return enterloginDetails(emailId, password);
+                this.enterLoginEmail(emailId)
+                .then(() => this.enterLoginPassword(password))
+                .then(() => this.submitLoginForm())
+                //return enterloginDetails(emailId, password);
+                // this.enterLoginEmail(emailId)
+                // .then(() => this.enterLoginPassword(password))
+                // .then(() => this.submitLoginForm())
+                // return this.loginFormEmailField.sendKeys(emailId).then(() => {
+                //     this.loginFormPasswordField.sendKeys(password)
+                // }).then(() => this.loginFormSubmitButton.click());
             }
         });
     }
 
-    isRightDrawerOpen() {
-        return this.rightDrawerOpen.isPresent();
+    isRightDrawerOpen() {       
+        return waitForElementToBeVisible(this.rightDrawerOpen, timeout.IMPLICIT);   
     }
 
     // isRightDrawerClosed() {
     //     return Helper.not(this.rightDrawerOpen.isPresent());
     // }
 
-    getAllErrors() {        
-        this.loginFormErrorSet.getText().then((errors) => {
-            console.log(errors)
-            return errors;
-        });        
+    getErrors() {
+        return this.loginFormErrorSet.map((element) => element.getText());
     }
 
+    loaderImageIsInvisible() {         
+        
 
-    
+        //browser.wait(ExpectedConditions.invisibilityOf(this.loaderImage), timeout.LONG);
+        let lengthOfEmailErrorSet = this.loginFormEmailErrorSet.getText().then((text) => text.length > 0);
+        let lengthOfPasswordErrorSet = this.loginFormPasswordErrorSet.getText().then((text) => text.length > 0);
+        browser.wait(ExpectedConditions.or(lengthOfEmailErrorSet, lengthOfPasswordErrorSet) timeout.LONG);
+        // browser.wait(() => { 
+        //     if (lengthOfEmailErrorSet || lengthOfPasswordErrorSet) {
+        //         console.log(`has text`);
+        //         return; 
+        //     }
+        // }, timeout.LONG,  'Error message string')
+    }    
+}
 
-    
+function enterloginDetails(emailId: string, password: string) {
+     return this.enterLoginEmail(emailId)
+    .then(() => this.enterLoginPassword(password))
+    .then(() => this.submitLoginForm())
+    .then((isInvisible) => isInvisible ? successMessage() : errorMessage())    
+}
+
+function successMessage() {
+    console.log(`loader image is invisible.`)
+}
+
+function errorMessage() {
+    console.log(`loader image is still there`)
 }

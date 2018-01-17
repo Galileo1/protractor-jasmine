@@ -1,6 +1,6 @@
 import { browser, Config } from 'protractor';
 import {timeout} from './constants';
-import {SpecReporter} from "jasmine-spec-reporter";
+import {SpecReporter} from 'jasmine-spec-reporter';
 import reporter = require('../../helpers/Reporter');
 import * as  Jasmine2HtmlReporter from 'protractor-jasmine2-html-reporter';
 
@@ -15,7 +15,7 @@ export let config: Config = {
   //geckoDriver: '../../node_modules/protractor/node_modules/webdriver-manager/geckodriver-v0.19.1.exe',
   allScriptsTimeout: 50000,
   getPageTimeout: 50000,
-  baseUrl: "https://www.blinkfitness.com/",
+  baseUrl: 'https://devpreview:Equinox1!@qa.blinkfitness.com/',
   // localSeleniumStandaloneOpts: {
   //   jvmArgs: [
   //     '-Dwebdriver.ie.driver=../../node_modules/protractor/node_modules/webdriver-manager/IEDriverServer3.7.0.exe'
@@ -37,9 +37,10 @@ export let config: Config = {
     // }, 
     {
       browserName: 'chrome' ,
-      specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
+      //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
+      specs: [ '../specs/**/BlinkLoginErrors.spec.js',],
       chromeOptions : {
-        args : ["--no-proxy-server"]
+        args : ['--no-proxy-server']
       }
       //  shardTestFiles: true,
       //  count : 2

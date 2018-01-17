@@ -22,6 +22,27 @@ export const membership = {
 
 export const timeout = {
     DEFAULT: 30000,
+    PURCHASE_TIMEOUT: 90000,
     POLLING: 3000,
+    SHORT: 5000,
+    LONG: 15000,
     IMPLICIT: 5000
+};
+
+export const creditCard = {
+    NAME : 'test',
+    NUMBER_VISA : '4005519200000004',
+    NUMBER_MC: '5405010100000016',
+    NUMBER_AMEX: '341111597241002',
+    MONTH : 'Dec',
+    YEAR : '2025',
+    CVV : '1111',
+};
+
+export const freeTrial = {
+    FIRSTNAME : 'TestFree',
+    LASTNAME : 'Trial',
+    PHONE_NUMBER : '2003004444',
+    LOCATION: 'Blink Journal Square',
+    LOCATION_CODE: '625'
 };

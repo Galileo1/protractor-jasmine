@@ -6,12 +6,12 @@ import { WebElement } from 'selenium-webdriver';
 export class LocationsPage extends BasePage {
     private locationUrl: ElementFinder;
     private mobilePlanDetails: ElementFinder;
-    private pageUrl : string = "https://www.blinkfitness.com/locations?icmp=hdr_module_locations";
+    private pageUrl : string = 'https://www.blinkfitness.com/locations?icmp=hdr_module_locations';
     private locationPageModal : ElementFinder;
     private closeModal : ElementFinder;
     private clubsLocation : ElementArrayFinder;
     private someElement: ElementFinder;
-    private preferedJoiningLocation = "Blink Boerum Hill";
+    private preferedJoiningLocation = 'Blink Boerum Hill';
     private greenPlanSubscription : ElementFinder;
 
     constructor() {
@@ -29,7 +29,7 @@ export class LocationsPage extends BasePage {
             if (isDisplayed) {
                 this.closeModal.click();
             } else {
-                console.log("Pop Up Modal is not there.");
+                console.log('Pop Up Modal is not there.');
             }
         });
     }

@@ -14,8 +14,7 @@ export class WebElementWrapper {
     }
 
     static sendText(element: ElementFinder, text: string) {
-        element.clear();
-        element.sendKeys(text);
+        return element.clear().then(() => element.sendKeys(text));
     }
 
     static findElementByText(elements: ElementArrayFinder, text: string) {
@@ -28,7 +27,7 @@ export class WebElementWrapper {
                         return element.click();
                     }
                 }).catch ((error) => {
-                    console.log("failed to find element ::" + error);
+                    console.log(`failed to find element ${element.toString()} due to error : ${error}`);
                     return newLocal;
                 });
         });
@@ -47,7 +46,7 @@ export class WebElementWrapper {
     static waitForElementToBeClickable(element : ElementFinder) {
         return browser.wait(ExpectedConditions.elementToBeClickable(element), timeout.DEFAULT)
             .then(() => element.click())
-            .catch((error) => browser.executeScript("arguments[0].click();", element.getWebElement()));
+            .catch((error) => browser.executeScript('arguments[0].click();', element.getWebElement()));
     }
 
     static waitForElementToBeVisible(element : ElementFinder) {
@@ -62,7 +61,7 @@ export class WebElementWrapper {
         if (!element.isSelected()) {
             return element.click();
         } else {
-            console.info("Element is already selected.");
+            console.info(`Element ${element.toString()} is already selected.`);
         }
     }
 

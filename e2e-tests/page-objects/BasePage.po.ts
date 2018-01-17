@@ -1,11 +1,14 @@
 import { browser, by, element, ElementFinder, ElementArrayFinder } from 'protractor';
 import { WebElement } from 'selenium-webdriver';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
+import { IBlinkLoginDrawer } from './IBlinkLoginDrawer.po';
 
 export abstract class BasePage {
 
     public sideBarNavMenu : ElementArrayFinder;
     public headerPromoMenu : ElementArrayFinder;
+    public loaderImage: ElementFinder = element(by.css('div.loader'));
+    //public iblinkLoginDrawer : IBlinkLoginDrawer = new IBlinkLoginDrawer();
     // private mobLocation : ElementFinder
     // private passwordToasterContent: ElementFinder;    
 

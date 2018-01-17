@@ -1,0 +1,44 @@
+{ 
+    "1. should throw error when email field is blank":
+    { 
+      "emailId": "",
+      "password": "test1234",      
+      "expectedError": [ "invalid email" ]
+    },
+    "2. should throw error when does not match the pattern x@x.xx":
+    { 
+      "emailId": "abc.com",
+      "password": "test1234",      
+      "expectedError": [ "invalid email" ]
+    },
+    "3. should throw error when password entered is less than 5 characters":
+    { 
+      "emailId": "abcd@mail.com",
+      "password": "test",
+      "expectedError": [ "Passwords must be at least 5 characters" ]         
+    },
+    "4. should throw error when both email and password fields are blank":
+    { 
+      "emailId": "",
+      "password": "",      
+      "expectedError": [ "invalid email", "Passwords must be at least 5 characters" ]
+    },
+    "5. should throw error when password fields is blank":
+    { 
+      "emailId": "abc@mail.com",
+      "password": "",         
+      "expectedError": [ "Passwords must be at least 5 characters" ]
+    },
+    "6. should throw error when password entered is incorrect":
+    { 
+      "emailId": "scott.zillitto@blinkfitness.com",
+      "password": "test1234",     
+      "expectedError": [ "Username and/or password is incorrect." ]
+    },
+    "7. should fail when phone number is not specified":
+    {        
+      "emailId": "scott.zillitto123@blinkfitness.com",
+      "password": "123456",     
+      "expectedError": [ "Username and/or password is incorrect." ]
+    }
+  }

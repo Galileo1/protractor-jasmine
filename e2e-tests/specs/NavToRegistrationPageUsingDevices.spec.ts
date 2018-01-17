@@ -35,7 +35,7 @@ describe('Blink Device Navigation', () => {
     it('user should be able to navigate to registration page using device', () => {
            homePage.gotoLocationsUsingADevice();
            locationsPage.closePopUpModalIfOpen();
-           locationsPage.selectYourPreferedClubLocation("Blink Murray Hill");
+           locationsPage.selectYourPreferedClubLocation('Blink Murray Hill');
            locationsPage.selectMembershipPlan();
            checkoutPage.waitForCheckoutPageToBeLoaded();
            expect<any>(checkoutPage.getCurrentUrl()).toBe(constants.DEVICE_SUBS_URL);

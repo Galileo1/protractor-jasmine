@@ -142,7 +142,7 @@ export class CheckoutPage extends BasePage {
 
     selectYourBillingState(state: string) {
         let selectDropDown : SelectWrapper = new SelectWrapper(this.selectBillingState);
-        return selectDropDown.selectByValue("Alaska");
+        return selectDropDown.selectByValue('Alaska');
         
     }
 
@@ -176,7 +176,7 @@ export class CheckoutPage extends BasePage {
         let selectDropDownGender : SelectWrapper = new SelectWrapper(this.selectGender);
         selectDropDownGender.selectByIndex(0);
         let selectDropDown : SelectWrapper = new SelectWrapper(this.accountState);
-        selectDropDown.selectByText("state");
+        selectDropDown.selectByText('state');
     }
 
     getErrors() {

@@ -9,7 +9,7 @@ export let config: Config = {
   specs: [ '../specs/**/*.spec.js' ],
   allScriptsTimeout: 50000,
   getPageTimeout: 50000,
-  baseUrl: "https://preview.trademe.co.nz",
+  baseUrl: 'https://preview.trademe.co.nz',
   multiCapabilities: [
     
     // {
