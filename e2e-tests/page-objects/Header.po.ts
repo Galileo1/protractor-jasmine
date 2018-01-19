@@ -4,6 +4,7 @@ import { SelectWrapper } from '../../helpers/SelectWrapper';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { WebElement } from 'selenium-webdriver';
 import constants from '../config/constants';
+import  '../../helpers/jshelpers/protractor-extend'
 
 export class Header extends BasePage{
 
@@ -15,7 +16,7 @@ export class Header extends BasePage{
     }
 
     selectFromNavMenuHeader(navMenuItem: string) {
-        return WebElementWrapper.findElementUsingText(this.navMenuHeader, navMenuItem);
+        // return WebElementWrapper.findElementUsingText(this.navMenuHeader, navMenuItem);        
+        return this.navMenuHeader.getByText(navMenuItem);
    }
-
 }

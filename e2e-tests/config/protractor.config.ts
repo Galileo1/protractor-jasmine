@@ -38,7 +38,7 @@ export let config: Config = {
     {
       browserName: 'chrome' ,
       //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
-      specs: [ '../specs/**/BlinkLoginErrors.spec.js',],
+      specs: [ '../specs/**/headerTest.spec.js',],
       chromeOptions : {
         args : ['--no-proxy-server']
       }

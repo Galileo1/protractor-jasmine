@@ -28,12 +28,12 @@ describe('Blink Navigation on Web', () => {
     **/
     
     it('user should be able to navigate to registration page using web ', () => {
-        //    header.selectFromNavMenuHeader('LOCATIONS');
+            header.selectFromNavMenuHeader('LOCATIONS').click()
         //    WebElementWrapper.itemExits(element.all(by.css('div.header-promo-banner + div.nav-list >a')), 'LOCATIONS')
         //    .then(bool => console.log(`bool: ${bool}`));
 
-        homePage.openMemberLoginDrawer();
-        expect<any>(iblinkLoginDrawer.isRightDrawerOpen()).toBeTruthy();
+        // homePage.openMemberLoginDrawer();
+        // expect<any>(iblinkLoginDrawer.isRightDrawerOpen()).toBeTruthy();
     });
 
 });

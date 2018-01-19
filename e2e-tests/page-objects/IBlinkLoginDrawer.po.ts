@@ -148,10 +148,10 @@ export class IBlinkLoginDrawer extends BasePage {
     loaderImageIsInvisible() {         
         
 
-        //browser.wait(ExpectedConditions.invisibilityOf(this.loaderImage), timeout.LONG);
-        let lengthOfEmailErrorSet = this.loginFormEmailErrorSet.getText().then((text) => text.length > 0);
-        let lengthOfPasswordErrorSet = this.loginFormPasswordErrorSet.getText().then((text) => text.length > 0);
-        browser.wait(ExpectedConditions.or(lengthOfEmailErrorSet, lengthOfPasswordErrorSet) timeout.LONG);
+        browser.wait(ExpectedConditions.invisibilityOf(this.loaderImage), timeout.LONG);
+        // let lengthOfEmailErrorSet = this.loginFormEmailErrorSet.getText().then((text) => text.length > 0);
+        // let lengthOfPasswordErrorSet = this.loginFormPasswordErrorSet.getText().then((text) => text.length > 0);
+        // browser.wait(ExpectedConditions.or(lengthOfEmailErrorSet, lengthOfPasswordErrorSet) timeout.LONG);
         // browser.wait(() => { 
         //     if (lengthOfEmailErrorSet || lengthOfPasswordErrorSet) {
         //         console.log(`has text`);
