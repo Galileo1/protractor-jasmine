@@ -18,5 +18,10 @@ export class Header extends BasePage{
     selectFromNavMenuHeader(navMenuItem: string) {
         // return WebElementWrapper.findElementUsingText(this.navMenuHeader, navMenuItem);        
         return this.navMenuHeader.getByText(navMenuItem);
-   }
+    }
+
+    isNavMenuHeaderPresent(navMenuItem: string) {
+        // return WebElementWrapper.findElementUsingText(this.navMenuHeader, navMenuItem);        
+        return this.navMenuHeader.hasItem(navMenuItem);
+    }
 }
