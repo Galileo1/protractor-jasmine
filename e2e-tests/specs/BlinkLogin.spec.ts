@@ -51,18 +51,23 @@ describe('Blink login errors', () => {
         - data driven 
     **/
     using(data, (data, description) => {
-        it (description, () => {           
-            
+        it (description, () => {
             iblinkLoginDrawer.loginIntoBlink((<any>data).emailId, (<any>data).password);   
-            let actualErrors = iblinkLoginDrawer.getErrors().then((resultArray) => {
-                 console.log(` ars : ${resultArray.filter((e)=> e)}`);
-                // console.log(` ers : ${(<any>data).expectedError}`);
-                return resultArray.filter((e) => e);
-            });
-           
-            //console.log(` ars1 : ${actualErrors.then((e)=> e)}`);                 
+            let actualErrors = iblinkLoginDrawer.getErrors().then((resultArray) => {                
+                return resultArray.filter((error) => error);
+            });           
+                           
             expect<any>(actualErrors).toEqual((<any>data).expectedError);
         });
     });
+
+    // it('User should be able to login with correct email/password', () => {
+    //     let emailId = '';
+    //     let password = '';
+    //     iblinkLoginDrawer.loginIntoBlink(emailId, password); 
+        
+        
+
+    // })
 
 });

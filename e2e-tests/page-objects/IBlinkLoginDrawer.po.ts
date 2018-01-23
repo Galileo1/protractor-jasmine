@@ -1,11 +1,11 @@
 import { ElementFinder, element, by, ElementArrayFinder, browser, ExpectedConditions } from 'protractor';
-//import { Helper } from "../../helpers/helper";
 import { timeout } from '../config/constants';
 import { BlinkHomePage } from './BlinkHomePage.po';
 import { waitForElementToBeVisible, waitForElementToBeInVisible, waitForElementToDisappear } from '../../helpers/WaitHelpers';
 import * as BBPromise from 'Bluebird';
 import { BasePage } from './BasePage.po';
-
+import '../../helpers/ElementExtend'
+import '../../helpers/ExpectedConditionExtend'
 
 export class IBlinkLoginDrawer extends BasePage {
     
@@ -89,11 +89,11 @@ export class IBlinkLoginDrawer extends BasePage {
     }
 
     enterLoginEmail(emailId: string) {
-        return this.loginFormEmailField.clear().then(() => this.loginFormEmailField.sendKeys(emailId));
+        return this.loginFormEmailField.sendText(emailId);
     }
 
     enterLoginPassword(password: string) {
-        return this.loginFormPasswordField.clear().then(() => this.loginFormPasswordField.sendKeys(password));
+        return this.loginFormPasswordField.sendText(password);
     }
 
     submitLoginForm() {
@@ -103,32 +103,10 @@ export class IBlinkLoginDrawer extends BasePage {
     loginIntoBlink(emailId: string, password:string) {
         this.isRightDrawerOpen().then((isOpen: boolean) => {
             if(isOpen) {
-
-                //return enterloginDetails(emailId, password);
                 this.enterLoginEmail(emailId)
                 .then(() => this.enterLoginPassword(password))
                 .then(() => this.submitLoginForm())
-                .then(() => this.loaderImageIsInvisible())
-                // .then(() => this.loaderImageIsInvisible())
-                // .then((isInvisible) => isInvisible ? successMessage() : errorMessage())
-               // return enterloginDetails(emailId, password);
-                
-            //    return this.loginFormEmailField.sendKeys(emailId).then(() => {
-            //        this.loginFormPasswordField.sendKeys(password)
-            //    }).then(() => this.loginFormSubmitButton.click());
-
-            } else {
-                //return enterloginDetails(emailId, password);
-                this.enterLoginEmail(emailId)
-                .then(() => this.enterLoginPassword(password))
-                .then(() => this.submitLoginForm())
-                //return enterloginDetails(emailId, password);
-                // this.enterLoginEmail(emailId)
-                // .then(() => this.enterLoginPassword(password))
-                // .then(() => this.submitLoginForm())
-                // return this.loginFormEmailField.sendKeys(emailId).then(() => {
-                //     this.loginFormPasswordField.sendKeys(password)
-                // }).then(() => this.loginFormSubmitButton.click());
+                .then(() => this.waitUntilErrorAppears());
             }
         });
     }
@@ -145,27 +123,18 @@ export class IBlinkLoginDrawer extends BasePage {
         return this.loginFormErrorSet.map((element) => element.getText());
     }
 
-    loaderImageIsInvisible() {         
-        
-
+    waitUntilErrorAppears() { 
         //browser.wait(ExpectedConditions.invisibilityOf(this.loaderImage), timeout.LONG);
-        let lengthOfEmailErrorSet = this.loginFormEmailErrorSet.getText().then((text) => text.length > 0);
-        let lengthOfPasswordErrorSet = this.loginFormPasswordErrorSet.getText().then((text) => text.length > 0);
-        browser.wait(ExpectedConditions.or(lengthOfEmailErrorSet, lengthOfPasswordErrorSet) timeout.LONG);
-        // browser.wait(() => { 
-        //     if (lengthOfEmailErrorSet || lengthOfPasswordErrorSet) {
-        //         console.log(`has text`);
-        //         return; 
-        //     }
-        // }, timeout.LONG,  'Error message string')
+        let lengthOfEmailErrorSet = ExpectedConditions.hasSomeText(this.loginFormEmailErrorSet);
+        let lengthOfPasswordErrorSet = ExpectedConditions.hasSomeText(this.loginFormPasswordErrorSet);
+        browser.wait(ExpectedConditions.or(lengthOfEmailErrorSet, lengthOfPasswordErrorSet), timeout.LONG);        
     }    
 }
 
 function enterloginDetails(emailId: string, password: string) {
      return this.enterLoginEmail(emailId)
     .then(() => this.enterLoginPassword(password))
-    .then(() => this.submitLoginForm())
-    .then((isInvisible) => isInvisible ? successMessage() : errorMessage())    
+    .then(() => this.submitLoginForm());     
 }
 
 function successMessage() {
