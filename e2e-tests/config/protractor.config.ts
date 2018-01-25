@@ -15,7 +15,9 @@ export let config: Config = {
   //geckoDriver: '../../node_modules/protractor/node_modules/webdriver-manager/geckodriver-v0.19.1.exe',
   allScriptsTimeout: 50000,
   getPageTimeout: 50000,
-  baseUrl: 'https://devpreview:Equinox1!@qa.blinkfitness.com/',
+  baseUrl: 'https://devpreview:Equinox1!@qa-maintenance.blinkfitness.com/',
+  //baseUrl: 'https://blinkfitness.com/',
+
   // localSeleniumStandaloneOpts: {
   //   jvmArgs: [
   //     '-Dwebdriver.ie.driver=../../node_modules/protractor/node_modules/webdriver-manager/IEDriverServer3.7.0.exe'
@@ -27,7 +29,23 @@ export let config: Config = {
 //     //   'args': ['--load-extension=' + '../ads-blocker']
 //     // }
 // },
-  multiCapabilities: [
+  multiCapabilities: [{
+      browserName: 'chrome',
+      //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js','../specs/**/BlinkLogin.spec.js'],
+      specs: [ '../specs/**/BlinkLogin.spec.js'],
+      chromeOptions : {
+        args : ['--no-proxy-server']
+      }
+    }, {
+      browserName: 'chrome',
+        'chromeOptions': {
+            'mobileEmulation': {
+                'deviceName': 'Nexus 6P'
+        }
+      },
+      //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ,'../specs/**/BlinkLogin.spec.js'],
+      specs: [ '../specs/**/BlinkLogin.spec.js'],
+    }
     
     // {    
     //   browserName : 'firefox',
@@ -35,16 +53,16 @@ export let config: Config = {
     //   'acceptInsecureCerts': true,
     //    specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
     // }, 
-    {
-      browserName: 'chrome' ,
-      //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
-      specs: [ '../specs/**/BlinkLoginErrors.spec.js',],
-      chromeOptions : {
-        args : ['--no-proxy-server']
-      }
-      //  shardTestFiles: true,
-      //  count : 2
-    },
+    // {
+    //   browserName: 'chrome' ,
+    //   //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ],
+    //   specs: [ '../specs/**/BlinkLogin.spec.js',],
+    //   chromeOptions : {
+    //     args : ['--no-proxy-server']
+    // },
+    //   //  shardTestFiles: true,
+    //   //  count : 2
+    // },
   //  chromeOptions: {
   //   args: [ "--headless", "--disable-gpu"]
   // }
@@ -56,7 +74,7 @@ export let config: Config = {
     //             'deviceName': 'Nexus 6P'
     //         }
     //     },
-    //     specs: [ '../specs/**/NavToRegistrationPageUsingDevices.spec.js' ,'../specs/**/BlinkRegisterationErrors.spec.js' ],
+    //     specs: [ '../specs/**/BlinkLogin.spec.js',],
     // }
   ],
   //maxInstances: 2,
@@ -71,10 +89,11 @@ export let config: Config = {
     jasmine.getEnv().addReporter(
       new Jasmine2HtmlReporter({
         savePath: './reports',
+        cleanDestination: true,
         takeScreenshots: true,
-        takeScreenshotsOnlyOnFailures: true,
-        fileNameDateSuffix: true
-
+        takeScreenshotsOnlyOnFailures: false,
+        fileNameDateSuffix: true,
+        consolidateAll: true
       }));
      
   },

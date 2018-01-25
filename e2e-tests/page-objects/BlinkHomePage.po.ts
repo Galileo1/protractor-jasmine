@@ -4,10 +4,12 @@ import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { timeout } from '../config/constants';
 import { IBlinkLoginDrawer } from './IBlinkLoginDrawer.po';
 import { waitForElement } from '../../helpers/WaitHelpers';
+import { ExpectedConditions } from '../../helpers/ElementExtend';
 // import { BasePage } from './BasePage.po';
 
 export class BlinkHomePage extends BasePage {
     
+    private homePageContainer: ElementFinder;
     private locations: ElementArrayFinder;
     private navLocation : ElementFinder;
     private mobLocation : ElementFinder;
@@ -15,16 +17,23 @@ export class BlinkHomePage extends BasePage {
     
 
     //mobile
-    private mobileHamburger: ElementFinder;
+    private deviceViewHeader: ElementFinder;
+    private deviceViewMemberLogin: ElementFinder;
+    private deviceViewHamburgerMenu: ElementFinder;
     private mobileLocations: ElementFinder;
+
 
     constructor () {
         super();
+        this.homePageContainer = element(by.css('div#page-container'));
         this.locations = element.all(by.xpath('//span[@data-hover="Locations"]'));
         this.navLocation = element(by.css('div.nav-list:nth-child(2) > a:nth-child(2) > div:nth-child(1) > span:nth-child(1)'));
-        this.iblinkMemberLogin = element(by.css('p.account-nav'));
-        this.mobileHamburger = element(by.css('.mobile-menu-open > span:nth-child(1)'));
+        this.iblinkMemberLogin = element(by.css('p.account-nav'));       
         this.mobileLocations = element(by.css('a.locations:nth-child(1) > div:nth-child(1) > span:nth-child(1)'));
+        
+        this.deviceViewHeader = element(by.css('header.header.cf.slide-trans'));
+        this.deviceViewMemberLogin = element(by.css('div.account-button'));
+        this.deviceViewHamburgerMenu = this.deviceViewHeader.element(by.css('.mobile-menu-open > span:nth-child(1)'));
     }
 
     gotoLocations() {
@@ -41,7 +50,7 @@ export class BlinkHomePage extends BasePage {
     }
 
     selectTheHamburgerMenu() {
-        return WebElementWrapper.waitForElementToBeClickable(this.mobileHamburger);
+        return WebElementWrapper.waitForElementToBeClickable(this.deviceViewHamburgerMenu);
     }
 
     navigateToLocationsOnDevices() {
@@ -59,7 +68,12 @@ export class BlinkHomePage extends BasePage {
     }
 
     openMemberLoginDrawer() {
-        return waitForElement(this.iblinkMemberLogin, timeout.SHORT).click();
+
+        if (this.homePageContainer.hasClass('mobile-view-activated')) {            
+            return this.deviceViewMemberLogin.safeClick();
+        } else {           
+            return this.iblinkMemberLogin.safeClick();
+        }
     }
 
     // rightDrawerIsOpen() {

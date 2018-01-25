@@ -38,21 +38,22 @@ describe('Blink login errors', () => {
         homePage.openMemberLoginDrawer();
     });
 
-    beforeEach(() => {
-        expect<any>(iblinkLoginDrawer.isRightDrawerOpen()).toBeTruthy();
-    })
+    // beforeEach(() => {
+    //     //homePage.openMemberLoginDrawer();
+    //     expect<any>(iblinkLoginDrawer.isRightDrawerOpen()).toBeTruthy();
+    // })
 
-    afterAll(() => {
-        homePage.resetBrowserSession();
-    });
+    // afterAll(() => {
+    //     homePage.resetBrowserSession();
+    // });
 
     /*
         - specs  
         - data driven 
     **/
-    using(data, (data, description) => {
+    using(data, (data, description) => {        
         it (description, () => {
-            iblinkLoginDrawer.loginIntoBlink((<any>data).emailId, (<any>data).password);   
+            iblinkLoginDrawer.attemptTologinIntoBlink((<any>data).emailId, (<any>data).password);   
             let actualErrors = iblinkLoginDrawer.getErrors().then((resultArray) => {                
                 return resultArray.filter((error) => error);
             });           
@@ -61,13 +62,11 @@ describe('Blink login errors', () => {
         });
     });
 
-    // it('User should be able to login with correct email/password', () => {
-    //     let emailId = '';
-    //     let password = '';
-    //     iblinkLoginDrawer.loginIntoBlink(emailId, password); 
-        
-        
-
-    // })
+    it('User should be able to login with correct email/password', () => {        
+        let emailId = 'scott.zillitto@blinkfitness.com';
+        let password = '123456';
+        iblinkLoginDrawer.loginIntoBlink(emailId, password);
+        expect<any>(browser.getTitle()).toContain('Accounts Page');
+    })
 
 });

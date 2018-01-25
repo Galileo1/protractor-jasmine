@@ -97,7 +97,18 @@ export class IBlinkLoginDrawer extends BasePage {
     }
 
     submitLoginForm() {
-        return this.loginFormSubmitButton.click();
+        return this.loginFormSubmitButton.safeClick();
+    }
+
+    attemptTologinIntoBlink(emailId: string, password:string) {
+        this.isRightDrawerOpen().then((isOpen: boolean) => {
+            if(isOpen) {
+                this.enterLoginEmail(emailId)
+                .then(() => this.enterLoginPassword(password))
+                .then(() => this.submitLoginForm())
+                .then(() => this.waitUntilErrorAppears());
+            }
+        });
     }
 
     loginIntoBlink(emailId: string, password:string) {
@@ -106,7 +117,7 @@ export class IBlinkLoginDrawer extends BasePage {
                 this.enterLoginEmail(emailId)
                 .then(() => this.enterLoginPassword(password))
                 .then(() => this.submitLoginForm())
-                .then(() => this.waitUntilErrorAppears());
+                .then(() => this.waitUntilSuccessfulLogin());
             }
         });
     }
@@ -124,11 +135,17 @@ export class IBlinkLoginDrawer extends BasePage {
     }
 
     waitUntilErrorAppears() { 
-        //browser.wait(ExpectedConditions.invisibilityOf(this.loaderImage), timeout.LONG);
         let lengthOfEmailErrorSet = ExpectedConditions.hasSomeText(this.loginFormEmailErrorSet);
         let lengthOfPasswordErrorSet = ExpectedConditions.hasSomeText(this.loginFormPasswordErrorSet);
         browser.wait(ExpectedConditions.or(lengthOfEmailErrorSet, lengthOfPasswordErrorSet), timeout.LONG);        
-    }    
+    }
+
+    waitUntilSuccessfulLogin() {       
+        let loaderImageIsInvisible = ExpectedConditions.invisibilityOf(this.loginFormEmailErrorSet);
+        let iblinkHomePageUrlIsDisplayed = ExpectedConditions.urlContains('iBlink/Home'); 
+        let iblinkAccountPage = ExpectedConditions.titleContains('Accounts Page');        
+        browser.wait(ExpectedConditions.and(loaderImageIsInvisible, iblinkHomePageUrlIsDisplayed, iblinkAccountPage), timeout.VERYLONG_TIMEOUT);        
+    }  
 }
 
 function enterloginDetails(emailId: string, password: string) {
