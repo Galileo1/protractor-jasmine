@@ -100,6 +100,10 @@ export class IBlinkLoginDrawer extends BasePage {
         return this.loginFormSubmitButton.safeClick();
     }
 
+    /**
+     * login into iBlink with the expectation to see an error 
+     * 
+     */
     attemptTologinIntoBlink(emailId: string, password:string) {
         this.isRightDrawerOpen().then((isOpen: boolean) => {
             if(isOpen) {
@@ -111,6 +115,9 @@ export class IBlinkLoginDrawer extends BasePage {
         });
     }
 
+    /**
+     * login into iBlink with the expectation to see success
+     */
     loginIntoBlink(emailId: string, password:string) {
         this.isRightDrawerOpen().then((isOpen: boolean) => {
             if(isOpen) {
@@ -122,36 +129,49 @@ export class IBlinkLoginDrawer extends BasePage {
         });
     }
 
+    /**
+     * checks whether right login drawer
+     * 
+     * @returns {promise.Promise<void>} returns a promise the resolves to nothing but can be chained
+     */
     isRightDrawerOpen() {       
         return waitForElementToBeVisible(this.rightDrawerOpen, timeout.IMPLICIT);   
     }
 
-    // isRightDrawerClosed() {
-    //     return Helper.not(this.rightDrawerOpen.isPresent());
-    // }
+    /**
+     * closes the right login drawer
+     * 
+     * @returns {promise.Promise<void>} returns a promise the resolves to nothing but can be chained
+     */
+    closeTheRightDrawer() {
+        let drawerIsOpen = this.isRightDrawerOpen().then((isOpen) => isOpen);
+        if (drawerIsOpen) {
+            return this.closeRightDrawer.safeClick();
+        }        
+    }
 
+    /**
+     * creates an array of all the errors visible in the right login drawer.
+     * 
+     * @returns {promise.Promise<[]>} returns a promise that resolves in an array of error messages.
+     */
     getErrors() {
         return this.loginFormErrorSet.map((element) => element.getText());
     }
 
-    waitUntilErrorAppears() { 
+    waitUntilErrorAppears() {
         let lengthOfEmailErrorSet = ExpectedConditions.hasSomeText(this.loginFormEmailErrorSet);
         let lengthOfPasswordErrorSet = ExpectedConditions.hasSomeText(this.loginFormPasswordErrorSet);
-        browser.wait(ExpectedConditions.or(lengthOfEmailErrorSet, lengthOfPasswordErrorSet), timeout.LONG);        
+        browser.wait(ExpectedConditions.or(lengthOfEmailErrorSet, lengthOfPasswordErrorSet), timeout.LONG);      
     }
 
-    waitUntilSuccessfulLogin() {       
+    waitUntilSuccessfulLogin() {        
         let loaderImageIsInvisible = ExpectedConditions.invisibilityOf(this.loginFormEmailErrorSet);
         let iblinkHomePageUrlIsDisplayed = ExpectedConditions.urlContains('iBlink/Home'); 
         let iblinkAccountPage = ExpectedConditions.titleContains('Accounts Page');        
         browser.wait(ExpectedConditions.and(loaderImageIsInvisible, iblinkHomePageUrlIsDisplayed, iblinkAccountPage), timeout.VERYLONG_TIMEOUT);        
-    }  
-}
+    }
 
-function enterloginDetails(emailId: string, password: string) {
-     return this.enterLoginEmail(emailId)
-    .then(() => this.enterLoginPassword(password))
-    .then(() => this.submitLoginForm());     
 }
 
 function successMessage() {
