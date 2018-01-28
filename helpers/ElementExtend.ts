@@ -3,7 +3,7 @@ import * as PromiseBB from 'Bluebird';
 import { promise, browser, ExpectedConditions} from 'protractor';
 import { timeout } from '../e2e-tests/config/constants';
 import { falseIfMissing } from './util';
-import { hasClass } from './AsyncHelpers';
+
 
 declare module 'protractor/built/element' {
     export interface ElementArrayFinder {
@@ -38,6 +38,11 @@ ElementArrayFinder.prototype.getByText = function (compareText) {
 }
 
 /**
+ * Checks whether the elements in array has the given text.This is using async/await for readability purpose.
+ * 
+ * @example
+ * element.all(by.css('foo')).hasItem('bar');
+ * 
  * @param  {string} compareText
  * @returns {Promise<boolean>} A promise that resolves in a boolean value.
  */
@@ -49,6 +54,11 @@ ElementArrayFinder.prototype.hasItem = async function (compareText) {
 }
 
 /**
+ * clear the input field and send text
+ *
+ * @example
+ * element(by.css('foo.input')).sendText('desiredText');
+ *
  * @param  {string} text
  * @returns {promise.Promise<void>} A promise that resolves to void.
  */
@@ -60,13 +70,12 @@ ElementFinder.prototype.sendText = function (text: string) {
 }
 
 /**
- * Returns the first ElementFinder whos text matches the compareText passed as parameter. 
+ * Safely click the element when element is clickable. 
  * 
  * @example
- * let firstElement = element.all(by.css('.items li')).getByText('foo');
- * firstElement.click();
+ * element(by.css('foo.button.or.link)).safeClick();
  * 
- *  * @returns {ElementFinder} finder representing element whos text matches the text passed in argument.
+ * @returns {promise.Promise<void>} returns a promise that later resolves to void.
  */
 ElementFinder.prototype.safeClick = function () {
     let self = this;
@@ -78,7 +87,14 @@ ElementFinder.prototype.safeClick = function () {
         });
 }
 
-
+/**
+ * Get the first Element from an array of elements whose attribute value matches the desired value
+ * 
+ * @example
+ * element.all(by.css('foo.element')).getByAttribute('class', 'bar')
+ * 
+ * @returns {ElementFinder} returns first ElementFinder that matches the condition
+ */
 ElementArrayFinder.prototype.getByAttribute = function (attribute, value) {
     return this.filter(function (element) {
         return element.getWebElement().getAttribute(attribute).then(function (elementAttribute) {
@@ -87,6 +103,14 @@ ElementArrayFinder.prototype.getByAttribute = function (attribute, value) {
     }).first();
 };
 
+/**
+ * Checks whether the element has the given class attribute
+ * 
+ * @example
+ * element(by.css('foo')).hasClass('bar')
+ * 
+ * @returns {promise.Promise<boolean>} returns promise that resolves in a boolean (true/false) value.
+ */
 ElementFinder.prototype.hasClass = function (clazz: string) {
     return this.getAttribute('class').then(function(className) {
         return className === clazz;
