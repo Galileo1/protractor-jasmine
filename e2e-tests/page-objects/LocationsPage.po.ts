@@ -24,13 +24,9 @@ export class LocationsPage extends BasePage {
         this.locationUrl = element(by.xpath('//div[@class="area-block-clubs"]/ul/li//h5/following-sibling::div//descendant::a[(@class="btn go-to-location")]'));
     }
     
-    closePopUpModalIfOpen() {
-        this.locationPageModal.isDisplayed().then((isDisplayed) => {
-            if (isDisplayed) {
-                this.closeModal.click();
-            } else {
-                console.log('Pop Up Modal is not there.');
-            }
+    closePopUpModal() {
+        return this.popUpModalIsOpen().then((isOpen) => {
+            return this.closeModal.safeClick();
         });
     }
 

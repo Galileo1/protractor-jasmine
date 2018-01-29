@@ -3,18 +3,21 @@ import * as PromiseBB from 'Bluebird';
 import { promise, browser, ExpectedConditions} from 'protractor';
 import { timeout } from '../e2e-tests/config/constants';
 import { falseIfMissing } from './util';
+import { attempt } from 'Bluebird';
 
 
 declare module 'protractor/built/element' {
     export interface ElementArrayFinder {
       getByText(text: string) : ElementFinder;
-      hasItem(text: string) : Promise<boolean>;
+      hasItem(text: string) : Promise<boolean>;      
     }
 
     export interface ElementFinder {
         sendText(text: string) : promise.Promise<void>;
         safeClick() : promise.Promise<void>;
-        hasClass(clazz: string) : Promise<boolean>;
+        hasClass(clazz: string) : promise.Promise<boolean>;
+        hasAttributeValue(attribute: string, value: string) : promise.Promise<boolean>;
+        isVisibleIn(time: number) : promise.Promise<boolean>;
     }
 }
 
@@ -96,7 +99,7 @@ ElementFinder.prototype.safeClick = function () {
  * @returns {ElementFinder} returns first ElementFinder that matches the condition
  */
 ElementArrayFinder.prototype.getByAttribute = function (attribute, value) {
-    return this.filter(function (element) {
+    return this.filter(function (element, index) {
         return element.getWebElement().getAttribute(attribute).then(function (elementAttribute) {
             return elementAttribute === value;
         })
@@ -115,6 +118,39 @@ ElementFinder.prototype.hasClass = function (clazz: string) {
     return this.getAttribute('class').then(function(className) {
         return className === clazz;
     });
+}
+
+/**
+ * Checks whether the element has the given attribute and attribute has given vlaue
+ * 
+ * @example
+ * element(by.css('foo')).hasAttributeValue('style',bar')
+ * 
+ * @returns {promise.Promise<boolean>} returns promise that resolves in a boolean (true/false) value.
+ */
+ElementFinder.prototype.hasAttributeValue = function (attribute: string, value: string) {
+    return this.getAttribute(attribute).then(function(attributeValue) {
+        return attributeValue === value;
+    });
+}
+
+/**
+ * Checks whether the element is visible in given time
+ * 
+ * @example
+ * element(by.css('foo')).isVisibleIn(5000)
+ * 
+ * @returns {promise.Promise<boolean>} returns promise that resolves in a boolean (true/false) value.
+ */
+ElementFinder.prototype.isVisibleIn = function (time: number) {
+    let self = this;
+    return browser.wait(ExpectedConditions.visibilityOf(self), time)
+        .then(function() {
+            return true;
+        }, function() {
+            console.error(`Element: ${self.toString()} is not visible in ${time} seconds.}`);
+            return false;
+        });
 }
 
 export *  from 'protractor';

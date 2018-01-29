@@ -1,11 +1,9 @@
-import { browser, by, element, ElementFinder, ElementArrayFinder } from 'protractor';
+import { browser, by, element, ElementFinder, ElementArrayFinder, ExpectedConditions } from 'protractor';
 import { BasePage } from './BasePage.po';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { timeout } from '../config/constants';
 import { IBlinkLoginDrawer } from './IBlinkLoginDrawer.po';
 import { waitForElement } from '../../helpers/WaitHelpers';
-import { ExpectedConditions } from '../../helpers/ElementExtend';
-// import { BasePage } from './BasePage.po';
 
 export class BlinkHomePage extends BasePage {
     
@@ -68,7 +66,6 @@ export class BlinkHomePage extends BasePage {
     }
 
     openMemberLoginDrawer() {
-
         if (this.homePageContainer.hasClass('mobile-view-activated')) {            
             return this.deviceViewMemberLogin.safeClick();
         } else {           
@@ -76,9 +73,12 @@ export class BlinkHomePage extends BasePage {
         }
     }
 
-    // rightDrawerIsOpen() {
-    //     return this.iblinkLoginDrawer.isRightDrawerOpen();
-    // }
-
-
+   weAreOnBlinkHomePage() {
+       let titleHas = ExpectedConditions.titleContains('Blink Fitness. Join For As Low As $15. Make Your Move! | Personal Training | Find A Gym Near Me');
+       let memberLoginIsPresent = ExpectedConditions.visibilityOf(this.iblinkMemberLogin);
+       let deviceMemberLoginIsPresent = ExpectedConditions.visibilityOf(this.deviceViewMemberLogin);
+       let eitherOfLoginIsVisible = ExpectedConditions.or(memberLoginIsPresent, deviceMemberLoginIsPresent);
+       return browser.wait(ExpectedConditions.and(titleHas, eitherOfLoginIsVisible),timeout.VERYLONG_TIMEOUT)
+       .then(() => true, () => false);
+   }
 }

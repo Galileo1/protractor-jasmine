@@ -2,8 +2,8 @@ import { browser, by, element, ElementFinder, ElementArrayFinder, Key , Expected
 import { BasePage } from './BasePage.po';
 import { SelectWrapper } from '../../helpers/SelectWrapper';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
-import { WebElement } from 'selenium-webdriver';
 import { timeout } from '../config/constants';
+import '../../helpers/ElementExtend';
 
 export class CheckoutPage extends BasePage {
 
@@ -70,58 +70,67 @@ export class CheckoutPage extends BasePage {
     // }
 
     enterFirstName(firstName: string) {
-        return this.firstName.sendKeys(firstName);
+        return this.firstName.sendText(firstName);
     }
 
     enterLastName(lastName: string) {
-        return this.lastName.sendKeys(lastName);
+        return this.lastName.sendText(lastName);
     }
 
     enterAddress1(address: string) {
-        return this.address.sendKeys(address);
+        return this.address.sendText(address);
     }
 
     enterAddress2(address2: string) {
-        return this.address2.sendKeys(address2);
+        return this.address2.sendText(address2);
     }
 
     enterAccountCity(city: string) {
-        return this.accountCity.sendKeys(city);
+        return this.accountCity.sendText(city);
     }
 
     selectAccountState(state: string) {
         let selectDropDown : SelectWrapper = new SelectWrapper(this.accountState);
-        return selectDropDown.selectByText(state);
+        return selectDropDown.selectByText('state').then(()=> {
+            return selectDropDown.selectByText(state);
+        })
+        
     }
 
     enterAccountZipCode(zipCode: string) {
-        return this.accountZip.sendKeys(zipCode);
+        return this.accountZip.sendText(zipCode);
     }
 
     enterAccountPhone(phoneNumber: string) {
-        return this.accountPhone.sendKeys(phoneNumber);
+        return this.accountPhone.sendText(phoneNumber);
     }
 
     enterAccountEmail(emailId: string) {
-        return this.accountEmail.sendKeys(emailId);
+        return this.accountEmail.sendText(emailId);
     }
 
     confirmYourEmailId(confirmEmailId: string) {
-        return this.confirmEmail.sendKeys(confirmEmailId);
+        return this.confirmEmail.sendText(confirmEmailId);
     }
 
     enterAccountDOB(dob: string) {
-        //return this.accountDOB.sendKeys(dob, Key.TAB);
-        return  browser.executeScript('document.getElementById("birthDate").setAttribute("value", "' + dob +'")');
+        return this.clearAccountDOB().then(() => {  
+            return  browser.executeScript('document.getElementById("birthDate").setAttribute("value", "' + dob +'")');
+        });        
     }
 
     enterAccountDOBToDevice(dob: string) {
-        return  browser.executeScript('document.getElementById("birthDate").setAttribute("value", "' + dob +'")');
+        return this.clearAccountDOB().then(() => {  
+            return  browser.executeScript('document.getElementById("birthDate").setAttribute("value", "' + dob +'")');
+        });
     }
 
-    selectYourGender(gender: string){
+    selectYourGender(gender: string) {        
         let selectDropDown : SelectWrapper = new SelectWrapper(this.selectGender);
-        return selectDropDown.selectByText(gender);
+        return selectDropDown.selectByIndex(0).then(() => {
+            return selectDropDown.selectByText(gender);
+        });
+       
     }
 
     billingAddressIsSame() {
@@ -129,15 +138,15 @@ export class CheckoutPage extends BasePage {
     }
 
     enterBillingAddress1(address: string) {
-        return this.billingAddress1.sendKeys(address);
+        return this.billingAddress1.sendText(address);
     }
 
     enterBillingAddress2(address2: string) {
-        return this.billingAddress2.sendKeys(address2);
+        return this.billingAddress2.sendText(address2);
     }
 
     enterBillingCity(city: string) {
-        return this.billingCity.sendKeys(city);
+        return this.billingCity.sendText(city);
     }
 
     selectYourBillingState(state: string) {
@@ -147,12 +156,12 @@ export class CheckoutPage extends BasePage {
     }
 
     enterBillingZipCode(zipCode: string) {
-        return this.billingZip.sendKeys(zipCode);
+        return this.billingZip.sendText(zipCode);
     }
 
     submitSubscription () {
         //browser.wait(ExpectedConditions.elementToBeClickable(this.submitForm), 80000).then(() => )
-        return this.submitForm.click();
+        return this.submitForm.safeClick();
     }
 
     waitForCheckoutPageToBeLoaded() {
@@ -160,7 +169,7 @@ export class CheckoutPage extends BasePage {
     }
 
     clearAccountDOB() {
-        browser.executeScript('document.getElementById("birthDate").setAttribute("value", "")');
+        return browser.executeScript('document.getElementById("birthDate").setAttribute("value", "")');
     }
 
     resetFormFields() {

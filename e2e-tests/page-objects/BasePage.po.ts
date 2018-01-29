@@ -8,6 +8,7 @@ export abstract class BasePage {
     public sideBarNavMenu : ElementArrayFinder;
     public headerPromoMenu : ElementArrayFinder;
     public loaderImage: ElementFinder = element(by.css('div.loader'));
+    public popUpModal: ElementFinder = element(by.css('div#blinkModal'));
     //public iblinkLoginDrawer : IBlinkLoginDrawer = new IBlinkLoginDrawer();
     // private mobLocation : ElementFinder
     // private passwordToasterContent: ElementFinder;    
@@ -36,4 +37,7 @@ export abstract class BasePage {
         WebElementWrapper.findElementUsingText(this.headerPromoMenu, menuItem);
     }
 
+    popUpModalIsOpen() {
+        return this.popUpModal.hasAttributeValue('style', 'display: block;');
+    }
 }
