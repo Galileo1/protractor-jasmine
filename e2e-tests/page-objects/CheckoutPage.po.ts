@@ -5,6 +5,8 @@ import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { timeout } from '../config/constants';
 import '../../helpers/ElementExtend';
 
+
+/* tslint:disable:arrow-return-shorthand */
 export class CheckoutPage extends BasePage {
 
     private submitForm: ElementFinder;
@@ -91,10 +93,7 @@ export class CheckoutPage extends BasePage {
 
     selectAccountState(state: string) {
         let selectDropDown : SelectWrapper = new SelectWrapper(this.accountState);
-        return selectDropDown.selectByText('state').then(()=> {
-            return selectDropDown.selectByText(state);
-        })
-        
+        return selectDropDown.selectByText('state').then(()=> selectDropDown.selectByText(state));
     }
 
     enterAccountZipCode(zipCode: string) {
@@ -114,18 +113,18 @@ export class CheckoutPage extends BasePage {
     }
 
     enterAccountDOB(dob: string) {
-        return this.clearAccountDOB().then(() => {  
-            return  browser.executeScript('document.getElementById("birthDate").setAttribute("value", "' + dob +'")');
-        });        
-    }
-
-    enterAccountDOBToDevice(dob: string) {
-        return this.clearAccountDOB().then(() => {  
+        return this.clearAccountDOB().then(() => {
             return  browser.executeScript('document.getElementById("birthDate").setAttribute("value", "' + dob +'")');
         });
     }
 
-    selectYourGender(gender: string) {        
+    enterAccountDOBToDevice(dob: string) {
+        return this.clearAccountDOB().then(() => {
+            return  browser.executeScript('document.getElementById("birthDate").setAttribute("value", "' + dob +'")');
+        });
+    }
+
+    selectYourGender(gender: string) {
         let selectDropDown : SelectWrapper = new SelectWrapper(this.selectGender);
         return selectDropDown.selectByIndex(0).then(() => {
             return selectDropDown.selectByText(gender);

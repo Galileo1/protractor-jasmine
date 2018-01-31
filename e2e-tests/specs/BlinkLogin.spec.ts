@@ -27,7 +27,7 @@ describe('Blink login errors', () => {
     let checkoutPage : CheckoutPage = new CheckoutPage();
     let iblinkLoginDrawer : IBlinkLoginDrawer = new IBlinkLoginDrawer();
     let iblinkAccountPage : IBlinkAccountPage = new IBlinkAccountPage();
-    let blinkHomePage: BlinkHomePage = new BlinkHomePage()
+    let blinkHomePage: BlinkHomePage = new BlinkHomePage();
     
     //const expect = chai.expect;   
 
@@ -54,18 +54,16 @@ describe('Blink login errors', () => {
         - specs  
         - data driven 
     **/
-    using(data, (data, description) => {        
+    using(data, (data, description) => {
         it (description, () => {
-            iblinkLoginDrawer.attemptTologinIntoBlink((<any>data).emailId, (<any>data).password);   
-            let actualErrors = iblinkLoginDrawer.getErrors().then((resultArray) => {                
-                return resultArray.filter((error) => error);
-            });           
-                           
+            iblinkLoginDrawer.attemptTologinIntoBlink((<any>data).emailId, (<any>data).password);
+            let actualErrors = iblinkLoginDrawer.getErrors().then((resultArray) => resultArray.filter((error) => error));
+            
             expect<any>(actualErrors).toEqual((<any>data).expectedError);
         });
     });
 
-    it('User should be able to login and logout with correct email/password', () => {        
+    it('User should be able to login and logout with correct email/password', () => {
         let emailId = 'scott.zillitto@blinkfitness.com';
         let password = '123456';
         iblinkLoginDrawer.loginIntoBlink(emailId, password);
@@ -74,6 +72,6 @@ describe('Blink login errors', () => {
         //logout now
         iblinkAccountPage.logoutFromIblink();
         expect<any>(blinkHomePage.weAreOnBlinkHomePage()).toBeTruthy();
-    })
+    });
 
 });

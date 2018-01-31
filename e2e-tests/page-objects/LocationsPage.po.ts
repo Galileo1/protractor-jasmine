@@ -25,9 +25,7 @@ export class LocationsPage extends BasePage {
     }
     
     closePopUpModal() {
-        return this.popUpModalIsOpen().then((isOpen) => {
-            return this.closeModal.safeClick();
-        });
+        return this.popUpModalIsOpen().then((isOpen) => this.closeModal.safeClick());
     }
 
     selectYourPreferedClubLocation(preferLocation : string ) {

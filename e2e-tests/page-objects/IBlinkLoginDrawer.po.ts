@@ -4,11 +4,10 @@ import { BlinkHomePage } from './BlinkHomePage.po';
 import { waitForElementToBeVisible, waitForElementToBeInVisible, waitForElementToDisappear } from '../../helpers/WaitHelpers';
 import * as BBPromise from 'Bluebird';
 import { BasePage } from './BasePage.po';
-import '../../helpers/ElementExtend'
-import '../../helpers/ExpectedConditionExtend'
+import '../../helpers/ElementExtend';
+import '../../helpers/ExpectedConditionExtend';
 
 export class IBlinkLoginDrawer extends BasePage {
-    
 
     //Login form
     private loginFormEmailField : ElementFinder;
@@ -132,8 +131,8 @@ export class IBlinkLoginDrawer extends BasePage {
      * 
      * @returns {promise.Promise<void>} returns a promise the resolves to nothing but can be chained
      */
-    isRightDrawerOpen() {       
-        return waitForElementToBeVisible(this.rightDrawerOpen, timeout.IMPLICIT);   
+    isRightDrawerOpen() {
+        return waitForElementToBeVisible(this.rightDrawerOpen, timeout.IMPLICIT);
     }
 
     /**
@@ -145,7 +144,7 @@ export class IBlinkLoginDrawer extends BasePage {
         let drawerIsOpen = this.isRightDrawerOpen().then((isOpen) => isOpen);
         if (drawerIsOpen) {
             return this.closeRightDrawer.safeClick();
-        }        
+        }
     }
 
     /**
@@ -160,22 +159,22 @@ export class IBlinkLoginDrawer extends BasePage {
     waitUntilErrorAppears() {
         let lengthOfEmailErrorSet = ExpectedConditions.hasSomeText(this.loginFormEmailErrorSet);
         let lengthOfPasswordErrorSet = ExpectedConditions.hasSomeText(this.loginFormPasswordErrorSet);
-        browser.wait(ExpectedConditions.or(lengthOfEmailErrorSet, lengthOfPasswordErrorSet), timeout.LONG);      
+        browser.wait(ExpectedConditions.or(lengthOfEmailErrorSet, lengthOfPasswordErrorSet), timeout.LONG);
     }
 
-    waitUntilSuccessfulLogin() {        
+    waitUntilSuccessfulLogin() {
         let loaderImageIsInvisible = ExpectedConditions.invisibilityOf(this.loginFormEmailErrorSet);
-        let iblinkHomePageUrlIsDisplayed = ExpectedConditions.urlContains('iBlink/Home'); 
-        let iblinkAccountPage = ExpectedConditions.titleContains('Accounts Page');        
-        browser.wait(ExpectedConditions.and(loaderImageIsInvisible, iblinkHomePageUrlIsDisplayed, iblinkAccountPage), timeout.VERYLONG_TIMEOUT);        
+        let iblinkHomePageUrlIsDisplayed = ExpectedConditions.urlContains('iBlink/Home');
+        let iblinkAccountPage = ExpectedConditions.titleContains('Accounts Page');
+        browser.wait(ExpectedConditions.and(loaderImageIsInvisible, iblinkHomePageUrlIsDisplayed, iblinkAccountPage), timeout.VERYLONG_TIMEOUT);
     }
 
 }
 
 function successMessage() {
-    console.log(`loader image is invisible.`)
+    console.log(`loader image is invisible.`);
 }
 
 function errorMessage() {
-    console.log(`loader image is still there`)
+    console.log(`loader image is still there`);
 }

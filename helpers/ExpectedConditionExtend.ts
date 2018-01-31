@@ -1,10 +1,10 @@
 import { ProtractorExpectedConditions, ElementFinder, promise } from 'protractor';
 import { falseIfMissing } from './util';
 
-declare module 'protractor/built/expectedConditions' {    
-
+/* tslint:disable:only-arrow-functions */
+declare module 'protractor/built/expectedConditions' {
     export interface ProtractorExpectedConditions {
-        hasSomeText(elementFinder: ElementFinder) : Function;        
+        hasSomeText(elementFinder: ElementFinder) : Function;
     }
 
 }
@@ -27,9 +27,9 @@ declare module 'protractor/built/expectedConditions' {
 ProtractorExpectedConditions.prototype.hasSomeText = function (elementFinder: ElementFinder) {
     let hasText = function () {
         return elementFinder.getText().then(function (actualText: string) {
-            return actualText.length > 1; 
-        }, falseIfMissing);    
+            return actualText.length > 1;
+        }, falseIfMissing);
     };
     return this.and(this.presenceOf(elementFinder), hasText);
-}
+};
 

@@ -26,7 +26,7 @@ export class BlinkHomePage extends BasePage {
         this.homePageContainer = element(by.css('div#page-container'));
         this.locations = element.all(by.xpath('//span[@data-hover="Locations"]'));
         this.navLocation = element(by.css('div.nav-list:nth-child(2) > a:nth-child(2) > div:nth-child(1) > span:nth-child(1)'));
-        this.iblinkMemberLogin = element(by.css('p.account-nav'));       
+        this.iblinkMemberLogin = element(by.css('p.account-nav'));
         this.mobileLocations = element(by.css('a.locations:nth-child(1) > div:nth-child(1) > span:nth-child(1)'));
         
         this.deviceViewHeader = element(by.css('header.header.cf.slide-trans'));
@@ -66,9 +66,9 @@ export class BlinkHomePage extends BasePage {
     }
 
     openMemberLoginDrawer() {
-        if (this.homePageContainer.hasClass('mobile-view-activated')) {            
+        if (this.homePageContainer.hasClass('mobile-view-activated')) {
             return this.deviceViewMemberLogin.safeClick();
-        } else {           
+        } else {
             return this.iblinkMemberLogin.safeClick();
         }
     }

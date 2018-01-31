@@ -13,7 +13,7 @@ import { isDisabled } from './AsyncHelpers';
 // export const not = (promise) => {
 //     return promise.then((result: boolean) => !result);
 // }
-function not (promise) {
+function not(promise) {
     return promise.then((result: boolean) => !result);
 }
 
@@ -36,7 +36,7 @@ export const waitForElement = (element: ElementFinder, timeOut: number) => {
     }, timeOut);
 
     return element;
-}
+};
 
 /**
  * wait with 3sec polling 
@@ -56,12 +56,13 @@ export const waitForElementToDisappear = (element: ElementFinder, timeOut: numbe
         });
         
     }, timeOut);
-}
+};
 
+/* tslint:disable */
 export const waitForElementToBeVisible = (element: ElementFinder, timeOut: number) => {
     return browser.wait(ExpectedConditions.visibilityOf(element), timeOut).then(() => element.isDisplayed());    
-}
+};
 
 export const waitForElementToBeInVisible = (element: ElementFinder, timeOut: number) => {
-    return browser.wait(ExpectedConditions.invisibilityOf(element), timeOut).then(() => element.isPresent());    
-}
+    return browser.wait(ExpectedConditions.invisibilityOf(element), timeOut).then(() => element.isPresent());
+};
