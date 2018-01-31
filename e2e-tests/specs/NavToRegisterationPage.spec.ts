@@ -33,7 +33,7 @@ describe('Blink Navigation on Web', () => {
     
     it('user should be able to navigate to registration page using web ', () => {
            homePage.gotoLocations();
-           locationsPage.closePopUpModalIfOpen();
+           locationsPage.closePopUpModal();
            locationsPage.selectYourPreferedClubLocation('Blink Boerum Hill');
            locationsPage.subscribeToMembershipPlan(membership.BLUE);
            checkoutPage.waitForCheckoutPageToBeLoaded();

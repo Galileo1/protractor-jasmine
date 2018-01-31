@@ -34,13 +34,13 @@ describe('Blink checkout page errors', () => {
         checkoutPage.waitForCheckoutPageToBeLoaded();
     });
 
-    afterEach(()=> {
-        checkoutPage.resetFormFields();
-    });
+    // afterEach(()=> {
+    //     checkoutPage.resetFormFields();
+    // });
 
-    afterAll(() => {
-        homePage.resetBrowserSession();
-    });
+    // afterAll(() => {
+    //     homePage.resetBrowserSession();
+    // });
 
     /*
         - specs  

@@ -84,8 +84,6 @@ export class IBlinkLoginDrawer extends BasePage {
         this.registrationFormMemberBarcode = element(by.css('form.register-form input#barcode'));
         this.registrationFormSubmitButton = element(by.css('div.register-form a.round-button.register-btn.right-pannel-button'));
         this.registrationFormErrorSet = element.all(by.css('div.register-form div.error-set'));
-
-
     }
 
     enterLoginEmail(emailId: string) {
