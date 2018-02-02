@@ -32,20 +32,21 @@ export let config: Config = {
   multiCapabilities: [{
       browserName: 'chrome',
       //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js','../specs/**/BlinkLogin.spec.js'],
-      specs: [ '../specs/**/BlinkLogin.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
+      specs: [ '../specs/**/BlinkRegistrationErrors.spec.js'],
       chromeOptions : {
         args : ['--no-proxy-server']
       }
-    }, {
-      browserName: 'chrome',
-        'chromeOptions': {
-            'mobileEmulation': {
-                'deviceName': 'Nexus 6P'
-        }
-      },
-      //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ,'../specs/**/BlinkLogin.spec.js'],
-      specs: [ '../specs/**/BlinkLogin.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
     }
+    // }, {
+    //   browserName: 'chrome',
+    //     'chromeOptions': {
+    //         'mobileEmulation': {
+    //             'deviceName': 'Nexus 6P'
+    //     }
+    //   },
+    //   //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ,'../specs/**/BlinkLogin.spec.js'],
+    //   specs: [ '../specs/**/BlinkLogin.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
+    // }
     
     // {    
     //   browserName : 'firefox',

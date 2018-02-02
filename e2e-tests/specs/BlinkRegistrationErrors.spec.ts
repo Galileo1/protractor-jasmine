@@ -15,7 +15,7 @@ import { browser, by, ExpectedConditions, element } from 'protractor';
     constant and data imports 
 **/
 import  constants from '../config/constants';
-import * as data from '../../../data/loginData.json';
+import * as data from '../../../data/registrationErrors.json';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { IBlinkLoginDrawer } from '../page-objects/IBlinkLoginDrawer.po';
 import { IBlinkAccountPage } from '../page-objects/IBlinkAccountPage.po';
@@ -36,6 +36,7 @@ describe('Blink login errors', () => {
         homePage.get();
         WebElementWrapper.waitForAnyPageToLoad();
         homePage.openMemberLoginDrawer();
+        iblinkLoginDrawer.openRegistrationForm();
     });
 
     // beforeEach(() => {
@@ -53,22 +54,32 @@ describe('Blink login errors', () => {
     **/
     using(data, (data, description) => {
         it (description, () => {
-            iblinkLoginDrawer.attemptTologinIntoBlink((<any>data).emailId, (<any>data).password);
-            let actualErrors = iblinkLoginDrawer.getErrors().then((resultArray) => resultArray.filter((error) => error));
+            iblinkLoginDrawer.attemptToRegisterIntoIBlink(data);
+            // // iblinkLoginDrawer.enterLastNameToRegister((<any>data).lastName);
+            // // iblinkLoginDrawer.enterEmailToRegister((<any>data).email);
+            // // iblinkLoginDrawer.enterConfirmEmailToRegister((<any>data).confirmEmail);
+            // // iblinkLoginDrawer.enterPasswordToRegister((<any>data).password);
+            // // iblinkLoginDrawer.enterConfirmPasswordToRegister((<any>data).confirmpassword);
+            // // iblinkLoginDrawer.enterMemberBarcodeToRegister((<any>data).memberBarcode);
             
+            let actualErrors = iblinkLoginDrawer.getAllRegistrationErrors().then((resultArray) => resultArray.filter((error) => error));
+            console.log(`errors: ${actualErrors.then((e)=> console.log(e))}`)
             expect<any>(actualErrors).toEqual((<any>data).expectedError);
+
+            // console.log(`array: ${iblinkLoginDrawer.getAllRegistrationErrors().
+            //     then((array)=> array.filter((error) => console.log(error)))}`)
         });
     });
 
-    it('User should be able to login and logout with correct email/password', () => {
-        let emailId = 'scott.zillitto@blinkfitness.com';
-        let password = '123456';
-        iblinkLoginDrawer.loginIntoBlink(emailId, password);
-        expect<any>(browser.getTitle()).toContain('Accounts Page');
+    // it('User should be able to login and logout with correct email/password', () => {
+    //     let emailId = 'scott.zillitto@blinkfitness.com';
+    //     let password = '123456';
+    //     iblinkLoginDrawer.loginIntoBlink(emailId, password);
+    //     expect<any>(browser.getTitle()).toContain('Accounts Page');
 
-        //logout now
-        iblinkAccountPage.logoutFromIblink();
-        expect<any>(blinkHomePage.weAreOnBlinkHomePage()).toBeTruthy();
-    });
+    //     //logout now
+    //     iblinkAccountPage.logoutFromIblink();
+    //     expect<any>(blinkHomePage.weAreOnBlinkHomePage()).toBeTruthy();
+    // });
 
 });

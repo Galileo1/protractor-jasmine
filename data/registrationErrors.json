@@ -1,0 +1,152 @@
+{ 
+    "1. should throw error when barcode field is blank":
+    { 
+      "lastName": "test",
+      "email": "abc@mail.com",
+      "confirmEmail": "abc@mail.com",
+      "password": "test1234",
+      "confirmPassword": "test1234",
+      "memberBarcode": "",
+      "expectedError": [ "Please enter your Barcode or Member ID" ]
+    },
+    "2. should throw error when last name field is blank":
+    { 
+        "lastName": "",
+        "email": "abc@mail.com",
+        "confirmEmail": "abc@mail.com",
+        "password": "test1234",
+        "confirmPassword": "test1234",
+        "memberBarcode": "testABCD123",
+        "expectedError": [ "Please enter a Last Name" ]
+    },
+    "3. should throw error when email field is blank":
+    { 
+        "lastName": "test",
+        "email": "",
+        "confirmEmail": "abc@mail.com",
+        "password": "test1234",
+        "confirmPassword": "test1234",
+        "memberBarcode": "testABCD123",
+        "expectedError": [ "invalid email", "Please enter a Last Name" ]       
+    },
+    "4. should throw error when confirm email fields is blank":
+    { 
+        "lastName": "test",
+        "email": "abc@mail.com",
+        "confirmEmail": "",
+        "password": "test1234",
+        "confirmPassword": "test1234",
+        "memberBarcode": "testABCD123",
+        "expectedError": [ "invalid email", "Please enter a Last Name" ]     
+    },
+    "5. should throw error when both email and confirm email fields are blank":
+    { 
+        "lastName": "test",
+        "email": "",
+        "confirmEmail": "",
+        "password": "test1234",
+        "confirmPassword": "test1234",
+        "memberBarcode": "testABCD123",
+        "expectedError": [ "invalid email", "invalid email", "Please enter a Last Name" ]     
+    },
+    "6. should throw error when email and confirm email fields are not same":
+    { 
+        "lastName": "test",
+        "email": "abc@mail.com",
+        "confirmEmail": "abc2@mail.com",
+        "password": "test1234",
+        "confirmPassword": "test1234",
+        "memberBarcode": "testABCD123",
+        "expectedError": [ "Emails must match", "Please enter a Last Name" ]     
+    },
+    "7. should throw error when email and confirm email formats does not follow xx@xx.com":
+    { 
+        "lastName": "test",
+        "email": "abcmail.com",
+        "confirmEmail": "abcmail.com",
+        "password": "test1234",
+        "confirmPassword": "test1234",
+        "memberBarcode": "testABCD123",
+        "expectedError": [ "invalid email", "Emails must match", "Please enter a Last Name" ]      
+    },
+    "8. should throw error when lastname against a valid email and barcode is not correct":
+    { 
+        "lastName": "test",
+        "email": "scott.zillitto@blinkfitness.com",
+        "confirmEmail": "scott.zillitto@blinkfitness.com",
+        "password": "test1234",
+        "confirmPassword": "test1234",
+        "memberBarcode": "B1007555",
+        "expectedError": [ "Last Name does not match for this MemberID" ]     
+    },
+    "9. should throw error when password field is blank":
+    { 
+        "lastName": "test",
+        "email": "abc@mail.com",
+        "confirmEmail": "abc@mail.com",
+        "password": "",
+        "confirmPassword": "test1234",
+        "memberBarcode": "testABCD123",
+        "expectedError": [ "Passwords must be at least 5 characters", "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]     
+    },
+    "10. should throw error when confirm password field is blank":
+    { 
+        "lastName": "test",
+        "email": "abc@mail.com",
+        "confirmEmail": "abc@mail.com",
+        "password": "test1234",
+        "confirmPassword": "",
+        "memberBarcode": "testABCD123",
+        "expectedError": [ "Passwords must be at least 5 characters", "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]     
+    },
+    "11. should throw error when password field has less than 5 characters":
+    { 
+        "lastName": "test",
+        "email": "abc@mail.com",
+        "confirmEmail": "abc@mail.com",
+        "password": "test",
+        "confirmPassword": "test",
+        "memberBarcode": "testABCD123",
+        "expectedError": [ "Passwords must be at least 5 characters", "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]  
+    },
+    "12. should throw error when confirm password field has less than 5 characters":
+    { 
+        "lastName": "test",
+        "email": "abc@mail.com",
+        "confirmEmail": "abc@mail.com",
+        "password": "test1234",
+        "confirmPassword": "test",
+        "memberBarcode": "testABCD123",
+        "expectedError": [ "Passwords must be at least 5 characters", "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]     
+    },
+    "13. should throw error when password and confirm password field are not same":
+    { 
+        "lastName": "test",
+        "email": "abc@mail.com",
+        "confirmEmail": "abc@mail.com",
+        "password": "test1234",
+        "confirmPassword": "test123",
+        "memberBarcode": "testABCD123",
+        "expectedError": [ "Passwords must match", "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]     
+    }, 
+    "14. should throw error when barcode against a valid name and email is not correct":
+    { 
+        "lastName": "Zilloto",
+        "email": "scott.zillitto@blinkfitness.com",
+        "confirmEmail": "scott.zillitto@blinkfitness.com",
+        "password": "test1234",
+        "confirmPassword": "test1234",
+        "memberBarcode": "B1007555",
+        "expectedError": [ "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]     
+    },
+    "15. should throw error when member is already a registered member":
+    { 
+        "lastName": "Graycomp29",
+        "email": "grycomp20180129moso@mailqa.com",
+        "confirmEmail": "grycomp20180129moso@mailqa.com",
+        "password": "test1234",
+        "confirmPassword": "test1234",
+        "memberBarcode": "GRAYCOMP29",
+        "expectedError": [ "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]     
+    }
+  }

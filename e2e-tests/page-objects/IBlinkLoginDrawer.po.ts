@@ -6,6 +6,7 @@ import * as BBPromise from 'Bluebird';
 import { BasePage } from './BasePage.po';
 import '../../helpers/ElementExtend';
 import '../../helpers/ExpectedConditionExtend';
+import { protractor } from 'protractor/built/ptor';
 
 export class IBlinkLoginDrawer extends BasePage {
 
@@ -38,6 +39,7 @@ export class IBlinkLoginDrawer extends BasePage {
     private rightDrawerClosed: ElementFinder;
 
     //Registeration form
+    private registerContainer: ElementFinder;
     private registrationFormLastName: ElementFinder;
     private registrationFormEmail: ElementFinder;
     private registrationFormConfirmEmail: ElementFinder;
@@ -46,6 +48,14 @@ export class IBlinkLoginDrawer extends BasePage {
     private registrationFormMemberBarcode: ElementFinder;
     private registrationFormSubmitButton: ElementFinder;
     private registrationFormErrorSet: ElementArrayFinder;
+    private otherErrorMessages: ElementFinder;
+    private registrationFormMemberBarcodeErrorSet: ElementFinder;
+    private registrationFormConfirmPasswordErrorSet2: ElementFinder;
+    private registrationFormConfirmPasswordErrorSet1: ElementFinder;
+    private registrationFormPasswordErrorSet: ElementFinder;
+    private registrationFormConfirmEmailErrorSet: ElementFinder;
+    private registrationFormEmailErrorSet: ElementFinder;
+    private registrationFormLastNameErrorSet: ElementFinder;
 
     private blinkHomePage: BlinkHomePage;
 
@@ -75,14 +85,23 @@ export class IBlinkLoginDrawer extends BasePage {
         this.rightDrawerClosed = element(by.css('aside.side-bar-right.closed'));
         this.rightDrawerOpen = element(by.css('aside.side-bar-right.open'));
 
+        this.registerContainer = element(by.css('aside.side-bar-right.open.register'));
         this.registrationFormLastName = element(by.css('form.register-form input#lastName'));
+        this.registrationFormLastNameErrorSet = element(by.css('form.register-form div.lastName div.error-set p'));
         this.registrationFormEmail = element(by.css('form.register-form input#emailAddress'));
+        this.registrationFormEmailErrorSet = element(by.css('form.register-form div.email:nth-child(2) div.error-set p'));
         this.registrationFormConfirmEmail = element(by.css('form.register-form input#emailAddressConfirm'));
+        this.registrationFormConfirmEmailErrorSet = element(by.css('form.register-form div.email:nth-child(3) div.error-set p'));
         this.registrationFormPassword = element(by.css('form.register-form input#password'));
+        this.registrationFormPasswordErrorSet = element(by.css('form.register-form div.password:nth-child(4)  div.error-set p'));
         this.registrationFormConfirmPassword = element(by.css('form.register-form input#password2'));
+        this.registrationFormConfirmPasswordErrorSet1 = element(by.css('form.register-form div.password:nth-child(5)  div.error-set p:nth-child(1)'));
+        this.registrationFormConfirmPasswordErrorSet2 = element(by.css('form.register-form div.password:nth-child(5)  div.error-set p:nth-child(2)'));
         this.registrationFormMemberBarcode = element(by.css('form.register-form input#barcode'));
+        this.registrationFormMemberBarcodeErrorSet = element(by.css('form.register-form div.barcode-container  div.error-set p'));
         this.registrationFormSubmitButton = element(by.css('div.register-form a.round-button.register-btn.right-pannel-button'));
-        this.registrationFormErrorSet = element.all(by.css('div.register-form div.error-set'));
+        this.registrationFormErrorSet = element.all(by.css('div.register-form div.error-set p'));
+        this.otherErrorMessages = element(by.css('form.register-form div#messages'));
     }
 
     enterLoginEmail(emailId: string) {
@@ -169,6 +188,143 @@ export class IBlinkLoginDrawer extends BasePage {
         browser.wait(ExpectedConditions.and(loaderImageIsInvisible, iblinkHomePageUrlIsDisplayed, iblinkAccountPage), timeout.VERYLONG_TIMEOUT);
     }
 
+    //Register Block
+
+    openRegistrationForm() {
+        this.registerButton.safeClick().then(() => 
+            browser.wait(ExpectedConditions.visibilityOf(this.registerContainer), timeout.SHORT)             
+        )
+    }
+
+    enterLastNameToRegister(lastName: string) {
+        return this.registrationFormLastName.sendText(lastName);
+    }
+
+    enterEmailToRegister(email: string) {
+        return this.registrationFormEmail.sendText(email);
+    }
+
+    enterConfirmEmailToRegister(confirmEmail: string) {
+        return this.registrationFormConfirmEmail.sendText(confirmEmail);
+    }
+    
+    enterPasswordToRegister(password: string) {
+        return this.registrationFormPassword.sendText(password);
+    }
+
+    enterConfirmPasswordToRegister(confirmPassword: string) {
+        return this.registrationFormConfirmPassword.sendText(confirmPassword);
+    }
+
+    enterMemberBarcodeToRegister(barcode: string) {
+        return this.registrationFormMemberBarcode.sendText(barcode);
+    }
+
+    submitRegistrationForm() {
+        return this.registrationFormSubmitButton.safeClick();
+    }
+
+    getAllRegistrationErrors() {
+        return this.registrationFormErrorSet.map((element) => element.getText());
+    }
+
+    resetAllRegistrationErrorFields() {
+        return this.registrationFormErrorSet.filter((eachErrorfield)=> {
+            return eachErrorfield.getAttribute('class').then((classValue)=> {
+                return classValue.indexOf('show') > -1
+            })
+        }).each((element, index) => {
+            element.getAttribute('class').then((attrib)=> {
+                console.log(`attrb: ${attrib}`)
+                attrib = attrib.replace('show', '');
+                console.log(`after replace  attribute: ${attrib}`)
+                browser.executeScript('arguments[0].class="' + attrib + '"', element);
+                element.getAttribute('class').then((at)=> console.log(`attrb now: ${at}`))
+            })
+ 
+        })
+    }
+
+    resetMessages() {
+        let message = element(by.css('form.register-form div#messages p'));
+        return browser.wait(ExpectedConditions.hasSomeText(message), timeout.SHORT)
+         .then(()=> {
+            message.getAttribute('class').then((attribu)=> {
+                console.log(`attrbu: ${attribu}`)
+                console.log(`message 112212w::::::::`)
+                if (attribu == 'show') {                    
+                    attribu = attribu.replace('show', '');
+                    console.log(`after replace  attribute: ${attribu}`)
+                    browser.executeScript('arguments[0].class="' + attribu + '"', message.getWebElement());
+                    message.getAttribute('class').then((attri)=> console.log(`after attribute: ${attri}`));
+                    }
+                })
+         },(error)=> console.log(`attribute : ${error}`));   
+    }
+
+    attemptToRegisterIntoIBlink(data: any) {
+        // return this.resetAllRegistrationErrorFields()
+        // .then(()=> this.resetMessages())
+        return this.enterLastNameToRegister((<any>data).lastName)
+        .then(()=> this.enterLastNameToRegister((<any>data).lastName))
+        .then(()=> this.enterEmailToRegister((<any>data).email))
+        .then(()=> this.enterConfirmEmailToRegister((<any>data).confirmEmail))
+        .then(()=> this.enterPasswordToRegister((<any>data).password))
+        .then(()=> this.enterConfirmPasswordToRegister((<any>data).confirmPassword))
+        .then(()=> this.enterMemberBarcodeToRegister((<any>data).memberBarcode))
+        .then(()=> this.submitRegistrationForm())
+        .then(()=> this.waitUntilRegistrationErrorAppears());
+    }
+
+    waitUntilRegistrationErrorAppears() {
+        let loaderImageIsInvisible = ExpectedConditions.invisibilityOf(this.loginFormEmailErrorSet);  
+        // let allEX = ExpectedConditions.or(
+        //     ExpectedConditions.hasSomeText(this.registrationFormConfirmEmailErrorSet),
+        //     ExpectedConditions.hasSomeText(this.registrationFormMemberBarcodeErrorSet),
+        //     ExpectedConditions.hasSomeText(this.registrationFormEmailErrorSet),
+        //     ExpectedConditions.hasSomeText(this.registrationFormConfirmPasswordErrorSet1),
+        //     ExpectedConditions.hasSomeText(this.registrationFormConfirmPasswordErrorSet2),
+        //     ExpectedConditions.hasSomeText(this.registrationFormLastNameErrorSet),
+        //     ExpectedConditions.hasSomeText(this.registrationFormPasswordErrorSet),
+        //     ExpectedConditions.hasSomeText(this.otherErrorMessages))
+            let allEX = ExpectedConditions.or(
+                ExpectedConditions.valueHasChanged(this.registrationFormConfirmEmailErrorSet),
+                ExpectedConditions.valueHasChanged(this.registrationFormMemberBarcodeErrorSet),
+                ExpectedConditions.valueHasChanged(this.registrationFormEmailErrorSet),
+                ExpectedConditions.valueHasChanged(this.registrationFormConfirmPasswordErrorSet1),
+                ExpectedConditions.valueHasChanged(this.registrationFormConfirmPasswordErrorSet2),
+                ExpectedConditions.valueHasChanged(this.registrationFormLastNameErrorSet),
+                ExpectedConditions.valueHasChanged(this.registrationFormPasswordErrorSet),
+                ExpectedConditions.valueHasChanged(this.otherErrorMessages))
+        browser.wait(ExpectedConditions.and(loaderImageIsInvisible, allEX), timeout.LONG);
+    }
+
+    presenceOfAll() {
+        return () => {
+        ExpectedConditions.or(
+        ExpectedConditions.hasSomeText(this.registrationFormConfirmEmailErrorSet),
+        ExpectedConditions.hasSomeText(this.registrationFormMemberBarcodeErrorSet),
+        ExpectedConditions.hasSomeText(this.registrationFormEmailErrorSet),
+        ExpectedConditions.hasSomeText(this.registrationFormConfirmPasswordErrorSet1),
+        ExpectedConditions.hasSomeText(this.registrationFormConfirmPasswordErrorSet2),
+        ExpectedConditions.hasSomeText(this.registrationFormLastNameErrorSet),
+        ExpectedConditions.hasSomeText(this.registrationFormPasswordErrorSet),
+        ExpectedConditions.hasSomeText(this.otherErrorMessages))
+        }
+    
+
+    }
+
+
+    // presenceOfAll() {
+    //     let mapp = this.registrationFormErrorSet.map((element) => element.getText());
+    //     console.log(`arrray: ${mapp.then((array)=> array )}`)   
+    //     return () => {
+    //         return this.registrationFormErrorSet.map((element) => element.getText()).then((array)=> {
+    //             return array.length > 0
+    //         })        
+    //     }     
+    // }
 }
 
 function successMessage() {
@@ -178,3 +334,4 @@ function successMessage() {
 function errorMessage() {
     console.log(`loader image is still there`);
 }
+
