@@ -39,29 +39,29 @@ export class CheckoutPage extends BasePage {
 
     constructor () {
         super();
-        this.submitForm = element(by.xpath('//a[(@class="btn round round orange next")]'));
-        this.firstName = element(by.xpath('//label[contains(.,"first name*")]/following-sibling::input'));
-        this.lastName = element(by.xpath('//label[contains(.,"last name*")]/following-sibling::input'));
-        this.address = element(by.xpath('//label[contains(.,"address*")]/following-sibling::input'));
-        this.address2 = element(by.xpath('//label[contains(.,"apt/suite/unit (optional)")]//following-sibling::input'));
-        this.accountCity = element(by.xpath('//label[contains(text(),"city*")]/following-sibling::input'));
+        this.submitForm = element(by.css('div.join-content a.btn.round.round.orange.next'));
+        this.firstName = element(by.css('div.join-content div.first-name input'));
+        this.lastName = element(by.css('div.join-content div.last-name input'));
+        this.address = element(by.css('div.join-content div.address:nth-child(3) input'));
+        this.address2 = element(by.css('div.join-content div.address:nth-child(4) input'));
+        this.accountCity = element(by.css('div.join-content div.address-region label[for="Account_City"] + input'));
         this.accountState = element(by.xpath('//select[@id="Account_State"]'));
-        this.accountZip = element(by.xpath('//input[@data-val-required="Enter a Zip"]'));
-        this.accountPhone = element(by.xpath('//input[@data-val-required="Please enter a Telephone"]'));
-        this.accountEmail = element(by.xpath('//input[@data-val-required="Please enter a Email Address"]'));
-        this.confirmEmail = element(by.xpath('//input[@data-val-required="Please confirm Email"]'));
-        this.accountDOB = element(by.xpath('//label[contains(text(),"date of birth mm/dd/yyyy*")]/following-sibling::input'));
+        this.accountZip = element(by.css('div.join-content div.address-region label[for="Account_Zip"] + input'));
+        this.accountPhone = element(by.css('div.join-content div.phone input'));
+        this.accountEmail = element(by.css('div.join-content div.email:nth-child(7) label[for="Account_EmailAddress"]+ input'));
+        this.confirmEmail = element(by.css('div.join-content div.email:nth-child(8) label[for="Account_EmailAddress"]+ input'));
+        this.accountDOB = element(by.css('div.join-content div.dob input'));
         this.datePickerDOB = element(by.xpath('//div[@class="datepicker datepicker-dropdown dropdown-menu datepicker-orient-left datepicker-orient-top"]'));
         this.selectGender = element(by.css('select#sex'));
-        this.billingAddressIsSameCheckbox = element(by.xpath('//label[contains(@for,"Account_UseMailingAddressForBilling")]/following-sibling::input'));
-        this.billingAddress1 = element(by.xpath('//label[contains(@for,"billing1")]/following-sibling::input'));
+        this.billingAddressIsSameCheckbox = element(by.css('div.join-content div.checkbox input#Account_UseMailingAddressForBilling'));
+        this.billingAddress1 = element(by.css('div.billing-address label[for="billing1"] + input'));
         this.billingAddress1ErrorSet = element(by.css('div.billing-address:nth-child(13) > div:nth-child(2) > p:nth-child(1)'));
-        this.billingAddress2 = element(by.xpath('//label[contains(@for,"billing2")]/following-sibling::input'));
-        this.billingCity = element(by.xpath('//label[contains(@for,"billingCity")]/following-sibling::input'));
+        this.billingAddress2 = element(by.css('div.billing-address label[for="billing2"] + input'));
+        this.billingCity = element(by.css('div.billing-address-region label[for="billingCity"] + input'));
         this.billingCityErrorSet = element(by.css('.billing-address-region > div:nth-child(1) > div:nth-child(2) > p:nth-child(1)'));
         this.selectBillingState = element(by.xpath('//select[@data-val-requiredifnotchecked="Enter a Billing State"]'));
         this.selectBillingStateErrorSet = element(by.css('.billing-address-region > div:nth-child(2) > div:nth-child(2) > p:nth-child(1)'));
-        this.billingZip = element(by.xpath('//label[contains(@for,"billingZip")]/following-sibling::input'));
+        this.billingZip = element(by.css('div.billing-address-region label[for="billingZip"] + input'));
         this.billingZipErrorSet = element(by.css('.billing-address-region > div:nth-child(3) > div:nth-child(2) > p:nth-child(1)'));
         this.errorField = element.all(by.css('p.invalid.show'));
         
