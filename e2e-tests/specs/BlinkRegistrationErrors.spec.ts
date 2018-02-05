@@ -63,8 +63,12 @@ describe('Blink login errors', () => {
             // // iblinkLoginDrawer.enterMemberBarcodeToRegister((<any>data).memberBarcode);
             
             let actualErrors = iblinkLoginDrawer.getAllRegistrationErrors().then((resultArray) => resultArray.filter((error) => error));
-            console.log(`errors: ${actualErrors.then((e)=> console.log(e))}`)
+            // actualErrors.then((e)=> console.log(`actual errors: ${description} || ${e}`));
+            // console.log(`expected errors: ${description}|| ${(<any>data).expectedError}`);
             expect<any>(actualErrors).toEqual((<any>data).expectedError);
+            // iblinkLoginDrawer.closeTheRightDrawer();
+            // homePage.openMemberLoginDrawer();
+            // iblinkLoginDrawer.openRegistra, tionForm();
 
             // console.log(`array: ${iblinkLoginDrawer.getAllRegistrationErrors().
             //     then((array)=> array.filter((error) => console.log(error)))}`)

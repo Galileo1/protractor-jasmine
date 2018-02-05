@@ -273,58 +273,18 @@ export class IBlinkLoginDrawer extends BasePage {
         .then(()=> this.enterConfirmPasswordToRegister((<any>data).confirmPassword))
         .then(()=> this.enterMemberBarcodeToRegister((<any>data).memberBarcode))
         .then(()=> this.submitRegistrationForm())
-        .then(()=> this.waitUntilRegistrationErrorAppears());
+        .then(()=> this.waitUntilRegistrationErrorAppears((<any>data).expectedErrorField, (<any>data).expectedError));
     }
 
-    waitUntilRegistrationErrorAppears() {
-        let loaderImageIsInvisible = ExpectedConditions.invisibilityOf(this.loginFormEmailErrorSet);  
-        // let allEX = ExpectedConditions.or(
-        //     ExpectedConditions.hasSomeText(this.registrationFormConfirmEmailErrorSet),
-        //     ExpectedConditions.hasSomeText(this.registrationFormMemberBarcodeErrorSet),
-        //     ExpectedConditions.hasSomeText(this.registrationFormEmailErrorSet),
-        //     ExpectedConditions.hasSomeText(this.registrationFormConfirmPasswordErrorSet1),
-        //     ExpectedConditions.hasSomeText(this.registrationFormConfirmPasswordErrorSet2),
-        //     ExpectedConditions.hasSomeText(this.registrationFormLastNameErrorSet),
-        //     ExpectedConditions.hasSomeText(this.registrationFormPasswordErrorSet),
-        //     ExpectedConditions.hasSomeText(this.otherErrorMessages))
-            let allEX = ExpectedConditions.or(
-                ExpectedConditions.valueHasChanged(this.registrationFormConfirmEmailErrorSet),
-                ExpectedConditions.valueHasChanged(this.registrationFormMemberBarcodeErrorSet),
-                ExpectedConditions.valueHasChanged(this.registrationFormEmailErrorSet),
-                ExpectedConditions.valueHasChanged(this.registrationFormConfirmPasswordErrorSet1),
-                ExpectedConditions.valueHasChanged(this.registrationFormConfirmPasswordErrorSet2),
-                ExpectedConditions.valueHasChanged(this.registrationFormLastNameErrorSet),
-                ExpectedConditions.valueHasChanged(this.registrationFormPasswordErrorSet),
-                ExpectedConditions.valueHasChanged(this.otherErrorMessages))
-        browser.wait(ExpectedConditions.and(loaderImageIsInvisible, allEX), timeout.LONG);
+    waitUntilRegistrationErrorAppears(field: string, errorMessage: Array<string>) {
+        //console.log(`field : ${(field.toString())}, message : ${(errorMessage[0].toString())}`)
+        let errorField = element(by.css(field.toString()));
+        let expectedErrorMessage = errorMessage[0];
+        let loaderImageIsInvisible = ExpectedConditions.invisibilityOf(this.loginFormEmailErrorSet);
+        let expectedErrorToAppear = ExpectedConditions.textToBePresentInElement(errorField, expectedErrorMessage);
+        browser.wait(ExpectedConditions.and(loaderImageIsInvisible, expectedErrorToAppear), timeout.LONG);
     }
 
-    presenceOfAll() {
-        return () => {
-        ExpectedConditions.or(
-        ExpectedConditions.hasSomeText(this.registrationFormConfirmEmailErrorSet),
-        ExpectedConditions.hasSomeText(this.registrationFormMemberBarcodeErrorSet),
-        ExpectedConditions.hasSomeText(this.registrationFormEmailErrorSet),
-        ExpectedConditions.hasSomeText(this.registrationFormConfirmPasswordErrorSet1),
-        ExpectedConditions.hasSomeText(this.registrationFormConfirmPasswordErrorSet2),
-        ExpectedConditions.hasSomeText(this.registrationFormLastNameErrorSet),
-        ExpectedConditions.hasSomeText(this.registrationFormPasswordErrorSet),
-        ExpectedConditions.hasSomeText(this.otherErrorMessages))
-        }
-    
-
-    }
-
-
-    // presenceOfAll() {
-    //     let mapp = this.registrationFormErrorSet.map((element) => element.getText());
-    //     console.log(`arrray: ${mapp.then((array)=> array )}`)   
-    //     return () => {
-    //         return this.registrationFormErrorSet.map((element) => element.getText()).then((array)=> {
-    //             return array.length > 0
-    //         })        
-    //     }     
-    // }
 }
 
 function successMessage() {

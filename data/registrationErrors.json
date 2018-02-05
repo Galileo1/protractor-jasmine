@@ -7,7 +7,8 @@
       "password": "test1234",
       "confirmPassword": "test1234",
       "memberBarcode": "",
-      "expectedError": [ "Please enter your Barcode or Member ID" ]
+      "expectedError": [ "Please enter your Barcode or Member ID" ],
+      "expectedErrorField": ["form.register-form div#messages"]
     },
     "2. should throw error when last name field is blank":
     { 
@@ -17,7 +18,8 @@
         "password": "test1234",
         "confirmPassword": "test1234",
         "memberBarcode": "testABCD123",
-        "expectedError": [ "Please enter a Last Name" ]
+        "expectedError": [ "Please enter a Last Name" ],
+        "expectedErrorField": ["form.register-form div#messages"]
     },
     "3. should throw error when email field is blank":
     { 
@@ -27,7 +29,8 @@
         "password": "test1234",
         "confirmPassword": "test1234",
         "memberBarcode": "testABCD123",
-        "expectedError": [ "invalid email", "Please enter a Last Name" ]       
+        "expectedError": [ "invalid email", "Please enter a Last Name" ],
+        "expectedErrorField": ["form.register-form div.email:nth-child(2) div.error-set p"]
     },
     "4. should throw error when confirm email fields is blank":
     { 
@@ -37,7 +40,8 @@
         "password": "test1234",
         "confirmPassword": "test1234",
         "memberBarcode": "testABCD123",
-        "expectedError": [ "invalid email", "Please enter a Last Name" ]     
+        "expectedError": [ "invalid email", "Please enter a Last Name" ],
+        "expectedErrorField": ["form.register-form div.email:nth-child(3) div.error-set p"]   
     },
     "5. should throw error when both email and confirm email fields are blank":
     { 
@@ -47,7 +51,8 @@
         "password": "test1234",
         "confirmPassword": "test1234",
         "memberBarcode": "testABCD123",
-        "expectedError": [ "invalid email", "invalid email", "Please enter a Last Name" ]     
+        "expectedError": [ "invalid email", "invalid email", "Please enter a Last Name" ],
+        "expectedErrorField": ["form.register-form div.email:nth-child(2) div.error-set p"]   
     },
     "6. should throw error when email and confirm email fields are not same":
     { 
@@ -57,9 +62,10 @@
         "password": "test1234",
         "confirmPassword": "test1234",
         "memberBarcode": "testABCD123",
-        "expectedError": [ "Emails must match", "Please enter a Last Name" ]     
+        "expectedError": [ "Emails must match", "Please enter a Last Name" ],
+        "expectedErrorField": ["form.register-form div.email:nth-child(3) div.error-set p:nth-child(2)"]
     },
-    "7. should throw error when email and confirm email formats does not follow xx@xx.com":
+    "7. should throw error when either email and confirm email formats does not follow xx@xx.com":
     { 
         "lastName": "test",
         "email": "abcmail.com",
@@ -67,19 +73,10 @@
         "password": "test1234",
         "confirmPassword": "test1234",
         "memberBarcode": "testABCD123",
-        "expectedError": [ "invalid email", "Emails must match", "Please enter a Last Name" ]      
-    },
-    "8. should throw error when lastname against a valid email and barcode is not correct":
-    { 
-        "lastName": "test",
-        "email": "scott.zillitto@blinkfitness.com",
-        "confirmEmail": "scott.zillitto@blinkfitness.com",
-        "password": "test1234",
-        "confirmPassword": "test1234",
-        "memberBarcode": "B1007555",
-        "expectedError": [ "Last Name does not match for this MemberID" ]     
-    },
-    "9. should throw error when password field is blank":
+        "expectedError": [ "invalid email", "Emails must match", "Please enter a Last Name" ],
+        "expectedErrorField": ["form.register-form div.email:nth-child(2) div.error-set p:nth-child(1)"]
+    },    
+    "8. should throw error when password field is blank":
     { 
         "lastName": "test",
         "email": "abc@mail.com",
@@ -87,9 +84,10 @@
         "password": "",
         "confirmPassword": "test1234",
         "memberBarcode": "testABCD123",
-        "expectedError": [ "Passwords must be at least 5 characters", "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]     
+        "expectedError": [ "Passwords must be at least 5 characters", "Please enter a Last Name" ],
+        "expectedErrorField": ["form.register-form div.password:nth-child(4)  div.error-set p"]     
     },
-    "10. should throw error when confirm password field is blank":
+    "9. should throw error when confirm password field is blank":
     { 
         "lastName": "test",
         "email": "abc@mail.com",
@@ -97,19 +95,21 @@
         "password": "test1234",
         "confirmPassword": "",
         "memberBarcode": "testABCD123",
-        "expectedError": [ "Passwords must be at least 5 characters", "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]     
+        "expectedError": [ "Passwords must be at least 5 characters", "Please enter a Last Name" ],
+        "expectedErrorField": ["form.register-form div.password:nth-child(5) div.error-set p:nth-child(1)"]     
     },
-    "11. should throw error when password field has less than 5 characters":
+    "10. should throw error when password field has less than 5 characters":
     { 
         "lastName": "test",
         "email": "abc@mail.com",
         "confirmEmail": "abc@mail.com",
         "password": "test",
-        "confirmPassword": "test",
+        "confirmPassword": "test1234",
         "memberBarcode": "testABCD123",
-        "expectedError": [ "Passwords must be at least 5 characters", "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]  
+        "expectedError": [ "Passwords must be at least 5 characters", "Passwords must be at least 5 characters", "Please enter a Last Name"  ],
+        "expectedErrorField": ["form.register-form div.password:nth-child(4) div.error-set p"]  
     },
-    "12. should throw error when confirm password field has less than 5 characters":
+    "11. should throw error when confirm password field has less than 5 characters":
     { 
         "lastName": "test",
         "email": "abc@mail.com",
@@ -117,9 +117,10 @@
         "password": "test1234",
         "confirmPassword": "test",
         "memberBarcode": "testABCD123",
-        "expectedError": [ "Passwords must be at least 5 characters", "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]     
+        "expectedError": [ "Passwords must be at least 5 characters", "Please enter a Last Name" ],
+        "expectedErrorField": ["form.register-form div.password:nth-child(5) div.error-set p:nth-child(1)"]   
     },
-    "13. should throw error when password and confirm password field are not same":
+    "12. should throw error when both password and confirm password field are not same":
     { 
         "lastName": "test",
         "email": "abc@mail.com",
@@ -127,19 +128,21 @@
         "password": "test1234",
         "confirmPassword": "test123",
         "memberBarcode": "testABCD123",
-        "expectedError": [ "Passwords must match", "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]     
+        "expectedError": [ "Passwords must match", "Please enter a Last Name" ],
+        "expectedErrorField": ["form.register-form div.password:nth-child(5)  div.error-set p:nth-child(2)"]     
     }, 
-    "14. should throw error when barcode against a valid name and email is not correct":
+    "13. should throw error when barcode against a valid name and email is not correct":
     { 
         "lastName": "Zilloto",
         "email": "scott.zillitto@blinkfitness.com",
         "confirmEmail": "scott.zillitto@blinkfitness.com",
         "password": "test1234",
         "confirmPassword": "test1234",
-        "memberBarcode": "B1007555",
-        "expectedError": [ "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]     
+        "memberBarcode": "B1007555555555555",
+        "expectedError": [ "Member id does not exist, if you just created account, please wait 10 minutes and try again" ],
+        "expectedErrorField": ["form.register-form div#messages"]     
     },
-    "15. should throw error when member is already a registered member":
+    "14. should throw error when member is already a registered member":
     { 
         "lastName": "Graycomp29",
         "email": "grycomp20180129moso@mailqa.com",
@@ -147,6 +150,18 @@
         "password": "test1234",
         "confirmPassword": "test1234",
         "memberBarcode": "GRAYCOMP29",
-        "expectedError": [ "Member id does not exist, if you just created account, please wait 10 minutes and try again" ]     
+        "expectedError": [ "User already exists for this member id." ],
+        "expectedErrorField": ["form.register-form div#messages"]     
+    },
+    "15. should throw error when lastname against a valid email and barcode is not correct":
+    { 
+        "lastName": "test",
+        "email": "scott.zillitto@blinkfitness.com",
+        "confirmEmail": "scott.zillitto@blinkfitness.com",
+        "password": "test1234",
+        "confirmPassword": "test1234",
+        "memberBarcode": "B1007555",
+        "expectedError": [ "Last Name does not match for this MemberID" ],
+        "expectedErrorField": ["form.register-form div#messages"]  
     }
   }
