@@ -20,35 +20,22 @@ import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { IBlinkLoginDrawer } from '../page-objects/IBlinkLoginDrawer.po';
 import { IBlinkAccountPage } from '../page-objects/IBlinkAccountPage.po';
 
-describe('Blink login errors', () => {
+describe('IBlink Login', () => {
 
-    let homePage : BlinkHomePage = new BlinkHomePage();
     let locationsPage : LocationsPage = new LocationsPage();
     let checkoutPage : CheckoutPage = new CheckoutPage();
     let iblinkLoginDrawer : IBlinkLoginDrawer = new IBlinkLoginDrawer();
     let iblinkAccountPage : IBlinkAccountPage = new IBlinkAccountPage();
     let blinkHomePage: BlinkHomePage = new BlinkHomePage();
-    
-    //const expect = chai.expect;   
-
 
    /* 
         hooks 
     **/
     beforeAll(() => {
-        homePage.get();
+        blinkHomePage.get();
         WebElementWrapper.waitForAnyPageToLoad();
-        homePage.openMemberLoginDrawer();
+        blinkHomePage.openMemberLoginDrawer();
     });
-
-    // beforeEach(() => {
-    //     //homePage.openMemberLoginDrawer();
-    //     expect<any>(iblinkLoginDrawer.isRightDrawerOpen()).toBeTruthy();
-    // })
-
-    // afterAll(() => {
-    //     homePage.resetBrowserSession();
-    // });
 
     /*
         - specs  
@@ -63,13 +50,15 @@ describe('Blink login errors', () => {
         });
     });
 
-    it('User should be able to login and logout with correct email/password', () => {
+    it('User should be able to login and logout into IBlink with correct email/password', () => {
         let emailId = 'scott.zillitto@blinkfitness.com';
         let password = '123456';
+
+        //login
         iblinkLoginDrawer.loginIntoBlink(emailId, password);
         expect<any>(browser.getTitle()).toContain('Accounts Page');
 
-        //logout now
+        //logout
         iblinkAccountPage.logoutFromIblink();
         expect<any>(blinkHomePage.weAreOnBlinkHomePage()).toBeTruthy();
     });

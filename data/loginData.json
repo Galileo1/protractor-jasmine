@@ -35,7 +35,7 @@
       "password": "test1234",     
       "expectedError": [ "Username and/or password is incorrect." ]
     },
-    "7. should fail when phone number is not specified":
+    "7. should throw error when emailId entered is incorrect":
     {        
       "emailId": "scott.zillitto123@blinkfitness.com",
       "password": "123456",     
