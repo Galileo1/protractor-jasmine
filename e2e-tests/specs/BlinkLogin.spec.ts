@@ -50,17 +50,22 @@ describe('IBlink Login', () => {
         });
     });
 
-    it('User should be able to login and logout into IBlink with correct email/password', () => {
-        let emailId = 'scott.zillitto@blinkfitness.com';
-        let password = '123456';
+    /**
+     * this test cases has been commented after discussion with Nick. Since QA region is not stable. this can't be run against it.
+     * We have resolved BLKW-6504 and created a new ticket to track the coverage for this.
+     * 
+     */
+    // it('User should be able to login and logout into IBlink with correct email/password', () => {
+    //     let emailId = '------';      //please enter the email id 
+    //     let password = '------';     //please enter the password.
 
-        //login
-        iblinkLoginDrawer.loginIntoBlink(emailId, password);
-        expect<any>(browser.getTitle()).toContain('Accounts Page');
+    //     //login
+    //     iblinkLoginDrawer.loginIntoBlink(emailId, password);
+    //     expect<any>(browser.getTitle()).toContain('Accounts Page');
 
-        //logout
-        iblinkAccountPage.logoutFromIblink();
-        expect<any>(blinkHomePage.weAreOnBlinkHomePage()).toBeTruthy();
-    });
+    //     //logout
+    //     iblinkAccountPage.logoutFromIblink();
+    //     expect<any>(blinkHomePage.weAreOnBlinkHomePage()).toBeTruthy();
+    // });
 
 });
