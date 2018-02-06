@@ -64,12 +64,7 @@ export class CheckoutPage extends BasePage {
         this.billingZip = element(by.css('div.billing-address-region label[for="billingZip"] + input'));
         this.billingZipErrorSet = element(by.css('.billing-address-region > div:nth-child(3) > div:nth-child(2) > p:nth-child(1)'));
         this.errorField = element.all(by.css('p.invalid.show'));
-        
     }
-
-    // get (url : string) {
-    //     browser.get(url);        
-    // }
 
     enterFirstName(firstName: string) {
         return this.firstName.sendText(firstName);
@@ -129,7 +124,21 @@ export class CheckoutPage extends BasePage {
         return selectDropDown.selectByIndex(0).then(() => {
             return selectDropDown.selectByText(gender);
         });
-       
+    }
+
+    enterBasicDetailsOnCheckoutPage(data: any) {
+        return this.enterFirstName((<any>data).firstName)
+        .then(()=> this.enterLastName((<any>data).lastName))
+        .then(()=> this.enterAddress1((<any>data).address))
+        .then(()=> this.enterAccountCity((<any>data).city))
+        .then(()=> this.selectAccountState((<any>data).state))
+        .then(()=> this.enterAccountZipCode((<any>data).zipCode))
+        .then(()=> this.enterAccountPhone((<any>data).phoneNumber))
+        .then(()=> this.enterAccountEmail((<any>data).email))
+        .then(()=> this.confirmYourEmailId((<any>data).confirmEmail))
+        .then(()=> this.enterAccountDOB((<any>data).dob))
+        .then(()=> this.selectYourGender((<any>data).gender))
+        .then(()=> this.submitBasicDetails());
     }
 
     billingAddressIsSame() {
@@ -158,8 +167,15 @@ export class CheckoutPage extends BasePage {
         return this.billingZip.sendText(zipCode);
     }
 
-    submitSubscription () {
-        //browser.wait(ExpectedConditions.elementToBeClickable(this.submitForm), 80000).then(() => )
+    enterBillingDetails(data: any) {
+        return this.enterBillingAddress1((<any>data).billingAddress1)
+        .then(()=> this.enterBillingAddress2((<any>data).billingAddress2))
+        .then(()=> this.enterBillingCity((<any>data).billingCity))
+        .then(()=> this.selectYourBillingState((<any>data).billingState))
+        .then(()=> this.enterBillingZipCode((<any>data).billingZipcode));
+    }
+
+    submitBasicDetails() {
         return this.submitForm.safeClick();
     }
 

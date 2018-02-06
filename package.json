@@ -7,7 +7,10 @@
     "tsc": "node ./node_modules/typescript/bin/tsc",
     "test": "node ./node_modules/protractor/bin/protractor ./build/e2e-tests/config/protractor.config.js",
     "regression": "npm run tsc && npm run test",
-    "lint": "gulp tslint"
+    "lint": "gulp tslint",
+    "tscompile": "gulp tsc",
+    "compile": "gulp compile",
+    "e2e": "gulp run"
   },
   "author": "Varun Gaur",
   "license": "MIT",
@@ -17,10 +20,12 @@
     "chai": "4.1.2",
     "chai-as-promised": "7.1.1",
     "gulp": "3.9.1",
+    "gulp-protractor": "4.1.0",
     "gulp-tslint": "8.1.2",
     "gulp-typescript": "3.2.1",
     "jasmine-data-provider": "2.2.0",
-    "protractor": "5.2.0"
+    "protractor": "5.2.0",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
     "@types/bluebird": "3.5.19",

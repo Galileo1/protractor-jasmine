@@ -1,6 +1,7 @@
 node_modules
 tmp
 *.js
+!gulpfile.js
 npm-debug.log*
 build
 ads-blocker
