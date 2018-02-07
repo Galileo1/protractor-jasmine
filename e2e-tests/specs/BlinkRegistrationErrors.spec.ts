@@ -20,7 +20,7 @@ import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 import { IBlinkLoginDrawer } from '../page-objects/IBlinkLoginDrawer.po';
 import { IBlinkAccountPage } from '../page-objects/IBlinkAccountPage.po';
 
-describe('Blink login errors', () => {
+describe('iBlink Registration', () => {
 
     let homePage : BlinkHomePage = new BlinkHomePage();
     let locationsPage : LocationsPage = new LocationsPage();
@@ -39,51 +39,24 @@ describe('Blink login errors', () => {
         iblinkLoginDrawer.openRegistrationForm();
     });
 
-    // beforeEach(() => {
-    //     //homePage.openMemberLoginDrawer();
-    //     expect<any>(iblinkLoginDrawer.isRightDrawerOpen()).toBeTruthy();
-    // })
-
-    // afterAll(() => {
-    //     homePage.resetBrowserSession();
-    // });
-
     /*
         - specs  
         - data driven 
     **/
+
+    /**
+     * Iblink registration errors
+     * 
+     */
     using(data, (data, description) => {
         it (description, () => {
             iblinkLoginDrawer.attemptToRegisterIntoIBlink(data);
-            // // iblinkLoginDrawer.enterLastNameToRegister((<any>data).lastName);
-            // // iblinkLoginDrawer.enterEmailToRegister((<any>data).email);
-            // // iblinkLoginDrawer.enterConfirmEmailToRegister((<any>data).confirmEmail);
-            // // iblinkLoginDrawer.enterPasswordToRegister((<any>data).password);
-            // // iblinkLoginDrawer.enterConfirmPasswordToRegister((<any>data).confirmpassword);
-            // // iblinkLoginDrawer.enterMemberBarcodeToRegister((<any>data).memberBarcode);
-            
             let actualErrors = iblinkLoginDrawer.getAllRegistrationErrors().then((resultArray) => resultArray.filter((error) => error));
-            // actualErrors.then((e)=> console.log(`actual errors: ${description} || ${e}`));
-            // console.log(`expected errors: ${description}|| ${(<any>data).expectedError}`);
-            expect<any>(actualErrors).toEqual((<any>data).expectedError);
-            // iblinkLoginDrawer.closeTheRightDrawer();
-            // homePage.openMemberLoginDrawer();
-            // iblinkLoginDrawer.openRegistra, tionForm();
-
-            // console.log(`array: ${iblinkLoginDrawer.getAllRegistrationErrors().
-            //     then((array)=> array.filter((error) => console.log(error)))}`)
+ 
+            expect<any>(actualErrors).toEqual((<any>data).expectedError);         
         });
     });
 
-    // it('User should be able to login and logout with correct email/password', () => {
-    //     let emailId = 'scott.zillitto@blinkfitness.com';
-    //     let password = '123456';
-    //     iblinkLoginDrawer.loginIntoBlink(emailId, password);
-    //     expect<any>(browser.getTitle()).toContain('Accounts Page');
 
-    //     //logout now
-    //     iblinkAccountPage.logoutFromIblink();
-    //     expect<any>(blinkHomePage.weAreOnBlinkHomePage()).toBeTruthy();
-    // });
-
+    
 });
