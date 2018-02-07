@@ -4,13 +4,14 @@
 import { BlinkHomePage } from '../page-objects/BlinkHomePage.po';
 import { LocationsPage } from '../page-objects/LocationsPage.po';
 import { CheckoutPage } from '../page-objects/CheckoutPage.po';
-const using = require('jasmine-data-provider');
-
 /*
     protractor imports 
 **/
 import { browser, by, ExpectedConditions, element } from 'protractor';
-
+/*
+    utility
+**/
+const using = require('jasmine-data-provider');
 /*
     constant and data imports 
 **/
@@ -22,26 +23,14 @@ describe('Blink checkout page errors', () => {
     let homePage : BlinkHomePage = new BlinkHomePage();
     let locationsPage : LocationsPage = new LocationsPage();
     let checkoutPage : CheckoutPage = new CheckoutPage();
-    
-    //const expect = chai.expect;   
 
-
-   /* 
+    /* 
         hooks 
     **/
     beforeAll(() => {
         homePage.goto('join/boerum-hill/green?icmp=Join_Now_Desription');
         checkoutPage.waitForCheckoutPageToBeLoaded();
     });
-
-    // afterEach(()=> {
-    //     checkoutPage.resetFormFields();
-    // });
-
-    // afterAll(() => {
-    //     homePage.resetBrowserSession();
-    // });
-
     /*
         - specs  
         - data driven 

@@ -4,21 +4,23 @@
 import { BlinkHomePage } from '../page-objects/BlinkHomePage.po';
 import { LocationsPage } from '../page-objects/LocationsPage.po';
 import { CheckoutPage } from '../page-objects/CheckoutPage.po';
-const using = require('jasmine-data-provider');
-
+import { IBlinkLoginDrawer } from '../page-objects/IBlinkLoginDrawer.po';
+import { IBlinkAccountPage } from '../page-objects/IBlinkAccountPage.po';
 /*
     protractor imports 
 **/
 import { browser, by, ExpectedConditions, element } from 'protractor';
-
+/*
+     utility
+**/
+const using = require('jasmine-data-provider');
 /*
     constant and data imports 
 **/
 import  constants from '../config/constants';
 import * as data from '../../../data/loginData.json';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
-import { IBlinkLoginDrawer } from '../page-objects/IBlinkLoginDrawer.po';
-import { IBlinkAccountPage } from '../page-objects/IBlinkAccountPage.po';
+
 
 describe('IBlink Login', () => {
 
