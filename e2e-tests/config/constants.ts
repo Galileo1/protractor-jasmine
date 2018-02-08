@@ -12,6 +12,7 @@ export default {
     GENDER_ERROR : 'please select one',
     DEVICE_SUBS_URL : 'https://www.blinkfitness.com/join/murray-hill/green?icmp=Join_Now_Desription',
     WEB_SUBS_URL : 'https://www.blinkfitness.com/join/boerum-hill/green?icmp=Join_Now_Desription',
+    PASSWORD: 'test1234'
 };
 
 export const membership = {
@@ -29,7 +30,7 @@ export const timeout = {
     IMPLICIT: 5000
 };
 
-export const creditCard = {
+export const visaCard = {
     NAME : 'test',
     NUMBER_VISA : '4005519200000004',
     NUMBER_MC: '5405010100000016',

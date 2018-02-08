@@ -15,8 +15,8 @@ export let config: Config = {
   //geckoDriver: '../../node_modules/protractor/node_modules/webdriver-manager/geckodriver-v0.19.1.exe',
   allScriptsTimeout: 50000,
   getPageTimeout: 50000,
-  //baseUrl: 'https://devpreview:Equinox1!@qa-maintenance.blinkfitness.com/',
-  baseUrl: 'https://blinkfitness.com/',
+  baseUrl: 'https://devpreview:Equinox1!@qa-maintenance.blinkfitness.com/',
+  //baseUrl: 'https://blinkfitness.com/',
 
   // localSeleniumStandaloneOpts: {
   //   jvmArgs: [
@@ -32,7 +32,7 @@ export let config: Config = {
   multiCapabilities: [{
       browserName: 'chrome',
       //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js','../specs/**/BlinkLogin.spec.js'],
-      specs: [ '../specs/**/BlinkRegistrationErrors.spec.js'],
+      specs: [ '../specs/**/BlinkMembershipPurchase.spec.js'],
       chromeOptions : {
         args : ['--no-proxy-server']
       }

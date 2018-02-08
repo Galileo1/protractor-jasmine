@@ -48,7 +48,7 @@ describe('Blink checkout page errors', () => {
             checkoutPage.confirmYourEmailId((<any>data).emailConfirm);
             checkoutPage.enterAccountDOB((<any>data).dob);
             checkoutPage.selectYourGender((<any>data).gender);
-            checkoutPage.submitSubscription();
+            checkoutPage.submitBasicDetails();
             let actualErrors = checkoutPage.getErrors().then((resultArray) => resultArray);
             expect<any>(actualErrors).toEqual((<any>data).expectedError);
         });
