@@ -29,10 +29,15 @@ export let config: Config = {
 //     //   'args': ['--load-extension=' + '../ads-blocker']
 //     // }
 // },
+suites: {
+  login: ['./specs/**/BlinkLogin.spec.js'],
+  checkout: ['../specs/**/BlinkCheckoutErrors.spec.js'],
+  registration: ['../specs/**/BlinkRegistrationErrors.spec.js']
+},
   multiCapabilities: [{
       browserName: 'chrome',
       //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js','../specs/**/BlinkLogin.spec.js'],
-      specs: [ '../specs/**/BlinkMembershipPurchase.spec.js'],
+      //specs: [ '../specs/**/BlinkCheckoutErrors.spec.js','../specs/**/BlinkLogin.spec.js', '../specs/**/BlinkRegistrationErrors.spec.js'],
       chromeOptions : {
         args : ['--no-proxy-server']
       }

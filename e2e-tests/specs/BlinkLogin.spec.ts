@@ -18,7 +18,7 @@ const using = require('jasmine-data-provider');
     constant and data imports 
 **/
 import  constants from '../config/constants';
-import * as data from '../../../data/loginData.json';
+import * as data from '../../../data/loginErrors.json';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
 
 

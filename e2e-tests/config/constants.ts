@@ -30,7 +30,7 @@ export const timeout = {
     IMPLICIT: 5000
 };
 
-export const visaCard = {
+export const creditCard = {
     NAME : 'test',
     NUMBER_VISA : '4005519200000004',
     NUMBER_MC: '5405010100000016',

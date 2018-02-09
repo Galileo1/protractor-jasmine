@@ -2,7 +2,7 @@ import { browser, by, element, ElementFinder, ElementArrayFinder, Key , Expected
 import { BasePage } from './BasePage.po';
 import { SelectWrapper } from '../../helpers/SelectWrapper';
 import { WebElementWrapper } from '../../helpers/WebElementWrapper';
-import { timeout, visaCard } from '../config/constants';
+import { timeout, creditCard } from '../config/constants';
 import '../../helpers/ElementExtend';
 
 
@@ -211,25 +211,25 @@ export class CheckoutPage extends BasePage {
     }
 
     enterCCName() {        
-        return this.ccName.sendText(visaCard.NAME);
+        return this.ccName.sendText(creditCard.NAME);
     }
 
     enterCCNumber() {
-        return this.ccNumber.sendText(visaCard.NUMBER_VISA);
+        return this.ccNumber.sendText(creditCard.NUMBER_VISA);
     }
 
     enterCCMonth() {
         let selectDropDown : SelectWrapper = new SelectWrapper(this.ccMonth);
-        return selectDropDown.selectByText(visaCard.MONTH);
+        return selectDropDown.selectByText(creditCard.MONTH);
     }
 
     enterCCYear() {
         let selectDropDown : SelectWrapper = new SelectWrapper(this.ccYear);
-        return selectDropDown.selectByText(visaCard.YEAR);
+        return selectDropDown.selectByText(creditCard.YEAR);
     }
 
     enterSecurityCode() {       
-       return this.ccCVV.sendText(visaCard.CVV);
+       return this.ccCVV.sendText(creditCard.CVV);
     }
 
     selectTNC() {
