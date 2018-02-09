@@ -1,0 +1,53 @@
+{ 
+    "Membership purchase with Gray Plan for non-taxable club location":
+    { 
+      "url": "join/valley-stream/gray?icmp=Join_Now_Desription",
+      "firstName": "TestAutomation",
+      "lastName": "Gray",
+      "address" : "123 ABCD Lane",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zipCode": 34567,
+      "phoneNumber": "2304067800", 
+      "email": "",
+      "emailConfirm": "",
+      "dob": "02/12/1985",
+      "gender": "Male",
+      "clubId": "610",
+      "clubs": "Bridge"
+    },
+    "Membership purchase with Blue Plan for pre-sale club location":
+    { 
+      "url": "join/lindenhurst/blue?icmp=Join_Now_Desription",
+      "firstName": "TestAutomation",
+      "lastName": "Blue",
+      "address" : "123 ABCD Lane",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zipCode": 34567,
+      "phoneNumber": "2304067800", 
+      "email": "",
+      "emailConfirm": "",
+      "dob": "02/12/1985",
+      "gender": "Male",
+      "clubId" : "641",
+      "clubs": "PresaleClub"
+    },
+    "Membership purchase with Green Plan for taxable club location":
+    { 
+      "url": "join/125th-street/green?icmp=Join_Now_Desription",
+      "firstName": "TestAutomation",
+      "lastName": "Green",
+      "address" : "123 ABCD Lane",
+      "city": "Brooklyn",
+      "state": "NY",
+      "zipCode": 34567,
+      "phoneNumber": "2304067800", 
+      "email": "",
+      "emailConfirm": "",
+      "dob": "02/12/1985",
+      "gender": "Male",
+      "clubId" : "641",
+      "clubs": "Bridge"
+    }
+}

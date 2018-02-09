@@ -15,8 +15,8 @@ export let config: Config = {
   //geckoDriver: '../../node_modules/protractor/node_modules/webdriver-manager/geckodriver-v0.19.1.exe',
   allScriptsTimeout: 50000,
   getPageTimeout: 50000,
-  //baseUrl: 'https://devpreview:Equinox1!@qa-maintenance.blinkfitness.com/',
-  baseUrl: 'https://blinkfitness.com/',
+  baseUrl: 'https://devpreview:Equinox1!@qa-maintenance.blinkfitness.com/',
+  //baseUrl: 'https://blinkfitness.com/',
 
   // localSeleniumStandaloneOpts: {
   //   jvmArgs: [
@@ -29,23 +29,29 @@ export let config: Config = {
 //     //   'args': ['--load-extension=' + '../ads-blocker']
 //     // }
 // },
+suites: {
+  login: ['./specs/**/BlinkLogin.spec.js'],
+  checkout: ['../specs/**/BlinkCheckoutErrors.spec.js'],
+  registration: ['../specs/**/BlinkRegistrationErrors.spec.js']
+},
   multiCapabilities: [{
       browserName: 'chrome',
       //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js','../specs/**/BlinkLogin.spec.js'],
-      specs: [ '../specs/**/BlinkLogin.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
+      //specs: [ '../specs/**/BlinkCheckoutErrors.spec.js','../specs/**/BlinkLogin.spec.js', '../specs/**/BlinkRegistrationErrors.spec.js'],
       chromeOptions : {
         args : ['--no-proxy-server']
       }
-    }, {
-      browserName: 'chrome',
-        'chromeOptions': {
-            'mobileEmulation': {
-                'deviceName': 'Nexus 6P'
-        }
-      },
-      //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ,'../specs/**/BlinkLogin.spec.js'],
-      specs: [ '../specs/**/BlinkLogin.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
     }
+    // }, {
+    //   browserName: 'chrome',
+    //     'chromeOptions': {
+    //         'mobileEmulation': {
+    //             'deviceName': 'Nexus 6P'
+    //     }
+    //   },
+    //   //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js' ,'../specs/**/BlinkLogin.spec.js'],
+    //   specs: [ '../specs/**/BlinkLogin.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
+    // }
     
     // {    
     //   browserName : 'firefox',
