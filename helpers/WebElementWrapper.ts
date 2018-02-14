@@ -125,11 +125,43 @@ export class WebElementWrapper {
         }, timeout.DEFAULT);
     }
 
+
+    /**
+     * wait with 3sec polling and 30sec timeout
+     * @param {WebElement} element
+     * @returns {Boolean}
+     */
+    static waitUntilDisplayed(by: By, timeOut: number) {
+        //set implicit wait to zero so that it doesn't interfere with the polling interval
+        browser.manage().timeouts().implicitlyWait(0);
+        browser.wait(()=> {
+            browser.sleep(timeout.POLLING);
+            return element(by).isDisplayed()
+            .then((isDisplayed) => { 
+                return isDisplayed; 
+            })
+            .catch((error)=> { 
+                console.error(`Waiting for ${by.toString()} to be displayed...`)
+                return false; 
+            });
+        }, timeOut);
+    }
+
     static async itemExits(elementAll: ElementArrayFinder, name: string) {
         const fn = await elementAll.map((elm: ElementFinder) => elm.getText());
         const itemList = await PromiseBB.all(fn);
         const filterdList = itemList.filter(item => item === name);
         return filterdList.length == 1;
+    }
+
+    static generateEmail(membership: string, club: string) {
+        let domain = '@mailinator.com';
+        let _dateTime = new Date();
+        let _datePart = _dateTime.toJSON().slice(0,10).replace(/-/g,'');
+        let _timePart = _dateTime.getHours()+""+_dateTime.getMinutes()+""+_dateTime.getMilliseconds();
+        let timeStamp = _datePart+"_"+_timePart;
+        let randomString = _.times(6, () => _.random(35).toString(36) ).join('');
+        return (membership +"test"+ club + '_'+ timeStamp + domain);
     }
 }
           

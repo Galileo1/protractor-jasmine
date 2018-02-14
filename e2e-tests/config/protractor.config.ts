@@ -16,6 +16,7 @@ export let config: Config = {
   allScriptsTimeout: 50000,
   getPageTimeout: 50000,
   //baseUrl: 'https://devpreview:Equinox1!@qa-maintenance.blinkfitness.com/',
+  //baseUrl: 'https://devpreview:Equinox1!@qa-maintenance.blinkfitness.com/',
   //baseUrl: 'https://blinkfitness.com/',
 
   // localSeleniumStandaloneOpts: {
@@ -29,14 +30,15 @@ export let config: Config = {
 //     //   'args': ['--load-extension=' + '../ads-blocker']
 //     // }
 // },
-  suites:{
-    login: ['../specs/**/BlinkLogin.spec.js'],
-    checkout: ['../specs/**/BlinkRegisterationErrors.spec.js']
-  },
+// suites: {
+//   login: './specs/**/BlinkLogin.spec.js',
+//   checkout: '../specs/**/BlinkCheckoutErrors.spec.js',
+//   registration: '../specs/**/BlinkRegistrationErrors.spec.js'
+// },
   multiCapabilities: [{
       browserName: 'chrome',
       //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js','../specs/**/BlinkLogin.spec.js'],
-      //specs: [ '../specs/**/BlinkRegisterationErrors.spec.js'],
+      specs: [ '../specs/**/BlinkCheckoutErrors.spec.js','../specs/**/BlinkLogin.spec.js', '../specs/**/BlinkRegistrationErrors.spec.js'],
       chromeOptions : {
         args : ['--no-proxy-server']
       }
