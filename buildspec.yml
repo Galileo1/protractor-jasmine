@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing Dependencies...
+      - npm install
+  pre_build:
+    commands:
+      - echo Updating driver...
+      - npm run updatedriver
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Running testcases
+      - npm run regression
+  post_build:
+    commands:
+      - echo Build completed on `date`

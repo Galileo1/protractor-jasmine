@@ -39,7 +39,7 @@ suites: {
       //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js','../specs/**/BlinkLogin.spec.js'],
       //specs: [ '../specs/**/BlinkCheckoutErrors.spec.js','../specs/**/BlinkLogin.spec.js', '../specs/**/BlinkRegistrationErrors.spec.js'],
       chromeOptions : {
-        args : ['--no-proxy-server']
+        args : ['--no-proxy-server', "--headless", "--disable-gpu"]
       }
     }
     // }, {
