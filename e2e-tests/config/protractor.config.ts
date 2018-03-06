@@ -6,8 +6,9 @@ import * as  Jasmine2HtmlReporter from 'protractor-jasmine2-html-reporter';
 
 
 export let config: Config = {
+ 
   //seleniumAddress: 'http://localhost:4444/wd/hub',
-  //seleniumAddress: 'http://127.0.0.1:4723/wd/hub',
+  seleniumAddress: 'http://selen-publi-bwo9chb30o4l-1679094142.us-east-1.elb.amazonaws.com:4444/wd/hub',
   //specs: [ '../specs/**/*.spec.js' ],
   //specs: [ '../specs/**/Blinkregistration.spec.js' ],
   //specs: [ '../specs/**/NavToRegisterationPage.spec.js' ],
@@ -15,8 +16,8 @@ export let config: Config = {
   //geckoDriver: '../../node_modules/protractor/node_modules/webdriver-manager/geckodriver-v0.19.1.exe',
   allScriptsTimeout: 50000,
   getPageTimeout: 50000,
-  baseUrl: 'https://devpreview:Equinox1!@qa-maintenance.blinkfitness.com/',
-  //baseUrl: 'https://blinkfitness.com/',
+  //baseUrl: 'https://devpreview:Equinox1!@qa-maintenance.blinkfitness.com/',
+  baseUrl: 'https://blinkfitness.com/',
 
   // localSeleniumStandaloneOpts: {
   //   jvmArgs: [
@@ -29,19 +30,23 @@ export let config: Config = {
 //     //   'args': ['--load-extension=' + '../ads-blocker']
 //     // }
 // },
-suites: {
-  login: ['./specs/**/BlinkLogin.spec.js'],
-  checkout: ['../specs/**/BlinkCheckoutErrors.spec.js'],
-  registration: ['../specs/**/BlinkRegistrationErrors.spec.js']
-},
-  multiCapabilities: [{
+// suites: {
+//   login: ['../specs/**/BlinkLogin.spec.js'],
+//   checkout: ['../specs/**/BlinkCheckoutErrors.spec.js'],
+//   registration: ['../specs/**/BlinkRegistrationErrors.spec.js']
+// },
+  
+  multiCapabilities: [
+    {
       browserName: 'chrome',
-      //specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js','../specs/**/BlinkLogin.spec.js'],
+      specs: ['../specs/**/BlinkRegistrationErrors.spec.js'],
       //specs: [ '../specs/**/BlinkCheckoutErrors.spec.js','../specs/**/BlinkLogin.spec.js', '../specs/**/BlinkRegistrationErrors.spec.js'],
       chromeOptions : {
-        args : ['--no-proxy-server', "--headless", "--disable-gpu"]
+        //args : ['--no-proxy-server', "--headless", "--disable-gpu"]
+        args :['--start-maximized', '--no-proxy-server', "--headless", "--disable-gpu"]
       }
     }
+    // }
     // }, {
     //   browserName: 'chrome',
     //     'chromeOptions': {
@@ -57,7 +62,8 @@ suites: {
     //   browserName : 'firefox',
     //   'acceptSslCerts': true,
     //   'acceptInsecureCerts': true,
-    //    specs: [ '../specs/**/NavToRegisterationPage.spec.js', '../specs/**/BlinkRegisterationErrors.spec.js'],
+    //    specs: [ '../specs/**/BlinkRegistrationErrors.spec.js'],
+       
     // }, 
     // {
     //   browserName: 'chrome' ,
@@ -86,7 +92,7 @@ suites: {
   //maxInstances: 2,
   
   onPrepare: () => {
-    browser.manage().window().maximize();
+    //browser.manage().window().maximize();
     browser.manage().timeouts().implicitlyWait(timeout.IMPLICIT);
     browser.ignoreSynchronization = true;
     browser.waitForAngularEnabled(false);
