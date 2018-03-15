@@ -7,7 +7,9 @@
     "tsc": "node ./node_modules/typescript/bin/tsc",
     "test": "node ./node_modules/protractor/bin/protractor ./build/e2e-tests/config/protractor.config.js",
     "regression": "npm run tsc && npm run test",
-    "lint": "gulp tslint"
+    "lint": "gulp tslint",
+    "browserstack": "node ./node_modules/protractor/bin/protractor ./build/e2e-tests/config/protractor.browserstack.mobile.config.js",
+    "bs": "npm run tsc && npm run browserstack"
   },
   "author": "Varun Gaur",
   "license": "MIT",
