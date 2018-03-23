@@ -134,11 +134,11 @@
     "13. should throw error when barcode against a valid name and email is not correct":
     { 
         "lastName": "Zilloto",
-        "email": "scott.zillitto@blinkfitness.com",
-        "confirmEmail": "scott.zillitto@blinkfitness.com",
+        "email": "xxxxxx@blinkfitness.com",
+        "confirmEmail": "xxxxxx@blinkfitness.com",
         "password": "test1234",
         "confirmPassword": "test1234",
-        "memberBarcode": "B1007555555555555",
+        "memberBarcode": "5555",
         "expectedError": [ "Member id does not exist, if you just created account, please wait 10 minutes and try again" ],
         "expectedErrorField": ["form.register-form div#messages"]     
     },
@@ -156,11 +156,11 @@
     "15. should throw error when lastname against a valid email and barcode is not correct":
     { 
         "lastName": "test",
-        "email": "scott.zillitto@blinkfitness.com",
-        "confirmEmail": "scott.zillitto@blinkfitness.com",
+        "email": "xxxxxx@blinkfitness.com",
+        "confirmEmail": "xxxxxx@blinkfitness.com",
         "password": "test1234",
         "confirmPassword": "test1234",
-        "memberBarcode": "B1007555",
+        "memberBarcode": "Bbbbbb",
         "expectedError": [ "Last Name does not match for this MemberID" ],
         "expectedErrorField": ["form.register-form div#messages"]  
     }
