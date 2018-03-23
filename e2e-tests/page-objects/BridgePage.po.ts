@@ -61,7 +61,7 @@ export class BridgePage extends BasePage {
     waitForBridgePageToBeLoaded() {
         let invisibilityOfLoaderImage = ExpectedConditions.invisibilityOf(this.loaderImage);
         let emailFieldIsVisible = ExpectedConditions.visibilityOf(this.emailAddress);
-        return browser.wait(ExpectedConditions.and(invisibilityOfLoaderImage, emailFieldIsVisible), timeout.VERYLONG_TIMEOUT);
+        return browser.wait(ExpectedConditions.and(invisibilityOfLoaderImage), timeout.VERYLONG_TIMEOUT);
     }
 
     emailFieldIsDisplayed() {

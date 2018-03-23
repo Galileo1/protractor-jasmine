@@ -7,12 +7,14 @@
     "tsc": "node ./node_modules/typescript/bin/tsc",
     "test": "node ./node_modules/protractor/bin/protractor ./build/e2e-tests/config/protractor.config.js",
     "regression": "npm run tsc && npm run test",
+    "webdriverupdate": "node ./node_modules/protractor/bin/webdriver-manager update",
     "lint": "gulp tslint"
   },
   "author": "Varun Gaur",
   "license": "MIT",
   "dependencies": {
     "@types/lodash": "4.14.86",
+    "@types/request": "^2.47.0",
     "bluebird": "3.5.1",
     "chai": "4.1.2",
     "chai-as-promised": "7.1.1",
@@ -20,7 +22,10 @@
     "gulp-tslint": "8.1.2",
     "gulp-typescript": "3.2.1",
     "jasmine-data-provider": "2.2.0",
-    "protractor": "5.2.0"
+    "json-object-mapper": "^1.5.2",
+    "protractor": "5.2.0",
+    "reflect-metadata": "0.1.12",
+    "request": "2.85.0"
   },
   "devDependencies": {
     "@types/bluebird": "3.5.19",
