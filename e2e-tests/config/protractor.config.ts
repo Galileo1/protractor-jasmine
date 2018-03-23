@@ -15,7 +15,7 @@ export let config: Config = {
   framework: 'jasmine',
   allScriptsTimeout: 50000,
   getPageTimeout: 50000,  
-  baseUrl: "https://devpreview:Equinox1!@qa-leela.blinkfitness.com/",
+  baseUrl: "https://qa-leela.blinkfitness.com/",
   // localSeleniumStandaloneOpts: {
   //   jvmArgs: [
   //     '-Dwebdriver.ie.driver=../../node_modules/protractor/node_modules/webdriver-manager/IEDriverServer3.7.0.exe'
