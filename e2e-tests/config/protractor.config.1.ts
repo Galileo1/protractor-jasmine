@@ -16,7 +16,7 @@ export let config: Config = {
   //geckoDriver: '../../node_modules/protractor/node_modules/webdriver-manager/geckodriver-v0.19.1.exe',
   allScriptsTimeout: 50000,
   getPageTimeout: 50000,
-  //baseUrl: 'https://devpreview:Equinox1!@qa-maintenance.blinkfitness.com/',
+  
   framework: 'jasmine2',
   plugins: [{
     package: 'protractor-screenshoter-plugin',

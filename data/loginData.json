@@ -31,13 +31,13 @@
     },
     "6. should throw error when password entered is incorrect":
     { 
-      "emailId": "scott.zillitto@blinkfitness.com",
+      "emailId": "xxxxxx@blinkfitness.com",
       "password": "test1234",     
       "expectedError": [ "Username and/or password is incorrect." ]
     },
     "7. should fail when phone number is not specified":
     {        
-      "emailId": "scott.zillitto123@blinkfitness.com",
+      "emailId": "xxxxxx123@blinkfitness.com",
       "password": "123456",     
       "expectedError": [ "Username and/or password is incorrect." ]
     }
